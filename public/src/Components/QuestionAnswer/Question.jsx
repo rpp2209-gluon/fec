@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Answer from './Answer.jsx';
 import ReactModal from 'react-modal';
+import AnswerModal from './AnswerModal.jsx';
 
 const sortAnswersByHelpfulness = (data) => {
   const sellerData = [];
@@ -20,7 +21,7 @@ const sortAnswersByHelpfulness = (data) => {
 var Question = (props) => {
   const [numberDisplayAnswers, setNumberDisplayAnswers] = useState(Object.keys(props.questionData.answers).length > 1 ? 2 : Object.keys(props.questionData.answers).length);
   const [helpfulness, setHelpfulness] = useState({ click: false, helpfulness: props.questionData.question_helpfulness });
-
+  const [showAnswerModal, setShowAnswerModal] = useState(false);
 
   var displayAnswer = () => {
     var resultArr = [];
@@ -60,7 +61,7 @@ var Question = (props) => {
   };
 
   const handleAddAnswerClick = () => {
-
+    setShowAnswerModal(true);
   }
 
   return (
@@ -70,6 +71,9 @@ var Question = (props) => {
       {displayAnswer()}
       {showMoreAnswers()}
       <p id='add-answer' onClick={handleAddAnswerClick}>ADD ANSWER</p>
+      <ReactModal isOpen={showAnswerModal} onRequestClose={() => { setShowAnswerModal(false) }}>
+          <AnswerModal setShowAnswerModal={setShowAnswerModal}/>
+        </ReactModal>
     </div>
   )
 }
