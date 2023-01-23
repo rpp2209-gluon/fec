@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Answer from './Answer.jsx';
+import ReactModal from 'react-modal';
 
 const sortAnswersByHelpfulness = (data) => {
   const sellerData = [];
