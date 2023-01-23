@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import instance from '../../../../configAxios.js';
 import Question from './Question.jsx';
 import QuestionModal from './QuestionModal.jsx';
+// import {Modal} from 'react-modal-overlay';
+import ReactModal from 'react-modal';
 
 const exampleData = {
   "product_id": "5",
@@ -205,6 +207,10 @@ var QuestionAnswer = () => {
     }
   };
 
+  // const modalQuestionContents = () => {
+  //   return <QuestionModal />;
+  // }
+
   var QuestionAnswerResult = () => {
     return (
       <div id='questions-and-answers'> QUESTIONS & ANSWERS
@@ -215,11 +221,10 @@ var QuestionAnswer = () => {
         {displayQuestionAnswer()}
         {numberDisplayQuestions !== questionData.results.length ? <button className='loadmorequestions' onClick={handleLoadMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
 
-        <button onClick={() => {setShowQuestionModal(true)}}>ADD A QUESTION</button>
-        {showQuestionModal && createPortal(
-          <QuestionModal onClose={() => setShowModal(false)} questionData={questionData}/>,
-          document.body
-        )}
+        <button onClick={() => { setShowQuestionModal(true) }}>ADD A QUESTION</button>
+        <ReactModal isOpen={showQuestionModal} onRequestClose={() => { setShowQuestionModal(false) }}>
+          <QuestionModal setShowQuestionModal={setShowQuestionModal}/>
+        </ReactModal>
       </div>
     )
   }
