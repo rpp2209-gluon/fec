@@ -5,153 +5,45 @@ import Question from './Question.jsx';
 import QuestionModal from './QuestionModal.jsx';
 // import {Modal} from 'react-modal-overlay';
 import ReactModal from 'react-modal';
+import axios from 'axios';
 
-const exampleData = {
-  "product_id": "5",
-  "results": [{
-    "question_id": 37,
-    "question_body": "Why is this product cheaper here than other sites?",
-    "question_date": "2018-10-18T00:00:00.000Z",
-    "asker_name": "williamsmith",
-    "question_helpfulness": 10,
-    "reported": false,
-    "answers": {
-      68: {
-        "id": 68,
-        "body": "We are selling it here without any markup from the middleman!",
-        "date": "2018-08-18T00:00:00.000Z",
-        "answerer_name": "Seller",
-        "helpfulness": 4,
-        "photos": []
-        // ...
-      }
-    }
-  },
-  {
-    "question_id": 38,
-    "question_body": "How long does it last?",
-    "question_date": "2019-06-28T00:00:00.000Z",
-    "asker_name": "funnygirl",
-    "question_helpfulness": 20,
-    "reported": false,
-    "answers": {
-      70: {
-        "id": 70,
-        "body": "Some of the seams started splitting the first time I wore it!",
-        "date": "2019-11-28T00:00:00.000Z",
-        "answerer_name": "sillyguy",
-        "helpfulness": 6,
-        "photos": [],
-      },
-      78: {
-        "id": 78,
-        "body": "9 lives-31",
-        "date": "2019-11-12T00:00:00.000Z",
-        "answerer_name": "iluvdogz",
-        "helpfulness": 31,
-        "photos": [],
-      },
-      1: {
-        "id": 1,
-        "body": "Seller-100",
-        "date": "2019-11-12T00:00:00.000Z",
-        "answerer_name": "Seller",
-        "helpfulness": 100,
-        "photos": [],
-      },
-      2: {
-        "id": 2,
-        "body": "Seller-31",
-        "date": "2019-11-12T00:00:00.000Z",
-        "answerer_name": "Seller",
-        "helpfulness": 31,
-        "photos": [],
-      },
-      3: {
-        "id": 3,
-        "body": "9 lives-600",
-        "date": "2019-11-12T00:00:00.000Z",
-        "answerer_name": "iluvdogz",
-        "helpfulness": 600,
-        "photos": [],
-      }
-    }
-  },
-  {
-    "question_id": 1,
-    "question_body": "Example 1?",
-    "question_date": "2018-10-18T00:00:00.000Z",
-    "asker_name": "williamsmith",
-    "question_helpfulness": 4,
-    "reported": false,
-    "answers": {
-      68: {
-        "id": 68,
-        "body": "We are selling it here without any markup from the middleman!",
-        "date": "2018-08-18T00:00:00.000Z",
-        "answerer_name": "Seller",
-        "helpfulness": 4,
-        "photos": []
-        // ...
-      }
-    }
-  },
-  {
-    "question_id": 2,
-    "question_body": "Example 2",
-    "question_date": "2018-10-18T00:00:00.000Z",
-    "asker_name": "williamsmith",
-    "question_helpfulness": 4,
-    "reported": false,
-    "answers": {
-      68: {
-        "id": 68,
-        "body": "We are selling it here without any markup from the middleman!",
-        "date": "2018-08-18T00:00:00.000Z",
-        "answerer_name": "Seller",
-        "helpfulness": 4,
-        "photos": []
-        // ...
-      }
-    }
-  },
-  {
-    "question_id": 3,
-    "question_body": "Example 3",
-    "question_date": "2018-10-18T00:00:00.000Z",
-    "asker_name": "williamsmith",
-    "question_helpfulness": 4,
-    "reported": false,
-    "answers": {
-      68: {
-        "id": 68,
-        "body": "We are selling it here without any markup from the middleman!",
-        "date": "2018-08-18T00:00:00.000Z",
-        "answerer_name": "Seller",
-        "helpfulness": 4,
-        "photos": []
-        // ...
-      }
-    }
-  },
-    // ...
-  ]
-};
+
+const question_id = 640996;
+const product_id = 71698;
 const sortQuestionsByHelpfulness = (data) => {
   data.results.sort((a, b) => b.question_helpfulness - a.question_helpfulness);
   return data;
 };
 const initialQuestionInputField = 'HAVE A QUESTION? SEARCH FOR ANSWERS...';
-const initialData = sortQuestionsByHelpfulness(exampleData);
 
-var QuestionAnswer = () => {
-  const [questionData, setQuestionData] = useState(initialData);
-  const [searchValue, setSearchValue] = useState(initialQuestionInputField)
+var QuestionAnswer = (props) => {
+  const [questionData, setQuestionData] = useState({results: []});
+  const [searchValue, setSearchValue] = useState(initialQuestionInputField);
   const [searchClickValue, setSearchClickValue] = useState(0);
   const [clickLoadMoreQuestions, setClickLoadMoreQuestions] = useState(false);
-  const [numberDisplayQuestions, setNumberDisplayQuestions] = useState(questionData.results.length > 1 ? 2 : questionData.results.length);
+  const [numberDisplayQuestions, setNumberDisplayQuestions] = useState(0);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
-  // const [lastNumberDisplayQuestions, setLastNumberDisplayQuestion] = useState(0);
+  const [getQuestion, setGetQuestion] = useState(false);
+
+
+  // Grab the product data
+  useEffect(() => {
+    // COME BACK TO CHANGE PRODUCT_ID
+    // MAYBE COUNT IS AFFECTING THE SPEED
+    axios.get(`http://localhost:3000/questions/${product_id}`)
+      .then(data => {
+        setQuestionData(sortQuestionsByHelpfulness(data.data));
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  // Wait until questionData is set and then display the number of questions
+  useEffect(() => {
+    setNumberDisplayQuestions(questionData.results.length > 1 ? 2 : questionData.results.length);
+    setGetQuestion(true);
+  }, [questionData])
+
+  // Removing the value from the search when the user clicks on it
   const removeSearchInitialValue = () => {
     if (searchClickValue === 0) {
       setSearchValue('');
@@ -159,46 +51,46 @@ var QuestionAnswer = () => {
     }
   };
 
+  // Changing the search value when the user types
   const handleSearchChange = (event) => {
     event.preventDefault();
     setSearchValue(event.target.value);
-
   };
 
+  // When the search value is changed then the questions should filter only if the length
+  // is greater than 3 and it doesn't equal to the intial placeholder value
   useEffect(() => {
     if (searchValue.length >= 3 && searchValue !== initialQuestionInputField) {
       var newQuestionList = [];
-      for (var i of initialData.results) {
+      for (var i of questionData.results) {
         if (i.question_body.toLowerCase().includes(searchValue.toLowerCase())) {
           newQuestionList.push(i);
         }
       }
-      // console.log({
-      //   ...initialData,
-      //   results: newQuestionList
-      // })
       const searchObj = {
-        ...initialData,
+        ...questionData,
         results: newQuestionList
       };
-      // setLastNumberDisplayQuestion(numberDisplayQuestions);
       setQuestionData(searchObj);
       setNumberDisplayQuestions(searchObj.results.length > 1 ? 2 : searchObj.results.length);
-      // } else if (searchValue !== initialQuestionInputField && searchValue !== '') {
     } else {
-      // setNumberDisplayQuestions(lastNumberDisplayQuestions);
-      setQuestionData(initialData);
+      setQuestionData(questionData);
     }
   }, [searchValue])
 
+  // Display the different questions
   var displayQuestionAnswer = () => {
     var resultArr = [];
     for (var i = 0; i < numberDisplayQuestions; i++) {
-      resultArr.push(<Question key={questionData.results[i].question_id} questionData={questionData.results[i]} />)
+      resultArr.push(<Question
+        key={questionData.results[i].question_id}
+        questionData={questionData.results[i]}
+        />)
     }
     return resultArr;
   }
 
+  // When 'load more questions' is clicked then more questions should be displayed
   const handleLoadMoreQuestions = () => {
     if (numberDisplayQuestions + 2 > questionData.results.length) {
       setNumberDisplayQuestions(questionData.results.length);
@@ -207,10 +99,7 @@ var QuestionAnswer = () => {
     }
   };
 
-  // const modalQuestionContents = () => {
-  //   return <QuestionModal />;
-  // }
-
+  // Setting up the the question and answer section
   var QuestionAnswerResult = () => {
     return (
       <div id='questions-and-answers'> QUESTIONS & ANSWERS
@@ -231,7 +120,7 @@ var QuestionAnswer = () => {
 
   return (
     <div id='questions'>
-      {QuestionAnswerResult()}
+      {getQuestion ? QuestionAnswerResult() : null}
     </div>
   );
 };

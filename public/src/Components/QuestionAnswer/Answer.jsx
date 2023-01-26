@@ -10,7 +10,8 @@ var Answer = (props) => {
       <p>by {name.toLowerCase() === 'seller' ? <b>{name}</b> : name}, {parseDate(props.answerData.date)}
       </p>
     )
-  }
+  };
+
 
   const handleClickHelpfulness = () => {
     if (helpfulness.click) {

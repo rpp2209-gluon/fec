@@ -2,38 +2,56 @@ import React, { useState, useEffect } from "react";
 import Answer from './Answer.jsx';
 import ReactModal from 'react-modal';
 import AnswerModal from './AnswerModal.jsx';
+import axios from 'axios';
+
 
 const sortAnswersByHelpfulness = (data) => {
   const sellerData = [];
   const otherData = [];
-  for (var i in data) {
-    if (data[i].answerer_name.toLowerCase() === 'seller') {
-      sellerData.push(data[i]);
+  for (var i of data.results) {
+    if (i.answerer_name.toLowerCase() === 'seller') {
+      sellerData.push(i);
     } else {
-      otherData.push(data[i]);
+      otherData.push(i);
     }
   }
   sellerData.sort((a, b) => b.helpfulness - a.helpfulness);
   otherData.sort((a, b) => b.helpfulness - a.helpfulness);
-  return sellerData.concat(otherData);
+  data.results = sellerData.concat(otherData);
+  return data;
 };
 
 var Question = (props) => {
-  const [numberDisplayAnswers, setNumberDisplayAnswers] = useState(Object.keys(props.questionData.answers).length > 1 ? 2 : Object.keys(props.questionData.answers).length);
+  const [answerData, setAnswerData] = useState({ results: [] });
+  const [numberDisplayAnswers, setNumberDisplayAnswers] = useState(0);
   const [helpfulness, setHelpfulness] = useState({ click: false, helpfulness: props.questionData.question_helpfulness });
   const [showAnswerModal, setShowAnswerModal] = useState(false);
 
+
+  // Get answers from the question id
+  useEffect(() => {
+    axios.get(`http://localhost:3000/answers/${props.questionData.question_id}`)
+      .then(data => {
+        setAnswerData(sortAnswersByHelpfulness(data.data))
+      })
+  }, [])
+
+  // Wait until answerData is set and then display the number of answers
+  useEffect(() => {
+    setNumberDisplayAnswers(answerData.results.length > 1 ? 2 : answerData.results.length);
+    console.log(answerData.results)
+  }, [answerData])
+
   var displayAnswer = () => {
     var resultArr = [];
-    const sortedAnswersArr = sortAnswersByHelpfulness(props.questionData.answers);
     for (var i = 0; i < numberDisplayAnswers; i++) {
-      resultArr.push(<Answer key={sortedAnswersArr[i].id} answerData={sortedAnswersArr[i]} />)
+      resultArr.push(<Answer key={answerData.results[i].id} answerData={answerData.results[i]} />)
     }
     return resultArr;
   };
 
   const handleLoadMoreAnswers = () => {
-    setNumberDisplayAnswers(Object.keys(props.questionData.answers).length);
+    setNumberDisplayAnswers(answerData.results.length);
   };
 
   const handleCollapseAnswers = () => {
@@ -41,9 +59,9 @@ var Question = (props) => {
   };
 
   const showMoreAnswers = () => {
-    if (numberDisplayAnswers < 2) {
+    if (answerData.results.length <= 2) {
       return null;
-    } else if (numberDisplayAnswers !== Object.keys(props.questionData.answers).length) {
+    } else if (numberDisplayAnswers !== answerData.results.length) {
       return <p className='see-more-answers' onClick={handleLoadMoreAnswers}>SEE MORE ANSWERS</p>
     } else {
       return <p className='collapse-answers' onClick={handleCollapseAnswers}>COLLAPSE ANSWERS</p>
@@ -62,18 +80,26 @@ var Question = (props) => {
 
   const handleAddAnswerClick = () => {
     setShowAnswerModal(true);
-  }
+  };
+
+  const AnswerResult = () => {
+    return (
+      <div>
+        <p id='question'>Q: {props.questionData.question_body}</p>
+        <p id='question-helpful' onClick={handleClickHelpfulness}>Helpful? Yes ({helpfulness.helpfulness})</p>
+        {displayAnswer()}
+        {showMoreAnswers()}
+        <p id='add-answer' onClick={handleAddAnswerClick}>ADD ANSWER</p>
+        <ReactModal isOpen={showAnswerModal} onRequestClose={() => { setShowAnswerModal(false) }}>
+          <AnswerModal setShowAnswerModal={setShowAnswerModal} />
+        </ReactModal>
+      </div>
+    )
+  };
 
   return (
     <div>
-      <p id='question'>Q: {props.questionData.question_body}</p>
-      <p onClick={handleClickHelpfulness}>Helpful? Yes ({helpfulness.helpfulness})</p>
-      {displayAnswer()}
-      {showMoreAnswers()}
-      <p id='add-answer' onClick={handleAddAnswerClick}>ADD ANSWER</p>
-      <ReactModal isOpen={showAnswerModal} onRequestClose={() => { setShowAnswerModal(false) }}>
-          <AnswerModal setShowAnswerModal={setShowAnswerModal}/>
-        </ReactModal>
+      {AnswerResult()}
     </div>
   )
 }
