@@ -27,7 +27,6 @@ var Question = (props) => {
   const [helpfulness, setHelpfulness] = useState({ click: false, helpfulness: props.questionData.question_helpfulness });
   const [showAnswerModal, setShowAnswerModal] = useState(false);
 
-  console.log('question', props)
   // Get answers from the question id
   useEffect(() => {
     axios.get(`http://localhost:3000/answers/${props.questionData.question_id}`)

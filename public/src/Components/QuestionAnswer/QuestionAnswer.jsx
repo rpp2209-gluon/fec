@@ -17,7 +17,8 @@ const sortQuestionsByHelpfulness = (data) => {
 const initialQuestionInputField = 'HAVE A QUESTION? SEARCH FOR ANSWERS...';
 
 var QuestionAnswer = (props) => {
-  const [questionData, setQuestionData] = useState({results: []});
+  const [initialQuestionData, setInitialQuestionData] = useState({});
+  const [questionData, setQuestionData] = useState({ results: [] });
   const [searchValue, setSearchValue] = useState(initialQuestionInputField);
   const [searchClickValue, setSearchClickValue] = useState(0);
   const [clickLoadMoreQuestions, setClickLoadMoreQuestions] = useState(false);
@@ -33,13 +34,16 @@ var QuestionAnswer = (props) => {
     axios.get(`http://localhost:3000/questions/${product_id}`)
       .then(data => {
         setQuestionData(sortQuestionsByHelpfulness(data.data));
+        setInitialQuestionData(sortQuestionsByHelpfulness(data.data))
       })
       .catch(err => console.log(err));
   }, []);
 
   // Wait until questionData is set and then display the number of questions
   useEffect(() => {
-    setNumberDisplayQuestions(questionData.results.length > 1 ? 2 : questionData.results.length);
+    if (searchValue === initialQuestionInputField || searchValue.length < 3) {
+      setNumberDisplayQuestions(questionData.results.length > 1 ? 2 : questionData.results.length);
+    }
     setGetQuestion(true);
   }, [questionData])
 
@@ -54,6 +58,7 @@ var QuestionAnswer = (props) => {
   // Changing the search value when the user types
   const handleSearchChange = (event) => {
     event.preventDefault();
+    console.log(event.target.value)
     setSearchValue(event.target.value);
   };
 
@@ -62,7 +67,7 @@ var QuestionAnswer = (props) => {
   useEffect(() => {
     if (searchValue.length >= 3 && searchValue !== initialQuestionInputField) {
       var newQuestionList = [];
-      for (var i of questionData.results) {
+      for (var i of initialQuestionData.results) {
         if (i.question_body.toLowerCase().includes(searchValue.toLowerCase())) {
           newQuestionList.push(i);
         }
@@ -72,9 +77,10 @@ var QuestionAnswer = (props) => {
         results: newQuestionList
       };
       setQuestionData(searchObj);
-      setNumberDisplayQuestions(searchObj.results.length > 1 ? 2 : searchObj.results.length);
-    } else {
-      setQuestionData(questionData);
+      // setNumberDisplayQuestions(searchObj.results.length > 1 ? 2 : searchObj.results.length);
+      setNumberDisplayQuestions(searchObj.results.length);
+    } else if (searchValue.length < 3) {
+      setQuestionData(initialQuestionData);
     }
   }, [searchValue])
 
@@ -85,7 +91,7 @@ var QuestionAnswer = (props) => {
       resultArr.push(<Question
         key={questionData.results[i].question_id}
         questionData={questionData.results[i]}
-        />)
+      />)
     }
     return resultArr;
   }
@@ -113,7 +119,7 @@ var QuestionAnswer = (props) => {
         <button onClick={() => { setShowQuestionModal(true) }}>ADD A QUESTION</button>
         <ReactModal isOpen={showQuestionModal} onRequestClose={() => { setShowQuestionModal(false) }}>
           {/* NEED TO CHANGE THE PRODUCT_ID WHEN EVERYONE FINSIHES */}
-          <QuestionModal product_id={product_id} setShowQuestionModal={setShowQuestionModal}/>
+          <QuestionModal product_id={product_id} setShowQuestionModal={setShowQuestionModal} />
         </ReactModal>
       </div>
     )
