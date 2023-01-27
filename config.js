@@ -1,3 +1,3 @@
-var API_KEY = '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';
+var API_KEY = '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';
 
 module.exports = { API_KEY };
