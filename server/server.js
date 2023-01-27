@@ -60,6 +60,25 @@ app.get('/reviews/:id', (req, res) => {
       })
 });
 
+// product
+app.get('/products/:id', (req, res) => {
+  console.log(req.params.id);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products?product_id=' + req.params.id, {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then((response) => {
+      console.log('GET product', req.params.id)
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      console.log('GET product error ', req.params.id);
+      res.status(500).send(err);
+    })
+});
+
+
 
 
 
