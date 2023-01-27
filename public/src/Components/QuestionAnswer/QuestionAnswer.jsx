@@ -112,7 +112,8 @@ var QuestionAnswer = (props) => {
 
         <button onClick={() => { setShowQuestionModal(true) }}>ADD A QUESTION</button>
         <ReactModal isOpen={showQuestionModal} onRequestClose={() => { setShowQuestionModal(false) }}>
-          <QuestionModal setShowQuestionModal={setShowQuestionModal}/>
+          {/* NEED TO CHANGE THE PRODUCT_ID WHEN EVERYONE FINSIHES */}
+          <QuestionModal product_id={product_id} setShowQuestionModal={setShowQuestionModal}/>
         </ReactModal>
       </div>
     )

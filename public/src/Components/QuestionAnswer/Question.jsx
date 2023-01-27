@@ -27,7 +27,7 @@ var Question = (props) => {
   const [helpfulness, setHelpfulness] = useState({ click: false, helpfulness: props.questionData.question_helpfulness });
   const [showAnswerModal, setShowAnswerModal] = useState(false);
 
-
+  console.log('question', props)
   // Get answers from the question id
   useEffect(() => {
     axios.get(`http://localhost:3000/answers/${props.questionData.question_id}`)
@@ -39,7 +39,6 @@ var Question = (props) => {
   // Wait until answerData is set and then display the number of answers
   useEffect(() => {
     setNumberDisplayAnswers(answerData.results.length > 1 ? 2 : answerData.results.length);
-    console.log(answerData.results)
   }, [answerData])
 
   var displayAnswer = () => {
@@ -68,12 +67,15 @@ var Question = (props) => {
     }
   };
 
+  // Question helpfulness
   const handleClickHelpfulness = () => {
-    if (helpfulness.click) {
-      var newHelpfulness = { click: false, helpfulness: helpfulness.helpfulness - 1 };
-      setHelpfulness(newHelpfulness);
-    } else {
+    if (!helpfulness.click) {
       var newHelpfulness = { click: true, helpfulness: helpfulness.helpfulness + 1 };
+      axios.put('http://localhost:3000/questions/helpful', {
+        question_id: answerData.question
+      })
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
       setHelpfulness(newHelpfulness);
     }
   };
@@ -91,7 +93,7 @@ var Question = (props) => {
         {showMoreAnswers()}
         <p id='add-answer' onClick={handleAddAnswerClick}>ADD ANSWER</p>
         <ReactModal isOpen={showAnswerModal} onRequestClose={() => { setShowAnswerModal(false) }}>
-          <AnswerModal setShowAnswerModal={setShowAnswerModal} />
+          <AnswerModal question_id={props.questionData.question_id} setShowAnswerModal={setShowAnswerModal} />
         </ReactModal>
       </div>
     )
