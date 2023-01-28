@@ -8,6 +8,7 @@ var Ratings = () => {
 
   const [reviews, setReviews] = useState({results: []});
   const [showAddReview, setShowAddReview] = useState(false);
+  const [numReviews, setNumReviews] = useState(2);
 
     useEffect(() => {
       axios.get('/reviews/71698', {
@@ -27,13 +28,26 @@ var Ratings = () => {
       setShowAddReview(!showAddReview);
     }
 
+    const updateNumReviews = () => {
+      if (numReviews + 2 < reviews.results.length) {
+        setNumReviews(numReviews + 2);
+      } else {
+        setNumReviews(reviews.results.length);
+      }
+    };
+
     return (
       <section>
         <h1>Ratings and Reviews</h1>
 
-        {reviews.results.map((review) => {
+        {reviews.results.slice(0, numReviews).map((review) => {
           return (<ReviewTile reviewData={review}/>);
         })}
+
+        { reviews.results.length > numReviews ?
+        <button onClick={updateNumReviews}> Show More Reviews </button> :
+        <></>
+        }
 
         <button onClick={updateShowAddReview}> Add a Review + </button>
         <AddReviewForm showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
