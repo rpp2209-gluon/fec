@@ -176,6 +176,58 @@ app.get('/products/:product_id/related', (req, res) => {
 
 
 
+Courtney Walker
+  4:35 PM
+Hi @channel checking in on this team, and how you are doing with your deliverables, or if you need any support? I know we have had some unexpected circumstances come up on the team and making sure there isn't anything myself or Alex.
+
+
+Alex [RPP 2209]
+  4:55 PM
+I think ok with the circumstances. It’s been a slow week for me considering how it started but I have updated my links for the rough structure of what I do have. I may be behind in maybe detail and amount of tests but the structure is there and it is being served by the server and I have also started a testing framework. I’m hoping to catch up this weekend into next week barring any other things that come up.
+
+
+Patty Long [RPP2209]
+  11:45 PM
+Thanks Courtney for checking in, I think we have some catching up to do but are planning to use tomorrow's class time to make progress on the deliverables, and will be able to assess where we are after our group session tomorrow and create a plan for additional catching up as needed
+New
+
+
+Katy Ouyang
+  12:03 PM
+// product
+app.get('/products/:product_id', (req, res) => {
+  console.log('get product', req.query);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then((response) => {
+      console.log('GET product', req.query.id)
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      console.log('GET product error ', req.query.id);
+      res.status(500).send(err);
+    })
+});
+//product style
+app.get('/products/:product_id/styles', (req, res) => {
+  console.log('get styles', req.query);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then((response) => {
+      console.log('GET style', req.query.id)
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      console.log('GET style error ', req.query.id);
+      res.status(500).send(err);
+    })
+});
 
 
 
