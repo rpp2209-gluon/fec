@@ -4,16 +4,17 @@ import AddReviewForm from './ratings_components/addReviewForm.jsx';
 import axios from 'axios';
 
 
-var Ratings = () => {
+var Ratings = (props) => {
 
   const [reviews, setReviews] = useState({results: []});
   const [showAddReview, setShowAddReview] = useState(false);
   const [numReviews, setNumReviews] = useState(2);
+  const propsReviewNum = 71697;
 
     useEffect(() => {
-      axios.get('/reviews/71698', {
+      axios.get('/reviews', {
         params: {
-          id: 71697
+          id: propsReviewNum
         }
       }).then((response) => {
         console.log('setting state with review info ', response.data);
@@ -41,7 +42,7 @@ var Ratings = () => {
         <h1>Ratings and Reviews</h1>
 
         {reviews.results.slice(0, numReviews).map((review) => {
-          return (<ReviewTile reviewData={review}/>);
+          return (<ReviewTile key={review.review_id} reviewData={review}/>);
         })}
 
         { reviews.results.length > numReviews ?
