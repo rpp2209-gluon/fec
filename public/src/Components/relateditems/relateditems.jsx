@@ -26,8 +26,9 @@ function RelatedItems (props) {
         })
         .then((res) => {
           console.log('res', res.data);
-          setRelProd([res])
-          console.log('relProd', relProd);
+          prodList.push(res.data);
+          setRelProd(prodList);
+          console.log('prodList', prodList);
         })
       }
     })
@@ -41,7 +42,7 @@ function RelatedItems (props) {
       {relProd.map((entry) => {
         console.log('entry', entry)
         return (
-            <div className="productcard" key={entry.data.id}>
+            <div className="productcard" key={entry.id}>
               <ProductCard product={entry}/>
             </div>
         );
