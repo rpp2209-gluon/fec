@@ -86,7 +86,7 @@ var Question = (props) => {
   const AnswerResult = () => {
     return (
       <div>
-        <p id='question'>Q: {props.questionData.question_body}</p>
+        <p className='question'>Q: {props.questionData.question_body}</p>
         <p id='question-helpful' onClick={handleClickHelpfulness}>Helpful? Yes ({helpfulness.helpfulness})</p>
         {displayAnswer()}
         {showMoreAnswers()}
