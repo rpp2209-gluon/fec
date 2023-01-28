@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from 'react-dom';
-import instance from '../../../../configAxios.js';
+//import instance from 'configAxios.js';
 import Question from './Question.jsx';
 import QuestionModal from './QuestionModal.jsx';
 // import {Modal} from 'react-modal-overlay';

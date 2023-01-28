@@ -21,7 +21,7 @@ function RelatedItems (props) {
           method: 'get',
           url: `/products/${data.data[i]}`,
           params: {
-            product_id: data.data[i]
+            id: data.data[i]
           }
         })
         .then((res) => {

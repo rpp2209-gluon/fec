@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Overview from "./Components/overview/overview.jsx";
-import Questions from "./Components/questions.jsx";
+import QuestionAnswer from "./Components/QuestionAnswer/QuestionAnswer.jsx";
 import Ratings from "./Components/ratings.jsx";
 import RelatedItems from "./Components/relateditems/relateditems.jsx";
 
@@ -11,7 +11,7 @@ function App () {
       <div className="App">
         <Overview />
         <RelatedItems currentProduct={currentProduct}/>
-        <Questions />
+        <QuestionAnswer />
         <Ratings />
       </div>
     );

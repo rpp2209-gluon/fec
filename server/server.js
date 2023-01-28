@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express"); // npm installed
 const axios = require("axios");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 
 const config = require("../config.js");
 // console.log(API_KEY)
@@ -37,20 +37,18 @@ app.get('/products', (req, res) => {
   });
 
   app.get('/products/:product_id', (req, res) => {
-    console.log('/products/:product_id', req.params)
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.product_id}`, {
+    console.log('get product', req.query);
+    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
       headers: {
         'Authorization': `${config.API_KEY}`
         }
       })
       .then((response) => {
-        console.log('GET products/:product_id returned: ')
-        console.log(response.data);
+        console.log('GET product', req.query.id)
         res.status(200).send(response.data);
       })
       .catch((err) => {
-        console.log('GET products errored: ');
-        console.log(err);
+        console.log('GET product error ', req.query.id);
         res.status(500).send(err);
       })
   });
@@ -98,7 +96,7 @@ app.get('/products/:product_id', (req, res) => {
       res.status(500).send(err);
     })
 });
-//product style 
+//product style
 app.get('/products/:product_id/styles', (req, res) => {
   console.log('get styles', req.query);
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
@@ -115,19 +113,20 @@ app.get('/products/:product_id/styles', (req, res) => {
       res.status(500).send(err);
     })
 });
-//related 
+//related
 app.get('/products/:product_id/related', (req, res) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/related', {
+  console.log('req.query', req.query.product_id)
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.product_id+'/related', {
     headers: {
       'Authorization': `${config.API_KEY}`
       }
     })
     .then((response) => {
-      console.log('GET related', req.query.id)
+      console.log('GET related', req.query.product_id)
       res.status(200).send(response.data);
     })
     .catch((err) => {
-      console.log('GET related error ', req.query.id);
+      console.log('GET related error ', req.query.product_id);
       res.status(500).send(err);
     })
 });
