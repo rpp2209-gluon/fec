@@ -7,7 +7,7 @@
     "test": "jest",
     "testOverview": "jest ./src/components/overview",
     "testQuestion": "jest ./src/components/question",
-    "testRelated": "jest ./src/components/relateditems",
+    "testRelated": "jest ./src/Components/relateditems/relateditemstest.js",
     "testRatings": "jest ./src/components/ratings",
     "client-dev": "npx webpack --watch",
     "server-dev": "npx nodemon --watch server server/server.js",
@@ -41,6 +41,9 @@
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {
-    "jest": "^29.3.1"
+    "@testing-library/dom": "^8.20.0",
+    "dotenv": "^16.0.3",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.4.1"
   }
 }

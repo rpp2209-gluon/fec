@@ -1,59 +1,57 @@
 import React, { useState, useEffect } from "react";
 import ReviewTile from './ratings_components/reviewTile.jsx';
-var Ratings = () => {
+import AddReviewForm from './ratings_components/addReviewForm.jsx';
+import axios from 'axios';
 
-  const [reviews, setReviews] = useState([]);
 
-  var productReviews = {
-    "product": "2",
-    "page": 0,
-    "count": 5,
-    "results": [
-      {
-        "review_id": 5,
-        "rating": 3,
-        "summary": "I'm enjoying wearing these shades",
-        "recommend": false,
-        "response": null,
-        "body": "Comfortable and practical.",
-        "date": "2019-04-14T00:00:00.000Z",
-        "reviewer_name": "shortandsweeet",
-        "helpfulness": 5,
-        "photos": [{
-            "id": 1,
-            "url": "urlplaceholder/review_5_photo_number_1.jpg"
-          },
-          {
-            "id": 2,
-            "url": "urlplaceholder/review_5_photo_number_2.jpg"
-          },
-        ]
-      },
-      {
-        "review_id": 3,
-        "rating": 4,
-        "summary": "I am liking these glasses",
-        "recommend": false,
-        "response": "Glad you're enjoying the product!",
-        "body": "They are very dark. But that's good because I'm in very sunny spots",
-        "date": "2019-06-23T00:00:00.000Z",
-        "reviewer_name": "bigbrotherbenjamin",
-        "helpfulness": 5,
-        "photos": [],
-      }
-    ]};
+var Ratings = (props) => {
+
+  const [reviews, setReviews] = useState({results: []});
+  const [showAddReview, setShowAddReview] = useState(false);
+  const [numReviews, setNumReviews] = useState(2);
+  const propsReviewNum = 71697;
 
     useEffect(() => {
-      setReviews(productReviews);
+      axios.get('/reviews', {
+        params: {
+          id: propsReviewNum
+        }
+      }).then((response) => {
+        console.log('setting state with review info ', response.data);
+        setReviews(response.data);
+      }).catch((err) => {
+        console.log('error getting review info');
+      });
     }, []);
 
+    const updateShowAddReview = () => {
+      console.log('setting review')
+      setShowAddReview(!showAddReview);
+    }
+
+    const updateNumReviews = () => {
+      if (numReviews + 2 < reviews.results.length) {
+        setNumReviews(numReviews + 2);
+      } else {
+        setNumReviews(reviews.results.length);
+      }
+    };
 
     return (
       <section>
         <h1>Ratings and Reviews</h1>
-        {productReviews.results.map((review) => {
-          return (<ReviewTile reviewData={review}/>);
+
+        {reviews.results.slice(0, numReviews).map((review) => {
+          return (<ReviewTile key={review.review_id} reviewData={review}/>);
         })}
+
+        { reviews.results.length > numReviews ?
+        <button onClick={updateNumReviews}> Show More Reviews </button> :
+        <></>
+        }
+
+        <button onClick={updateShowAddReview}> Add a Review + </button>
+        <AddReviewForm showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
       </section>
 
 
