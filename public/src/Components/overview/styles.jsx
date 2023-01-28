@@ -4,8 +4,9 @@ const { useState, useEffect } = React;
 const Styles = (props) => {
   return (
     <div className="styles-selector">
-      2. Style Selector 
+      <h3>2. Style Selector </h3>
     </div>
+    
   )
 }
 export default Styles;

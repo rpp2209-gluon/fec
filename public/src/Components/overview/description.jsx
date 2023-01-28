@@ -2,14 +2,13 @@
 import React from 'react';
 const { useState, useEffect } = React;
 
-const Information = ({ product }) => {
+const Description = ({ product }) => {
 
   return (
     <div className="product-info" key='product'>
-      <h3>1. Product Information</h3>
-      product.name: {product.name}
-
+      <h3>Description</h3>
+      {product.description}
     </div>
   )
 }
-export default Information;
+export default Description;
