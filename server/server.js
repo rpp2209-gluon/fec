@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.listen(3000);
 
 // PRODUCTS API
-
 app.get('/products', (req, res) => {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products', {
       headers: {
@@ -110,6 +109,7 @@ app.get('/products/:product_id/related', (req, res) => {
       res.status(500).send(err);
     })
 });
+//post CART
 
 
 
