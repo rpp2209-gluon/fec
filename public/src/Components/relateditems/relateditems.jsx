@@ -15,6 +15,7 @@ function RelatedItems (props) {
       }
     })
     .then((data) => {
+      console.log('data', data)
       const prodList = [];
       for (var i = 0; i < data.data.length; i++) {
         axios({
