@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const QuestionModal = (props) => {
   const [questionField, setQuestionField] = useState('');
@@ -9,7 +8,7 @@ const QuestionModal = (props) => {
   const [nicknameCharacters, setNicknameCharacters] = useState(0);
   const [emailCharacters, setEmailCharacters] = useState(0);
   const [failedSubmission, setFailedSubmission] = useState(false);
-  console.log('qmodal', props)
+
   // Question Field
   const handleCloseButtonClick = () => {
     props.setShowQuestionModal(false);
@@ -106,14 +105,6 @@ const QuestionModal = (props) => {
       setFailedSubmission(true);
     } else {
       props.setShowQuestionModal(false);
-      axios.post(`http://localhost:3000/questions`, {
-        body: questionField,
-        name: nicknameField.nickname,
-        email: emailField.email,
-        product_id: props.product_id,
-      })
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
     }
   };
 
