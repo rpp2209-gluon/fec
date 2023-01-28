@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express"); // npm installed
 const axios = require("axios");
 const bodyParser = require("body-parser");
+const cors = require('cors');
 
 const config = require("../config.js");
 // console.log(API_KEY)
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "../public/dist")));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 // other configuration...
 
 app.listen(3000);
@@ -301,7 +303,7 @@ app.get('/products/:product_id/styles', (req, res) => {
 // List Answers
 // GOOD
 app.get('/answers/:question_id', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.params.question_id}/answers`, {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.params.question_id}/answers?count=10000`, {
     headers: {
       'Authorization': `${config.API_KEY}`
       }
@@ -317,11 +319,11 @@ app.get('/answers/:question_id', (req, res) => {
 // Post Question
 // GOOD
 app.post('/questions', (req, res) => {
-  const correctReqBody = {
-    ...req.body,
-    product_id: Number(req.body.product_id),
-  };
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions`, correctReqBody, {
+  // const correctReqBody = {
+  //   ...req.body,
+  //   product_id: Number(req.body.product_id),
+  // };
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions`, req.body, {
     headers: {
       'Authorization': `${config.API_KEY}`,
 
@@ -354,8 +356,7 @@ app.post('/answers/:question_id', (req, res) => {
 // Mark question/answer as helpful
 // GOOD
 app.put('/questions/helpful', (req, res) => {
-  const id = req.body.question_id || req.body.answer_id;
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${id}/helpful`, req.body, {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.body.question_id}/helpful`, req.body, {
     headers: {
       'Authorization': `${config.API_KEY}`
       },
@@ -367,26 +368,54 @@ app.put('/questions/helpful', (req, res) => {
       res.status(500).send(err);
     })
 })
-
-// Report question/answer
-// GOOD
-app.put('/questions/report', (req, res) => {
-  const id = req.body.question_id || req.body.answer_id;
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${id}/report`, req.body, {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      },
-    })
-    .then(() => {
-      res.status(204).send();
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    })
-})
-
 
 // Report question
+// GOOD
+app.put('/questions/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.body.question_id}/report`, req.body, {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      },
+    })
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    })
+})
+
+// Mark answer as helpful
+// GOOD
+app.put('/answers/helpful', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${req.body.answer_id}/helpful`, req.body, {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      },
+    })
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    })
+})
+
+// Report answer
+// GOOD
+app.put('/answers/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${req.body.answer_id}/report`, req.body, {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      },
+    })
+    .then(data => {
+      res.status(204).send();
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    })
+})
 
 
 
