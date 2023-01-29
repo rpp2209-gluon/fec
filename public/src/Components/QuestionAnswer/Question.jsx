@@ -22,6 +22,7 @@ const sortAnswersByHelpfulness = (data) => {
 };
 
 var Question = (props) => {
+  console.log('question', props)
   const [answerData, setAnswerData] = useState({ results: [] });
   const [numberDisplayAnswers, setNumberDisplayAnswers] = useState(0);
   const [helpfulness, setHelpfulness] = useState({ click: false, helpfulness: props.questionData.question_helpfulness });
@@ -91,7 +92,7 @@ var Question = (props) => {
         {displayAnswer()}
         {showMoreAnswers()}
         <p id='add-answer' onClick={handleAddAnswerClick}>ADD ANSWER</p>
-        <ReactModal isOpen={showAnswerModal} onRequestClose={() => { setShowAnswerModal(false) }}>
+        <ReactModal ariaHideApp={false} isOpen={showAnswerModal} onRequestClose={() => { setShowAnswerModal(false) }}>
           <AnswerModal question_id={props.questionData.question_id} setShowAnswerModal={setShowAnswerModal} />
         </ReactModal>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import parseDate from './parseDate.js';
+import axios from 'axios';
 
 var Answer = (props) => {
   const [helpfulness, setHelpfulness] = useState({click: false, helpfulness: props.answerData.helpfulness});
@@ -13,20 +14,25 @@ var Answer = (props) => {
   }
 
   const handleClickHelpfulness = () => {
-    if (helpfulness.click) {
-      var newHelpfulness = {click: false, helpfulness: helpfulness.helpfulness - 1};
-      setHelpfulness(newHelpfulness);
-    } else {
+    if (!helpfulness.click) {
       var newHelpfulness = {click: true, helpfulness: helpfulness.helpfulness + 1};
       setHelpfulness(newHelpfulness);
+      axios.put('http://localhost:3000/answers/helpful', {
+        answer_id: props.answerData.answer_id,
+      })
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     }
   };
 
   const handleReportClick = () => {
-    if (reportStatus) {
-      setReportStatus(false);
-    } else {
+    if (!reportStatus) {
       setReportStatus(true);
+      axios.put('http://localhost:3000/answers/report', {
+        answer_id: props.answerData.answer_id,
+      })
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     }
   }
   return (
