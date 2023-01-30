@@ -11,7 +11,9 @@ const OverView = (props) => {
   const [id, setId] = useState(71697);
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState([]);
-  const [currentStyle,setCurrentStyle] = useState(0);
+  const [rating, setRating] = useState(0);
+
+  const [currentStyle, setCurrentStyle] = useState(0);
 
   useEffect(() => {
     console.log('id:, ', id);
@@ -33,6 +35,26 @@ const OverView = (props) => {
             setStyles(data.data);
           })
       })
+      .then(() => {
+        axios.get('/reviews/meta', {
+          params: {
+            id: String(id),
+          }
+        })
+          .then((data) => {
+            console.log('RATING DATA', data.data)
+            let ratingObj = data.data.ratings;
+            let objKeys = Object.keys(ratingObj)
+            let total = 0;
+            let count = 0;
+            for (let i = 0; i < objKeys.length; i++) {
+              console.log(i);
+              total += Number(objKeys[i]) * Number(ratingObj[objKeys[i]])
+              count += Number(ratingObj[objKeys[i]])
+            }
+            setRating((total/count).toFixed(1));
+          })
+      })
   }, []);
 
 
@@ -41,14 +63,13 @@ const OverView = (props) => {
   return (<div>
     <h1>OverView Section</h1>
 
-    <Information product = {product} />
-    <Styles styles = {styles}/>
-    <Imagine 
-    pictures = {styles.results}
+    <Information product={product} rating = {rating}/>
+    <Styles styles={styles} />
+    <Imagine
+      pictures={styles.results}
     />
-    <Description  product = {product}/>
+    <Description product={product} />
 
-    <h3> 3. add to cart  </h3>
 
 
   </div>

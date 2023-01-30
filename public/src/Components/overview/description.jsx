@@ -6,7 +6,7 @@ const Description = ({ product }) => {
 
   return (
     <div className="product-info" key='product'>
-      <h3>Description</h3>
+      <h3>1.b Description</h3>
       {product.description}
     </div>
   )
