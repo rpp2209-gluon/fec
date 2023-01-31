@@ -44,7 +44,7 @@ function RelatedItems (props) {
         console.log('entry', entry)
         return (
             <div className="productcard" key={entry.id}>
-              <ProductCard product={entry}/>
+              <ProductCard product={entry} currentProduct={props.currentProduct}/>
             </div>
         );
       })}
