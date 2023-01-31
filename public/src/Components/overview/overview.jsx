@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Information from './information.jsx';
 import Styles from './styles.jsx';
-import Imagine from './imagine.jsx';
+import Image from './image.jsx';
 import Description from './description.jsx';
 
 const OverView = (props) => {
@@ -65,7 +65,7 @@ const OverView = (props) => {
 
     <Information product={product} rating = {rating}/>
     <Styles styles={styles} />
-    <Imagine
+    <Image
       pictures={styles.results}
     />
     <Description product={product} />

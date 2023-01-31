@@ -1,12 +1,12 @@
 import React from 'react';
 const { useState, useEffect } = React;
 
-const Imagine = (props) => {
+const Image = (props) => {
   console.log(props.pictures)
   return (
     <div className="imagine">
-      <h3>4. imagine</h3>
+      <h3>4. Image</h3>
     </div>
   )
 }
-export default Imagine;
+export default Image;
