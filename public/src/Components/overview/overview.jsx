@@ -14,6 +14,8 @@ const OverView = (props) => {
   const [rating, setRating] = useState(0);
 
   const [currentStyle, setCurrentStyle] = useState(0);
+  const [currentStyleName, setCurrentStyleName] = useState('');
+
 
   useEffect(() => {
     console.log('id:, ', id);
@@ -32,7 +34,8 @@ const OverView = (props) => {
           }
         })
           .then((data) => {
-            setStyles(data.data);
+            setStyles(data.data.results);
+            setCurrentStyleName(data.data.results[0].name);
           })
       })
       .then(() => {
@@ -42,29 +45,33 @@ const OverView = (props) => {
           }
         })
           .then((data) => {
-            console.log('RATING DATA', data.data)
+            // get average rating
             let ratingObj = data.data.ratings;
             let objKeys = Object.keys(ratingObj)
             let total = 0;
             let count = 0;
             for (let i = 0; i < objKeys.length; i++) {
-              console.log(i);
               total += Number(objKeys[i]) * Number(ratingObj[objKeys[i]])
               count += Number(ratingObj[objKeys[i]])
             }
-            setRating((total/count).toFixed(1));
+            setRating((total / count).toFixed(1));
           })
       })
-  }, []);
 
+  }, [])
+
+  const handleStyleChange = (number) => {
+    setCurrentStyle(number);
+    setCurrentStyleName(styles[number].name)
+  }
 
 
 
   return (<div>
     <h1>OverView Section</h1>
 
-    <Information product={product} rating = {rating}/>
-    <Styles styles={styles} />
+    <Information product={product} rating={rating} />
+    <Styles styles={styles} currentStyle={currentStyle} currentStyleName={currentStyleName} />
     <Image
       pictures={styles.results}
     />

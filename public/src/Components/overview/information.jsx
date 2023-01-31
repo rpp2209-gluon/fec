@@ -29,12 +29,7 @@ const Information = (props) => {
         <span>read all reviews</span>
       </div>
 
-
-
       <div>name: {props.product.name}</div>
-
-
-
 
     </div>
   )
