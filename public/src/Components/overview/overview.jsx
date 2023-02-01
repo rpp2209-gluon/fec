@@ -79,7 +79,8 @@ const OverView = (props) => {
     handleStyleChange= {handleStyleChange}
     />
     <Image
-      pictures={styles.results}
+      pictures={styles[currentStyle]}
+      currentStyle={currentStyle} 
     />
     <Description product={product} />
 
