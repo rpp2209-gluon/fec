@@ -1,19 +1,20 @@
-// import React from 'react';
-// const { useState, useEffect } = React;
+import React from 'react';
+const { useState, useEffect } = React;
 
-// const ImageSliderItem = ({ photoId, photo }) => {
+const ImageSliderItem = ({ photoId, photo, handleImageSliderClick }) => {
 
-//   return (
-//     <div
-//       className="image"
-//     >
-//       <img
-//         src={photo.thumbnail_url}
-//         width="100"
-//       >
-//       </img>
+  return (
+    <div
+      className="image"
+      onClick={()=>{handleImageSliderClick(photoId)}}
+    >
+      <img
+        src={photo}
+        width="100"
+      >
+      </img>
 
-//     </div >
-//   )
-// }
-// export default ImageSliderItem;
+    </div >
+  )
+}
+export default ImageSliderItem;
