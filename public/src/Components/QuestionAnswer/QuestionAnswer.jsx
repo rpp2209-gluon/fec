@@ -6,6 +6,7 @@ import QuestionModal from './QuestionModal.jsx';
 // import {Modal} from 'react-modal-overlay';
 import ReactModal from 'react-modal';
 import axios from 'axios';
+import './QuestionAnswer.css';
 
 
 const sortQuestionsByHelpfulness = (data) => {
@@ -30,8 +31,7 @@ var QuestionAnswer = () => {
       .then(data => {
         const sortedData = sortQuestionsByHelpfulness(data.data);
         setInitialQuestionData(sortedData);
-        setQuestionData(sortedData);
-        console.log(sortedData)
+        setQuestionData(sortedData);f
       })
   }, []);
 
@@ -111,7 +111,7 @@ var QuestionAnswer = () => {
   }
 
   return (
-    <div id='questions'>
+    <div id='questions-and-answers'>
       {QuestionAnswerResult()}
     </div>
   );

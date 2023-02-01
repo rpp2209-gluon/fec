@@ -1,0 +1,9 @@
+#questions-and-answers {
+  width: fit-content;
+  /* To adjust the height as well */
+  height: fit-content;
+  overflow: scroll;
+  position: relative;
+  height: 500px;
+  width: 100%;
+}

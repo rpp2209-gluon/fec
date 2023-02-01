@@ -22,7 +22,6 @@ const sortAnswersByHelpfulness = (data) => {
 };
 
 var Question = (props) => {
-  console.log('question', props)
   const [answerData, setAnswerData] = useState({ results: [] });
   const [numberDisplayAnswers, setNumberDisplayAnswers] = useState(0);
   const [helpfulness, setHelpfulness] = useState({ click: false, helpfulness: props.questionData.question_helpfulness });
