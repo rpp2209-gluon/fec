@@ -8,7 +8,7 @@ import Description from './description.jsx';
 
 const OverView = (props) => {
 
-  const [id, setId] = useState(71697);
+  const [id, setId] = useState(71701);
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState([]);
   const [rating, setRating] = useState(0);
@@ -63,6 +63,7 @@ const OverView = (props) => {
   const handleStyleChange = (number) => {
     setCurrentStyle(number);
     setCurrentStyleName(styles[number].name)
+    console.log('handleStyleChange', number)
   }
 
 
@@ -71,7 +72,12 @@ const OverView = (props) => {
     <h1>OverView Section</h1>
 
     <Information product={product} rating={rating} />
-    <Styles styles={styles} currentStyle={currentStyle} currentStyleName={currentStyleName} />
+    <Styles 
+    styles={styles} 
+    currentStyle={currentStyle} 
+    currentStyleName={currentStyleName} 
+    handleStyleChange= {handleStyleChange}
+    />
     <Image
       pictures={styles.results}
     />
