@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ReviewTile from './ratings_components/reviewTile.jsx';
-import AddReviewForm from './ratings_components/addReviewForm.jsx';
+import AddReviewFormModal from './ratings_components/addReviewForm.jsx';
+import Modal from 'react-modal';
 import axios from 'axios';
+
+Modal.setAppElement('#root');
 
 
 var Ratings = (props) => {
@@ -51,7 +54,9 @@ var Ratings = (props) => {
         }
 
         <button onClick={updateShowAddReview}> Add a Review + </button>
-        <AddReviewForm showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
+        <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
+          <AddReviewFormModal showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
+        </Modal>
       </section>
 
 
