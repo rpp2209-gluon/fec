@@ -5,6 +5,7 @@ import axios from "axios";
 
 function RelatedItems (props) {
   const [relProd, setRelProd] = useState([]);
+  const prodList = [];
 
   useEffect (() => {
     axios({
@@ -16,7 +17,6 @@ function RelatedItems (props) {
     })
     .then((data) => {
       console.log('data', data)
-      const prodList = [];
       for (var i = 0; i < data.data.length; i++) {
         axios({
           method: 'get',
@@ -28,11 +28,15 @@ function RelatedItems (props) {
         .then((res) => {
           console.log('res', res.data);
           prodList.push(res.data);
-          setRelProd(prodList);
+          setRelProd([res.data])
           console.log('prodList', prodList);
         })
       }
     })
+  }, [])
+
+  useEffect(() => {
+    setRelProd(prodList)
   }, [])
 
   return (
@@ -50,7 +54,7 @@ function RelatedItems (props) {
       })}
     </div>
     <div>
-      <YourOutfitList />
+      <YourOutfitList currentProduct={props.currentProduct}/>
     </div>
     </div>
   )

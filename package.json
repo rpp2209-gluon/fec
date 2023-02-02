@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "testOverview": "jest ./src/components/overview",
     "testQuestion": "jest ./src/components/question",
     "testRelated": "jest ./src/Components/relateditems/relateditemstest.js",

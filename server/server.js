@@ -36,7 +36,6 @@ app.get('/products', (req, res) => {
   });
 
   app.get('/products/:product_id', (req, res) => {
-    console.log('/products/:product_id', req.params)
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.product_id}`, {
       headers: {
         'Authorization': `${config.API_KEY}`

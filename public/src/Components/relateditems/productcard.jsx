@@ -59,7 +59,7 @@ function ProductCard (props) {
             )
           })}
         </table>
-        <button onClick={closeModal}>close</button>
+        <button onClick={closeModal}>Close</button>
       </Modal>
     </div>
     </div>

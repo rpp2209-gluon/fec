@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import ProductCard from "./productcard.jsx";
 
 function YourOutfitList (props) {
+  //localStorage is JSON string
+  function addtoOutfit (e) {
+    if (window.localStoarge.outifts === undefined) {
+      window.localStoarge.setItem('outfits', props.currentProduct);
+    }
+
+    console.log(props.currentProduct, window.localStorage)
+  }
+
   return (
-    <h2>Your Outfit List</h2>
+    <div>
+      <h2>Your Outfit</h2>
+      <div>
+        <button onClick={addtoOutfit}>Add to Outfit</button>
+      </div>
+    </div>
   )
 };
 
