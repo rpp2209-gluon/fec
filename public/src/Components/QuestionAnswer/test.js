@@ -3,16 +3,17 @@
  */
 
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
 import App from '../../App.js';
+import { render } from "@testing-library/react";
 
 
-describe('Questions', () => {
-  test('Only 2 or less questions show up', async () => {
-    const { container } = render(<App />);
-    console.log(container)
+describe('Rendering page correctly ', () => {
+  const { getByText, getByLabelText } = render(<App />);
+
+
+  test('Expect the title of questions and answers to show', () => {
+    expect(getByText('QUESTIONS & ANSWERS')).not.toBeNull();
   })
-})
-test('Does this work?', () => {
-  expect(`I'm a boss`).toBe(`I'm a boss`)
+  test('Only 2 or less questions show up', () => {
+  })
 })
