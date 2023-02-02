@@ -10,16 +10,7 @@ const Description = ({ product }) => {
       <div>Slogan: {product.slogan}</div>
       <div>{product.description}</div>
       <ul>
-        {/* {(() => {
-          if (product) {
-            console.log('DES',product.features)
-            return (
-              <div></div>
-            )
-          }
-        })()} */}
         {product.features ? product.features.map((e,i) => {
-          console.log(e);
           return (<li key ={`feature-${i}`}>{e.value}</li>)
         }) : null}
       </ul>
