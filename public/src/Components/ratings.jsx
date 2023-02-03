@@ -13,6 +13,7 @@ var Ratings = (props) => {
   const [showAddReview, setShowAddReview] = useState(false);
   const [numReviews, setNumReviews] = useState(2);
   const propsReviewNum = 71697;
+  const productName = "Static Name";
 
     useEffect(() => {
       axios.get('/reviews', {
@@ -55,7 +56,7 @@ var Ratings = (props) => {
 
         <button onClick={updateShowAddReview}> Add a Review + </button>
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
-          <AddReviewFormModal showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
+          <AddReviewFormModal productId={propsReviewNum} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
         </Modal>
       </section>
 
