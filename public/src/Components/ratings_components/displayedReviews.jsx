@@ -18,6 +18,7 @@ var displayedReviews = (props) => {
 
   return (
     <>
+      <h2>Reviews</h2>
         {props.reviews.slice(0, numReviews).map((review) => {
           return (<ReviewTile key={review.review_id} reviewData={review}/>);
         })}

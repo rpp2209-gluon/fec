@@ -56,7 +56,7 @@ var Ratings = (props) => {
 
         <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
 
-        <DisplayedReviews reviews={reviews.results}/>
+        <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
 
         <button onClick={updateShowAddReview}> Add a Review + </button>
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
