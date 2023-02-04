@@ -15,6 +15,9 @@ var Ratings = (props) => {
   const [allReviews, setAllReviews] = useState({results: []});
   const [showAddReview, setShowAddReview] = useState(false);
 
+  const [filteredStars, setFilteredStars] = useState(new Set());
+
+
   const propsReviewNum = 71697;
   const productName = "Static Name";
 
@@ -39,7 +42,11 @@ var Ratings = (props) => {
 
     const updateReviews = (filteredReviews) => {
       setReviews(filteredReviews);
-    }
+    };
+
+    const updateFilteredStars = (stars) => {
+      setFilteredStars(stars);
+    };
 
 
 
@@ -47,7 +54,7 @@ var Ratings = (props) => {
       <section>
         <h1>Ratings and Reviews</h1>
 
-        <RatingSummary updateReviews={updateReviews} reviews={reviews.results}/>
+        <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
 
         <DisplayedReviews reviews={reviews.results}/>
 
