@@ -19,8 +19,7 @@ var addReviewFormModal = (props) => {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     console.log(data);
-    // console.log(event.target.addReviewForm.name);
-    // console.log(event.target.addReviewForm.body);
+
     event.preventDefault();
   }
 
@@ -43,7 +42,6 @@ var addReviewFormModal = (props) => {
                   <Form.Label>Username</Form.Label>
                   <Form.Control name="username" as="textarea"  rows={1}/>
                 </Form.Group>
-
 
                 <Form.Group className="rating" controlId="addReviewForm.rating">
                   <Form.Label>Rating*</Form.Label>

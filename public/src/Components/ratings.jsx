@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReviewTile from './ratings_components/reviewTile.jsx';
 import AddReviewFormModal from './ratings_components/addReviewForm.jsx';
+import DisplayedReviews from './ratings_components/displayedReviews.jsx';
+import RatingSummary from './ratings_components/ratingSummary.jsx';
 import Modal from 'react-modal';
 import axios from 'axios';
 
@@ -10,8 +12,9 @@ Modal.setAppElement('#root');
 var Ratings = (props) => {
 
   const [reviews, setReviews] = useState({results: []});
+  const [allReviews, setAllReviews] = useState({results: []});
   const [showAddReview, setShowAddReview] = useState(false);
-  const [numReviews, setNumReviews] = useState(2);
+
   const propsReviewNum = 71697;
   const productName = "Static Name";
 
@@ -23,6 +26,7 @@ var Ratings = (props) => {
       }).then((response) => {
         console.log('setting state with review info ', response.data);
         setReviews(response.data);
+        setAllReviews(response.data);
       }).catch((err) => {
         console.log('error getting review info');
       });
@@ -31,28 +35,21 @@ var Ratings = (props) => {
     const updateShowAddReview = () => {
       console.log('setting review')
       setShowAddReview(!showAddReview);
+    };
+
+    const updateReviews = (filteredReviews) => {
+      setReviews(filteredReviews);
     }
 
-    const updateNumReviews = () => {
-      if (numReviews + 2 < reviews.results.length) {
-        setNumReviews(numReviews + 2);
-      } else {
-        setNumReviews(reviews.results.length);
-      }
-    };
+
 
     return (
       <section>
         <h1>Ratings and Reviews</h1>
 
-        {reviews.results.slice(0, numReviews).map((review) => {
-          return (<ReviewTile key={review.review_id} reviewData={review}/>);
-        })}
+        <RatingSummary updateReviews={updateReviews}/>
 
-        { reviews.results.length > numReviews ?
-        <button onClick={updateNumReviews}> Show More Reviews </button> :
-        <></>
-        }
+        <DisplayedReviews reviews={reviews}/>
 
         <button onClick={updateShowAddReview}> Add a Review + </button>
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
