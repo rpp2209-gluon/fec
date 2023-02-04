@@ -47,9 +47,9 @@ var Ratings = (props) => {
       <section>
         <h1>Ratings and Reviews</h1>
 
-        <RatingSummary updateReviews={updateReviews}/>
+        <RatingSummary updateReviews={updateReviews} reviews={reviews.results}/>
 
-        <DisplayedReviews reviews={reviews}/>
+        <DisplayedReviews reviews={reviews.results}/>
 
         <button onClick={updateShowAddReview}> Add a Review + </button>
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>

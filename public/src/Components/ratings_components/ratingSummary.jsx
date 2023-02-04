@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 
-var ratingSummary = () => {
+var ratingSummary = (props) => {
+
 
   return (
     <>
       <h1>Rating Breakdown</h1>
-      <div>Star Rating: </div>
+      <div>Avg Star Rating: {props.reviews.reduce((total, review) => total + review.rating, 0) / props.reviews.length}</div>
     </>
 
   )

@@ -7,21 +7,22 @@ var displayedReviews = (props) => {
 
 
   const updateNumReviews = () => {
-    if (numReviews + 2 < props.reviews.results.length) {
+    if (numReviews + 2 < props.reviews.length) {
       setNumReviews(numReviews + 2);
     } else {
-      setNumReviews(props.reviews.results.length);
+      setNumReviews(props.reviews.length);
     }
   };
 
 
+
   return (
     <>
-        {props.reviews.results.slice(0, numReviews).map((review) => {
+        {props.reviews.slice(0, numReviews).map((review) => {
           return (<ReviewTile key={review.review_id} reviewData={review}/>);
         })}
 
-        { props.reviews.results.length > numReviews ?
+        { props.reviews.length > numReviews ?
         <button onClick={updateNumReviews}> Show More Reviews </button> :
         <></>
         }
