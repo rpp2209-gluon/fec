@@ -6,6 +6,8 @@ import RatingSummary from './ratings_components/ratingSummary.jsx';
 import Modal from 'react-modal';
 import axios from 'axios';
 
+import ratings from './ratings_components/ratings.css';
+
 Modal.setAppElement('#root');
 
 
