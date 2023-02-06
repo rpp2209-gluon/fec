@@ -25,7 +25,8 @@ var characteristics = (props) => {
     <Form.Group>
       {labels.map((label, i) => (
         <div key={`inline-${label}`} className="characteristics" onChange={onChange}>
-          {label}
+          <b>{label}</b>
+          <br></br>
           {characteristics[i].map((c, j) => (
             <Form.Check
               key={`char-${i}-${j}-${c}`}
@@ -36,7 +37,6 @@ var characteristics = (props) => {
               id={`char-${i}-${j}-${c}`}
             />
           ))}
-              ---------------------------
         </div>
       ))}
     </Form.Group>
