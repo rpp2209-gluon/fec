@@ -4,8 +4,8 @@ const path = require("path");
 
 
 
-router.get('/', function (req, res) {
-  res.send(express.static(path.join(__dirname, "../public/dist")));
+router.get('/:id', function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/dist", 'index.html'));
 })
 
 module.exports = router;

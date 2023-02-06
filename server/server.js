@@ -18,20 +18,14 @@ app.use(cors());
 app.listen(3000);
 
 // to /:id add router
-var product = require("./product");
-app.use("/:id", product);
-// app.set("view engine", "ejs");
-
-
-
-// app.get("/", function (req, res) {
-//   res.render("index");
-// })
+const router = express.Router();
 
 app.get("/:id", function (req, res) {
   console.log('req.params.id', req.params.id);
-  res.status(200).send();
+  res.sendFile(path.join(__dirname, "../public/dist",'index.html'));
+  // res.status(200).send({'idtest':123});
 })
+app.use('/:id', router);
 
 
 
@@ -54,7 +48,7 @@ app.get('/products/:product_id', (req, res) => {
 });
 //product style
 app.get('/products/:product_id/styles', (req, res) => {
-  console.log('get styles', req.query);
+  console.log('get styles', req.query.id);
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
     headers: {
       'Authorization': `${config.API_KEY}`
@@ -72,7 +66,7 @@ app.get('/products/:product_id/styles', (req, res) => {
 
 
 app.get('/reviews/meta', (req, res) => {
-console.log(req.params.id);
+console.log('GET review meta', req.query.id);
 axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=' + req.query.id, {
   headers: {
     'Authorization': `${config.API_KEY}`
@@ -83,7 +77,7 @@ axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?prod
     res.status(200).send(response.data);
   })
   .catch((err) => {
-    console.log(err);
+    console.log('GET reviews error ', err);
     res.status(500).send(err);
   })
 });
