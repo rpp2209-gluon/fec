@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ReviewTile from './ratings_components/reviewTile.jsx';
 import AddReviewFormModal from './ratings_components/addReviewForm.jsx';
+import DisplayedReviews from './ratings_components/displayedReviews.jsx';
+import RatingSummary from './ratings_components/ratingSummary.jsx';
 import Modal from 'react-modal';
 import axios from 'axios';
+
+import ratings from './ratings_components/ratings.css';
 
 Modal.setAppElement('#root');
 
@@ -10,9 +14,14 @@ Modal.setAppElement('#root');
 var Ratings = (props) => {
 
   const [reviews, setReviews] = useState({results: []});
+  const [allReviews, setAllReviews] = useState({results: []});
   const [showAddReview, setShowAddReview] = useState(false);
-  const [numReviews, setNumReviews] = useState(2);
+
+  const [filteredStars, setFilteredStars] = useState(new Set());
+
+
   const propsReviewNum = 71697;
+  const productName = "Static Name";
 
     useEffect(() => {
       axios.get('/reviews', {
@@ -22,6 +31,7 @@ var Ratings = (props) => {
       }).then((response) => {
         console.log('setting state with review info ', response.data);
         setReviews(response.data);
+        setAllReviews(response.data);
       }).catch((err) => {
         console.log('error getting review info');
       });
@@ -30,32 +40,29 @@ var Ratings = (props) => {
     const updateShowAddReview = () => {
       console.log('setting review')
       setShowAddReview(!showAddReview);
-    }
-
-    const updateNumReviews = () => {
-      if (numReviews + 2 < reviews.results.length) {
-        setNumReviews(numReviews + 2);
-      } else {
-        setNumReviews(reviews.results.length);
-      }
     };
+
+    const updateReviews = (filteredReviews) => {
+      setReviews(filteredReviews);
+    };
+
+    const updateFilteredStars = (stars) => {
+      setFilteredStars(stars);
+    };
+
+
 
     return (
       <section>
         <h1>Ratings and Reviews</h1>
 
-        {reviews.results.slice(0, numReviews).map((review) => {
-          return (<ReviewTile key={review.review_id} reviewData={review}/>);
-        })}
+        <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
 
-        { reviews.results.length > numReviews ?
-        <button onClick={updateNumReviews}> Show More Reviews </button> :
-        <></>
-        }
+        <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
 
         <button onClick={updateShowAddReview}> Add a Review + </button>
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
-          <AddReviewFormModal showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
+          <AddReviewFormModal productId={propsReviewNum} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
         </Modal>
       </section>
 
