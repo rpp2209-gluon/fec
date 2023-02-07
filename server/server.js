@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const config = require("../config.js");
-// console.log(API_KEY)
 
 const app = express();
 
@@ -23,10 +22,8 @@ const router = express.Router();
 app.get("/:id", function (req, res) {
   console.log('req.params.id', req.params.id);
   res.sendFile(path.join(__dirname, "../public/dist",'index.html'));
-  // res.status(200).send({'idtest':123});
 })
 app.use('/:id', router);
-
 
 
 // product

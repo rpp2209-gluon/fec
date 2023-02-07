@@ -8,7 +8,7 @@ import Description from './description.jsx';
 
 const OverView = (props) => {
 
-  const [id, setId] = useState(71701);
+  const [id, setId] = useState(window.location.pathname.slice(1));
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState([]);
   const [rating, setRating] = useState(0);
