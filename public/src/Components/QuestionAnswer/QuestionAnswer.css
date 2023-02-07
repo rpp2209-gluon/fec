@@ -1,9 +1,100 @@
+
 #questions-and-answers {
-  width: fit-content;
+  /* width: fit-content; */
   /* To adjust the height as well */
   height: fit-content;
   overflow: scroll;
   position: relative;
-  height: 500px;
+  height: 100vh;
+  /* color: grey; */
+  padding-left: 30%;
+  padding-right: 30%;
+  /* font-size: 16pt;
+  font-weight: bold; */
+}
+
+.add-a-question,
+.load-more-questions {
+  border-radius: 0%;
+  border-color: black;
+  height: 5%;
+  background-color: white;
+  margin-right: 2%;
+}
+
+.question {
+  font-weight: bold;
+  font-size: 12pt;
+  float: left;
+  max-width: 60%;
+  width: 60%;
+}
+
+.question-helpful,
+.add-answer,
+.answer-helpful,
+.answer-report,
+.answer-by {
+  font-size: 8pt;
+}
+
+.input-search {
+  max-width: 100%;
   width: 100%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-color: black;
+  border-radius: 0%;
+  background-color: white;
+  line-height: 3em;
+  padding-left: 5px;
+}
+
+.question-helpful-add-answer {
+  width: 40%;
+  max-width: 40%;
+  text-align: right;
+  float: right;
+}
+
+.question-helpful {
+  float: right;
+  margin-right: 2%;
+}
+
+.answer {
+  float: left;
+  max-width: 75%;
+  width: 75%;
+}
+
+.answerer-helpful-report {
+  display: inline-block;
+  width: 75%;
+  max-width: 75%;
+}
+
+.answer-by,
+.answer-helpful,
+.answer-report {
+  float: left;
+  /* display: inline-block */
+  padding-right: 2%;
+}
+
+.see-more-answers,
+.collapse-answers {
+  /* float: left; */
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.add-answer {
+  float: right;
+}
+
+.question-question-helpful-add-answer {
+  display: flex;
+  align-items: center;
 }

@@ -29,7 +29,7 @@ var Question = (props) => {
 
   // Get answers from the question id
   useEffect(() => {
-    axios.get(`http://localhost:3000/answers/${props.questionData.question_id}`)
+    axios.get(`/answers/${props.questionData.question_id}`)
       .then(data => {
         setAnswerData(sortAnswersByHelpfulness(data.data))
       })
@@ -70,7 +70,7 @@ var Question = (props) => {
   const handleClickHelpfulness = () => {
     if (!helpfulness.click) {
       var newHelpfulness = { click: true, helpfulness: helpfulness.helpfulness + 1 };
-      axios.put('http://localhost:3000/questions/helpful', {
+      axios.put('/questions/helpful', {
         question_id: answerData.question
       })
         .then(data => console.log(data))
@@ -85,24 +85,24 @@ var Question = (props) => {
 
   const AnswerResult = () => {
     return (
-      <div>
-        <p className='question'>Q: {props.questionData.question_body}</p>
-        <p id='question-helpful' onClick={handleClickHelpfulness}>Helpful? Yes ({helpfulness.helpfulness})</p>
+      <>
+        <div className='question-question-helpful-add-answer'>
+          <p className='question' data-testid='question'>Q: {props.questionData.question_body}</p>
+          <div className='question-helpful-add-answer'>
+            <p className='add-answer' data-testid='add-answer' onClick={handleAddAnswerClick}>ADD ANSWER</p>
+            <p className='question-helpful' data-testid='question-helpful' onClick={handleClickHelpfulness}>Helpful? Yes ({helpfulness.helpfulness})</p>
+          </div>
+        </div>
         {displayAnswer()}
         {showMoreAnswers()}
-        <p id='add-answer' onClick={handleAddAnswerClick}>ADD ANSWER</p>
         <ReactModal ariaHideApp={false} isOpen={showAnswerModal} onRequestClose={() => { setShowAnswerModal(false) }}>
           <AnswerModal question_id={props.questionData.question_id} setShowAnswerModal={setShowAnswerModal} />
         </ReactModal>
-      </div>
+      </>
     )
   };
 
-  return (
-    <div>
-      {AnswerResult()}
-    </div>
-  )
+  return AnswerResult()
 }
 
 export default Question;

@@ -17,7 +17,7 @@ const initialQuestionInputField = 'HAVE A QUESTION? SEARCH FOR ANSWERS...';
 
 var QuestionAnswer = () => {
   const [initialQuestionData, setInitialQuestionData] = useState(null)
-  const [questionData, setQuestionData] = useState({results: []});
+  const [questionData, setQuestionData] = useState({ results: [] });
   const [searchValue, setSearchValue] = useState(initialQuestionInputField)
   const [searchClickValue, setSearchClickValue] = useState(0);
   const [clickLoadMoreQuestions, setClickLoadMoreQuestions] = useState(false);
@@ -27,11 +27,11 @@ var QuestionAnswer = () => {
 
   useEffect(() => {
     const product_id = 71698;
-    axios.get(`http://localhost:3000/questions/${product_id}`)
+    axios.get(`/questions/${product_id}`)
       .then(data => {
         const sortedData = sortQuestionsByHelpfulness(data.data);
         setInitialQuestionData(sortedData);
-        setQuestionData(sortedData);f
+        setQuestionData(sortedData);
       })
   }, []);
 
@@ -50,7 +50,6 @@ var QuestionAnswer = () => {
   const handleSearchChange = (event) => {
     event.preventDefault();
     setSearchValue(event.target.value);
-
   };
 
   useEffect(() => {
@@ -67,8 +66,8 @@ var QuestionAnswer = () => {
       };
       setQuestionData(searchObj);
       setNumberDisplayQuestions(searchObj.results.length);
-    } else {
-      setQuestionData(questionData);
+    } else if (searchValue.length < 3 && searchValue !== initialQuestionInputField) {
+      setQuestionData(initialQuestionData);
     }
   }, [searchValue])
 
@@ -88,33 +87,26 @@ var QuestionAnswer = () => {
     }
   };
 
-  // const modalQuestionContents = () => {
-  //   return <QuestionModal />;
-  // }
-
   var QuestionAnswerResult = () => {
     return (
-      <div id='questions-and-answers'> QUESTIONS & ANSWERS
+      <div id='questions-and-answers'>QUESTIONS & ANSWERS
         <div id='questions-search'>
-          <input type='text' id='inputsearch' name='inputsearch' value={searchValue} onClick={removeSearchInitialValue} onChange={handleSearchChange}></input>
+          <input type='text' data-testid='input-search' className='input-search' name='input-search' value={searchValue} onClick={removeSearchInitialValue} onChange={handleSearchChange}></input>
         </div>
+        <div className='questions'>
+          {displayQuestionAnswer()}
+        </div>
+        {numberDisplayQuestions !== questionData.results.length ? <button className='load-more-questions' data-testid='load-more-questions' onClick={handleLoadMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
 
-        {displayQuestionAnswer()}
-        {numberDisplayQuestions !== questionData.results.length ? <button className='loadmorequestions' onClick={handleLoadMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
-
-        <button onClick={() => { setShowQuestionModal(true) }}>ADD A QUESTION</button>
+        <button className='add-a-question' data-testid='add-a-question' onClick={() => { setShowQuestionModal(true) }}>ADD A QUESTION  +</button>
         <ReactModal ariaHideApp={false} isOpen={showQuestionModal} onRequestClose={() => { setShowQuestionModal(false) }}>
-          <QuestionModal product_id={questionData.product_id} setShowQuestionModal={setShowQuestionModal}/>
+          <QuestionModal product_id={questionData.product_id} setShowQuestionModal={setShowQuestionModal} />
         </ReactModal>
       </div>
     )
   }
 
-  return (
-    <div id='questions-and-answers'>
-      {QuestionAnswerResult()}
-    </div>
-  );
+  return QuestionAnswerResult();
 };
 
 export default QuestionAnswer;
