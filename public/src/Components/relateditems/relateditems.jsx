@@ -2,59 +2,69 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "./productcard.jsx";
 import YourOutfitList from "./youroutfitlist.jsx";
 import axios from "axios";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 function RelatedItems (props) {
   const [relProd, setRelProd] = useState([]);
-  const prodList = [];
+  var list;
+  if (window.localStorage.outfits === undefined) {
+    list = [];
+  } else {
+    list = [JSON.parse(window.localStorage.outfits)];
+  }
 
   useEffect (() => {
     axios({
       method: 'get',
-      url: `/products/${props.currentProduct.id}/related`,
-      params: {
-        product_id: props.currentProduct.id
-      }
+      url: '/relatedproducts',
+      params: {id: props.currentProduct.id}
     })
     .then((data) => {
-      console.log('data', data)
-      for (var i = 0; i < data.data.length; i++) {
-        axios({
-          method: 'get',
-          url: `/products/${data.data[i]}`,
-          params: {
-            product_id: data.data[i]
-          }
-        })
-        .then((res) => {
-          console.log('res', res.data);
-          prodList.push(res.data);
-          setRelProd([res.data])
-          console.log('prodList', prodList);
-        })
-      }
+      setRelProd(data.data)
+    })
+    .catch(err => {
+      console.log('useEffect error')
     })
   }, [])
 
-  useEffect(() => {
-    setRelProd(prodList)
-  }, [])
+    //localStorage is JSON string
+    function addtoOutfit (e) {
+      if (window.localStorage.outfits === undefined) {
+        window.localStorage.setItem('outfits', `${JSON.stringify(props.currentProduct)}`);
+      } else {
+        if (list.includes(props.currentProduct)) {
+          window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
+        } else {
+          list.push(props.currentProduct);
+          window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
+        }
+      }
+    }
 
   return (
     <div>
       <h1>Related Items Section</h1>
     <div>
       <h2>Product List</h2>
+      <Carousel showThumbs={false}>
       {relProd.map((entry) => {
-        console.log('entry', entry)
         return (
             <div className="productcard" key={entry.id}>
               <ProductCard product={entry} currentProduct={props.currentProduct}/>
             </div>
         );
       })}
+      </Carousel>
     </div>
     <div>
-      <YourOutfitList currentProduct={props.currentProduct}/>
+      <h2>Your Outfit</h2>
+      <Carousel>
+        <div>
+          <button onClick={addtoOutfit}>Add to Outfit</button>
+        </div>
+        <YourOutfitList currentProduct={props.currentProduct} list={list}/>
+      </Carousel>
     </div>
     </div>
   )

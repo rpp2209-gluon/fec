@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import ProductCard from "./productcard.jsx";
+import axios from "axios";
 
 function YourOutfitList (props) {
-  //localStorage is JSON string
-  function addtoOutfit (e) {
-    if (window.localStoarge.outifts === undefined) {
-      window.localStoarge.setItem('outfits', props.currentProduct);
-    }
-
-    console.log(props.currentProduct, window.localStorage)
-  }
 
   return (
     <div>
-      <h2>Your Outfit</h2>
       <div>
-        <button onClick={addtoOutfit}>Add to Outfit</button>
+        {props.list.map((entry) => {
+          return (
+            <div className="productcard" key={entry.id}>
+              <ProductCard product={entry} currentProduct={props.currentProduct}/>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

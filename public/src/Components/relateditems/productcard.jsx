@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import axios from "axios";
 
 Modal.setAppElement('#root');
 
 function ProductCard (props) {
-  console.log('product card props', props.product.data)
-
   const [isOpen, setIsOpen] = useState(false);
+  const [features, setFeatures] = useState([]);
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: '/mergedfeatures',
+      params: {
+        currentId: props.currentProduct.id,
+        selectedId: props.product.id
+      }
+    })
+    .then(data => {
+      console.log('DATA', data);
+      setFeatures(data.data);
+    })
+  }, [])
 
   function openModal () {
     setIsOpen(true);
@@ -33,8 +48,7 @@ function ProductCard (props) {
     </div>
     <div>
       Star Rating
-    </div>
-    <div>
+
       <button onClick={openModal}>
         Action Button
       </button>
@@ -49,14 +63,24 @@ function ProductCard (props) {
           <th>Characteristic</th>
           <th>Compared Product Name</th>
         </tr>
-          {props.product.features.map((entry, i) => {
-            return (
-              <tr key={i}>
-                <td></td>
-                <td>{entry.feature}</td>
-                <td>{entry.value}</td>
-              </tr>
-            )
+          {features.map((entry, i) => {
+            if (typeof entry.value !== 'string') {
+              return (
+                <tr key={i}>
+                  <td>{entry.value[0]}</td>
+                  <td>{entry.feature}</td>
+                  <td>{entry.value[1]}</td>
+                </tr>
+              )
+            } else {
+              return (
+                <tr key={i}>
+                  <td>{entry.value}</td>
+                  <td>{entry.feature}</td>
+                  <td></td>
+                </tr>
+              )
+            }
           })}
         </table>
         <button onClick={closeModal}>Close</button>

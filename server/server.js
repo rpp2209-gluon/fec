@@ -42,8 +42,8 @@ app.get('/products', (req, res) => {
         }
       })
       .then((response) => {
-        console.log('GET products/:product_id returned: ')
-        console.log(response.data);
+        // console.log('GET products/:product_id returned: ')
+        // console.log(response.data);
         res.status(200).send(response.data);
       })
       .catch((err) => {
@@ -174,22 +174,7 @@ app.get('/products/:product_id/related', (req, res) => {
 });
 
 // product
-app.get('/products/:product_id', (req, res) => {
-  console.log('get product', req.query);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('GET product', req.query.id)
-      res.status(200).send(response.data);
-    })
-    .catch((err) => {
-      console.log('GET product error ', req.query.id);
-      res.status(500).send(err);
-    })
-});
+
 //product style
 app.get('/products/:product_id/styles', (req, res) => {
   console.log('get styles', req.query);
@@ -347,3 +332,90 @@ app.put('/questions/report', (req, res) => {
 
 
 
+//related products
+app.get('/relatedproducts', (req, res) => {
+  axios({
+    method: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.query.id}/related`,
+    params: {
+      product_id: req.query.id
+    },
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      },
+  })
+  .then((data) => {
+    var relatedProds = [];
+
+    function getStuff (array, productId, loc, callback) {
+      if (loc === productId.length) {
+        callback(array)
+      } else {
+        axios({
+          method: 'get',
+          url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${productId[loc]}`,
+          params: {
+            product_id: productId[loc]
+          },
+          headers: {
+            'Authorization': `${config.API_KEY}`
+            },
+        })
+        .then((data) => {
+          array.push(data.data);
+          getStuff(array, productId, (loc + 1), callback)
+        })
+        .catch((err) => {
+          console.log(err.data)
+        })
+      }
+    }
+
+    getStuff(relatedProds, data.data, 0, (result) => {
+      res.send(result)
+    })
+
+  })
+});
+
+app.get('/mergedfeatures', (req, res) => {
+  var mergedFeatures = [];
+  axios({
+    method: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.query.currentId}`,
+    headers: {
+      'Authorization': `${config.API_KEY}`
+    }
+  })
+  .then(data => {
+    axios({
+      method: 'get',
+      url:  `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.query.selectedId}`,
+      headers: {
+        'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then(selected => {
+      //console.log('data.data selected.data', data.data.features, selected.data.features)
+      for (var i=0; i<data.data.features.length; i++) {
+        //console.log('current[i]', data.data.features[i], selected.data.features[i])
+        for (var j=0; j<selected.data.features.length; j++) {
+          //console.log('JJJJ', data.data.features[i], selected.data.features[j])
+          if (data.data.features[i].feature === selected.data.features[j].feature) {
+            mergedFeatures.push({feature: data.data.features[i].feature, value: [data.data.features[i].value, selected.data.features[j].value]});
+            data.data.features.splice(i, 1);
+            selected.data.features.splice(j, 1);
+          } else {
+            mergedFeatures.push({feature: data.data.features[i].feature, value: [data.data.features[i].value, ' ']});
+            mergedFeatures.push({feature: selected.data.features[j].feature, value: [' ', selected.data.features[j].value]});
+            data.data.features.splice(i, 1);
+            selected.data.features.splice(j, 1);
+          }
+        }
+      }
+    })
+    .then(() => {
+      res.send(mergedFeatures)
+    })
+  })
+})
