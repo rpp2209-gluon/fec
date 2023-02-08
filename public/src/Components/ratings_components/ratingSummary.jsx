@@ -32,7 +32,7 @@ var ratingSummary = (props) => {
 
   return (
     <>
-      <h2>Rating Breakdown</h2>
+      <h3>Rating Breakdown</h3>
       <div> { props.filteredStars.size > 0 ? 'Filtering for ' + [...props.filteredStars].join(' and ') + ' ratings' : 'No Filters' } </div>
       <div> { props.filteredStars.size > 0 ? <button onClick={resetFilter}>Remove all Filters</button> : <></>} </div>
       <div>Avg Star Rating: {avgRating}</div>

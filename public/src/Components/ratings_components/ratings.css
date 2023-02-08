@@ -67,9 +67,7 @@ body {
   outline: 0 !important;
 }
 
-#review-main {
-  padding: 0.375rem 0.75rem;
-}
+
 
 hr {
   box-sizing: content-box;
@@ -504,6 +502,9 @@ form-check-input[disabled] ~ .form-check-label,
   }
 }
 
+#review-main {
+  padding: 0.375rem 0.75rem;
+}
 
 li {list-style-type: none;}
 
@@ -516,7 +517,16 @@ li {list-style-type: none;}
   margin-right: 1rem !important;
 }
 
-
 .container {
   display: flex;
+}
+
+.item-right {
+  justify-content: flex-end;
+  padding: 1rem 1rem;
+}
+
+.item-left {
+  justify-content: flex-start;
+  padding: 1rem 1rem;
 }

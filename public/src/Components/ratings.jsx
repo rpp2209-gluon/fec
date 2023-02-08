@@ -57,16 +57,17 @@ var Ratings = (props) => {
       <section id="review-main">
         <h1>Ratings and Reviews</h1>
         <div class="container">
-          <div class="item left">
+          <div class="item item-left">
             <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
           </div>
 
-          <div class="item right">
+          <div class="item item-right">
             <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
+            <button onClick={updateShowAddReview}> Add a Review + </button>
           </div>
         </div>
 
-        <button onClick={updateShowAddReview}> Add a Review + </button>
+
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
           <AddReviewFormModal productId={propsReviewNum} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
         </Modal>
