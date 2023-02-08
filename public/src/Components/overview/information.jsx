@@ -30,6 +30,7 @@ const Information = (props) => {
       </div>
 
       <div>name: {props.product.name}</div>
+      <div>Price: ${props.product.default_price} </div>
 
     </div>
   )

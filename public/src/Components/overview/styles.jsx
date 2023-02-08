@@ -14,6 +14,8 @@ const Styles = ({ styles, currentStyle, currentStyleName, handleStyleChange }) =
 
   const [styleId, setStyleId] = useState(currentStyle);
 
+  // const sizesArr = Object.keys(styles[styleId])
+
 
   return (
     <div className="styles-selector">

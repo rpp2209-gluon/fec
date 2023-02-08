@@ -6,6 +6,8 @@ import Styles from './styles.jsx';
 import Image from './image.jsx';
 import Description from './description.jsx';
 
+import './overviewStyle.css';
+
 const OverView = (props) => {
 
   const [id, setId] = useState(window.location.pathname.slice(1));
@@ -68,7 +70,8 @@ const OverView = (props) => {
 
 
 
-  return (<div>
+  return (
+  <div className='information'>
     <h1>OverView Section</h1>
 
     <Information product={product} rating={rating} />
