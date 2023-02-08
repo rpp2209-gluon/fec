@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import ratings from './ratings_components/ratings.css';
 
+
 Modal.setAppElement('#root');
 
 
@@ -53,7 +54,7 @@ var Ratings = (props) => {
 
 
     return (
-      <section>
+      <section id="review-main">
         <h1>Ratings and Reviews</h1>
 
         <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>

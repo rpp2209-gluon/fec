@@ -4,11 +4,12 @@ import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import StarComponent from './starComponent.jsx';
 import Characteristics from './characteristics.jsx';
+import PhotoUpload from './photoUpload.jsx';
 import axios from 'axios';
 
 var addReviewFormModal = (props) => {
 
-  const [reviewCharacterMin, reviewCharacterMax, emailMax, nicknameMax, summaryMax] = [50, 1000, 60, 60, 60];
+  const [reviewCharacterMin, reviewCharacterMax, emailMax, nicknameMax, summaryMax, photoMax] = [50, 1000, 60, 60, 60, 5];
   const [reviewBody, setReviewBody] = useState("Why did you like the product or not?”");
   const [nickname, setNickname] = useState("Example: jackson11!");
   const [email, setEmail] = useState("Example: jackson11@email.com");
@@ -17,6 +18,7 @@ var addReviewFormModal = (props) => {
   const [summary, setSummary] = useState("Example: Best purchase ever!");
   const [characteristics, setCharacteristics] = useState({});
   const [recommend, setRecommend] = useState(true);
+  const [photos, setPhotos] = useState();
 
   const handleChangeBody = (event) => {
     setReviewBody(event.target.value);
@@ -37,6 +39,10 @@ var addReviewFormModal = (props) => {
   const handleRatingChange = (num) => {
     console.log(num);
     setRating(num);
+  }
+
+  const updatePhotos = (photos) => {
+    setPhotos(photos);
   }
 
   const handleChange = (event) => {
@@ -149,10 +155,17 @@ var addReviewFormModal = (props) => {
                   <div className="info-text">For authentication reasons, you will not be emailed</div>
                 </Form.Group>
 
+                <Form.Group className="photo" controlId="addReviewForm.photo">
+                  <Form.Label>Photo Upload</Form.Label>
+                  <PhotoUpload photos={photos} updatePhotos={updatePhotos}/>
+                </Form.Group>
+
                 <Button variant="primary" type="submit">
                   Submit Review
                 </Button>
             </Form>
+
+
 
       </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import BarComponent from './barComponent.jsx';
 
 var ratingSummary = (props) => {
 
@@ -38,11 +38,13 @@ var ratingSummary = (props) => {
       <div>Avg Star Rating: {avgRating}</div>
       <div>Number of Ratings: {numRatings}</div>
 
-      <div>
+      <ul>
         {[5, 4, 3, 2, 1].map((bar) => {
-          return (<li key={bar} onClick={updateFilter} id={bar}>{bar} Stars has {ratingMap[bar]} ratings out of {numRatings}</li>)
+          return (
+                  <li key={bar} onClick={updateFilter} id={bar}> {bar} Stars <BarComponent id={bar} num={ratingMap[bar] / numRatings}/></li>
+              )
         })}
-      </div>
+      </ul>
     </>
 
   )
