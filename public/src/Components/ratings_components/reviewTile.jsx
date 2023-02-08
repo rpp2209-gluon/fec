@@ -44,7 +44,7 @@ var ReviewTile = (props) => {
     <>
       <Card style={{  width: '50rem' }}>
         <Card.Body>
-          <Card.Subtitle>{props.reviewData.reviewer_name} , {moment(props.reviewData.date).format('MMMM Do, YYYY')}</Card.Subtitle>
+          <Card.Subtitle><small>{props.reviewData.reviewer_name} , {moment(props.reviewData.date).format('MMMM Do, YYYY')}</small></Card.Subtitle>
           <StarComponent editable={false} numStars={props.reviewData.rating}/>
           <p><b>{props.reviewData.summary}</b></p>
           <p>Review Body: {showAllReview ? props.reviewData.body.slice(0, 250) : props.reviewData.body}</p>
