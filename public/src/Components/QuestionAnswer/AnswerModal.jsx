@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AnswerModal = (props) => {
   const [answerField, setAnswerField] = useState('');
@@ -117,6 +118,15 @@ const AnswerModal = (props) => {
       setFailedSubmission(true);
     } else {
       props.setShowAnswerModal(false);
+      console.log('photo', selectedImage)
+      axios.post(`/answers/${props.question_id}` ,{
+        body: answerField,
+        name: nicknameField.nickname,
+        email: emailField.email,
+        photos: selectedImage,
+      })
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     }
   };
 
