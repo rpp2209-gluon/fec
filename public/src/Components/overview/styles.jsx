@@ -4,18 +4,10 @@ const { useState, useEffect } = React;
 import StyleItem from './styleItem';
 
 const Styles = ({ styles, currentStyle, currentStyleName, handleStyleChange }) => {
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   if (props) {
-  //     setData(props);
-  //   }
-  //   console.log('STYLES', data.styles)
-  // }, [props]);
 
   const [styleId, setStyleId] = useState(currentStyle);
 
   // const sizesArr = Object.keys(styles[styleId])
-
 
   return (
     <div className="styles-selector">
@@ -31,7 +23,7 @@ const Styles = ({ styles, currentStyle, currentStyleName, handleStyleChange }) =
           currentStyle={currentStyle}
         />)
       })}
-
+    
 
     </div>
 
