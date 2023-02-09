@@ -17,7 +17,20 @@ app.use(cors());
 
 app.listen(3000);
 
-// PRODUCTS API
+// ROUTING APIs =========================================================================================
+
+// to /:id add router
+// const router = express.Router();
+
+// app.get("/:id", function (req, res) {
+//   console.log('req.params.id', req.params.id);
+//   res.sendFile(path.join(__dirname, "../public/dist",'index.html'));
+// })
+// app.use('/:id', router);
+
+
+// PRODUCTS API =========================================================================================
+
 app.get('/products', (req, res) => {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products', {
       headers: {
@@ -36,44 +49,79 @@ app.get('/products', (req, res) => {
       })
   });
 
-  app.get('/products/:product_id', (req, res) => {
-    console.log('get product', req.query);
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
-      headers: {
-        'Authorization': `${config.API_KEY}`
-        }
-      })
-      .then((response) => {
-        console.log('GET product', req.query.id)
-        res.status(200).send(response.data);
-      })
-      .catch((err) => {
-        console.log('GET product error ', req.query.id);
-        res.status(500).send(err);
-      })
-  });
 
 
+// RELATED PRODUCTS APIs ========================================================================================
 
-
-
-// REVIEWS API
-
-app.get('/reviews', (req, res) => {
-  console.log('here is the params id', req.params.id);
-  console.log('here is the request query', req.query.id);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=' + req.query.id, {
+// product
+app.get('/products/:product_id', (req, res) => {
+  console.log('get product', req.query);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
     headers: {
       'Authorization': `${config.API_KEY}`
       }
     })
     .then((response) => {
-      console.log('GET reviews returned: ')
-      console.log(response.data);
+      console.log('GET product', req.query.id)
       res.status(200).send(response.data);
     })
     .catch((err) => {
-      console.log('GET reviews errored: ');
+      console.log('GET product error ', req.query.id);
+      res.status(500).send(err);
+    })
+});
+
+//product style
+app.get('/products/:product_id/styles', (req, res) => {
+  console.log('get styles', req.query);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then((response) => {
+      console.log('GET style', req.query.id)
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      console.log('GET style error ', req.query.id);
+      res.status(500).send(err);
+    })
+});
+
+//related
+app.get('/products/:product_id/related', (req, res) => {
+  console.log('req.query', req.query.product_id)
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.product_id+'/related', {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then((response) => {
+      console.log('GET related', req.query.product_id)
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      console.log('GET related error ', req.query.product_id);
+      res.status(500).send(err);
+    })
+});
+
+
+//related products
+app.get('/products/:product_id/related', (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.product_id}/related/`, {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then((response) => {
+      console.log('response.data', response.data);
+      res.status(200).send(response.data);
+      res.end();
+    })
+    .catch((err) => {
+      console.log('GET related errored: ');
       console.log(err);
       res.status(500).send(err);
     })
@@ -96,6 +144,7 @@ app.get('/products/:product_id', (req, res) => {
       res.status(500).send(err);
     })
 });
+
 //product style
 app.get('/products/:product_id/styles', (req, res) => {
   console.log('get styles', req.query);
@@ -113,26 +162,31 @@ app.get('/products/:product_id/styles', (req, res) => {
       res.status(500).send(err);
     })
 });
-//related
-app.get('/products/:product_id/related', (req, res) => {
-  console.log('req.query', req.query.product_id)
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.product_id+'/related', {
+
+
+
+
+// REVIEWS API  ========================================================================================
+
+app.get('/reviews', (req, res) => {
+  console.log('here is the params id', req.params.id);
+  console.log('here is the request query', req.query.id);
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=' + req.query.id, {
     headers: {
       'Authorization': `${config.API_KEY}`
       }
     })
     .then((response) => {
-      console.log('GET related', req.query.product_id)
+      console.log('GET reviews returned: ')
+      console.log(response.data);
       res.status(200).send(response.data);
     })
     .catch((err) => {
-      console.log('GET related error ', req.query.product_id);
+      console.log('GET reviews errored: ');
+      console.log(err);
       res.status(500).send(err);
     })
 });
-//post CART
-
-
 
 app.get('/reviews/meta', (req, res) => {
 console.log(req.params.id);
@@ -208,63 +262,12 @@ axios.put('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/' + req.p
   })
 });
 
-//related products
-app.get('/products/:product_id/related', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.product_id}/related/`, {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('response.data', response.data);
-      res.status(200).send(response.data);
-      res.end();
-    })
-    .catch((err) => {
-      console.log('GET related errored: ');
-      console.log(err);
-      res.status(500).send(err);
-    })
-});
-
-// product
-app.get('/products/:product_id', (req, res) => {
-  console.log('get product', req.query);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('GET product', req.query.id)
-      res.status(200).send(response.data);
-    })
-    .catch((err) => {
-      console.log('GET product error ', req.query.id);
-      res.status(500).send(err);
-    })
-});
-//product style
-app.get('/products/:product_id/styles', (req, res) => {
-  console.log('get styles', req.query);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('GET style', req.query.id)
-      res.status(200).send(response.data);
-    })
-    .catch((err) => {
-      console.log('GET style error ', req.query.id);
-      res.status(500).send(err);
-    })
-});
 
 
 
-// Questions and Answers API
+
+
+// Questions and Answers API ========================================================================================
 // List Questions
 // GOOD
 app.get('/questions/:product_id', (req, res) => {
@@ -281,23 +284,6 @@ app.get('/questions/:product_id', (req, res) => {
     })
 });
 
-//product style
-app.get('/products/:product_id/styles', (req, res) => {
-  console.log('get styles', req.query);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('GET style', req.query.id)
-      res.status(200).send(response.data);
-    })
-    .catch((err) => {
-      console.log('GET style error ', req.query.id);
-      res.status(500).send(err);
-    })
-});
 
 // List Answers
 // GOOD
