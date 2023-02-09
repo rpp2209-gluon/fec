@@ -47,7 +47,7 @@ function RelatedItems (props) {
       <h1>Related Items Section</h1>
     <div>
       <h2>Product List</h2>
-      <Carousel>
+      <Carousel showThumbs={false}>
       {relProd.map((entry) => {
         return (
             <div className="productcard" key={entry.id}>
@@ -59,7 +59,7 @@ function RelatedItems (props) {
     </div>
     <div>
       <h2>Your Outfit</h2>
-      <Carousel>
+      <Carousel showThumbs={false}>
         <div>
           <button onClick={addtoOutfit}>Add to Outfit</button>
         </div>
