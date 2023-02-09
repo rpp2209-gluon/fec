@@ -1,59 +1,76 @@
 import React, { useState, useEffect } from "react";
 import ReviewTile from './ratings_components/reviewTile.jsx';
-var Ratings = () => {
+import AddReviewFormModal from './ratings_components/addReviewForm.jsx';
+import DisplayedReviews from './ratings_components/displayedReviews.jsx';
+import RatingSummary from './ratings_components/ratingSummary.jsx';
+import Modal from 'react-modal';
+import axios from 'axios';
 
-  const [reviews, setReviews] = useState([]);
+import ratings from './ratings_components/ratings.css';
 
-  var productReviews = {
-    "product": "2",
-    "page": 0,
-    "count": 5,
-    "results": [
-      {
-        "review_id": 5,
-        "rating": 3,
-        "summary": "I'm enjoying wearing these shades",
-        "recommend": false,
-        "response": null,
-        "body": "Comfortable and practical.",
-        "date": "2019-04-14T00:00:00.000Z",
-        "reviewer_name": "shortandsweeet",
-        "helpfulness": 5,
-        "photos": [{
-            "id": 1,
-            "url": "urlplaceholder/review_5_photo_number_1.jpg"
-          },
-          {
-            "id": 2,
-            "url": "urlplaceholder/review_5_photo_number_2.jpg"
-          },
-        ]
-      },
-      {
-        "review_id": 3,
-        "rating": 4,
-        "summary": "I am liking these glasses",
-        "recommend": false,
-        "response": "Glad you're enjoying the product!",
-        "body": "They are very dark. But that's good because I'm in very sunny spots",
-        "date": "2019-06-23T00:00:00.000Z",
-        "reviewer_name": "bigbrotherbenjamin",
-        "helpfulness": 5,
-        "photos": [],
-      }
-    ]};
+
+Modal.setAppElement('#root');
+
+
+var Ratings = (props) => {
+
+  const [reviews, setReviews] = useState({results: []});
+  const [allReviews, setAllReviews] = useState({results: []});
+  const [showAddReview, setShowAddReview] = useState(false);
+
+  const [filteredStars, setFilteredStars] = useState(new Set());
+
+
+  const propsReviewNum = 71697;
+  const productName = "Static Name";
 
     useEffect(() => {
-      setReviews(productReviews);
+      axios.get('/reviews', {
+        params: {
+          id: propsReviewNum
+        }
+      }).then((response) => {
+        console.log('setting state with review info ', response.data);
+        setReviews(response.data);
+        setAllReviews(response.data);
+      }).catch((err) => {
+        console.log('error getting review info');
+      });
     }, []);
+
+    const updateShowAddReview = () => {
+      console.log('setting review')
+      setShowAddReview(!showAddReview);
+    };
+
+    const updateReviews = (filteredReviews) => {
+      setReviews(filteredReviews);
+    };
+
+    const updateFilteredStars = (stars) => {
+      setFilteredStars(stars);
+    };
+
 
 
     return (
-      <section>
+      <section id="review-main">
         <h1>Ratings and Reviews</h1>
-        {productReviews.results.map((review) => {
-          return (<ReviewTile reviewData={review}/>);
-        })}
+        <div class="container">
+          <div class="item item-left">
+            <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
+          </div>
+
+          <div class="item item-right">
+            <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
+            <button onClick={updateShowAddReview}> Add a Review + </button>
+          </div>
+        </div>
+
+
+        <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
+          <AddReviewFormModal productId={propsReviewNum} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
+        </Modal>
       </section>
 
 

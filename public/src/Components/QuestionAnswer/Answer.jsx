@@ -1,40 +1,48 @@
 import React, { useState, useEffect } from "react";
 import parseDate from './parseDate.js';
+import axios from 'axios';
 
 var Answer = (props) => {
-  const [helpfulness, setHelpfulness] = useState({click: false, helpfulness: props.answerData.helpfulness});
+  const [helpfulness, setHelpfulness] = useState({ click: false, helpfulness: props.answerData.helpfulness });
   const [reportStatus, setReportStatus] = useState(false);
   const usernameDate = () => {
     const name = props.answerData.answerer_name;
     return (
-      <p>by {name.toLowerCase() === 'seller' ? <b>{name}</b> : name}, {parseDate(props.answerData.date)}
+      <p className='answer-by'>by {name.toLowerCase() === 'seller' ? <b>{name}</b> : name}, {parseDate(props.answerData.date)}
       </p>
     )
   }
 
   const handleClickHelpfulness = () => {
-    if (helpfulness.click) {
-      var newHelpfulness = {click: false, helpfulness: helpfulness.helpfulness - 1};
+    if (!helpfulness.click) {
+      var newHelpfulness = { click: true, helpfulness: helpfulness.helpfulness + 1 };
       setHelpfulness(newHelpfulness);
-    } else {
-      var newHelpfulness = {click: true, helpfulness: helpfulness.helpfulness + 1};
-      setHelpfulness(newHelpfulness);
+      axios.put('/answers/helpful', {
+        answer_id: props.answerData.answer_id,
+      })
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     }
   };
 
   const handleReportClick = () => {
-    if (reportStatus) {
-      setReportStatus(false);
-    } else {
+    if (!reportStatus) {
       setReportStatus(true);
+      axios.put('/answers/report', {
+        answer_id: props.answerData.answer_id,
+      })
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     }
   }
   return (
-    <div id='answers'>
-      <p id='answer'>A: {props.answerData.body}</p>
-      {usernameDate()}
-      <p id='answer-helpful' onClick={handleClickHelpfulness}>Helpful? Yes ({helpfulness.helpfulness})</p>
-      <p id='answer-report' onClick={handleReportClick}>{reportStatus ? 'Reported' : 'Report'}</p>
+    <div className='answers'>
+      <div className='answer' data-testid='answer'>A: {props.answerData.body}</div>
+      <div className='answerer-helpful-report'>
+        {usernameDate()}
+        <p className='answer-helpful' onClick={handleClickHelpfulness} data-testid='answer-helpful'>Helpful? Yes ({helpfulness.helpfulness})</p>
+        <p className='answer-report' onClick={handleReportClick} data-testid='answer-report'>{reportStatus ? 'Reported' : 'Report'}</p>
+      </div>
     </div>
   )
 }
