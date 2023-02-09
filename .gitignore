@@ -3,7 +3,7 @@ dist/
 !dist/index.html
 config.js
 .env
-dist
+# dist
 config.js
 .DS_Store
 bundle.js
