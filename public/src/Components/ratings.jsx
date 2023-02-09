@@ -25,7 +25,7 @@ var Ratings = (props) => {
   const productName = "Static Name";
 
     useEffect(() => {
-      axios.get('/reviews', {
+      axios.get('/:id/reviews', {
         params: {
           id: propsReviewNum
         }

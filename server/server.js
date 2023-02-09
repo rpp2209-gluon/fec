@@ -20,13 +20,13 @@ app.listen(3000);
 // ROUTING APIs =========================================================================================
 
 // to /:id add router
-// const router = express.Router();
+const router = express.Router();
 
-// app.get("/:id", function (req, res) {
-//   console.log('req.params.id', req.params.id);
-//   res.sendFile(path.join(__dirname, "../public/dist",'index.html'));
-// })
-// app.use('/:id', router);
+app.get("/:id", function (req, res) {
+  console.log('req.params.id', req.params.id);
+  res.sendFile(path.join(__dirname, "../public/dist",'index.html'));
+})
+app.use('/:id', router);
 
 
 // PRODUCTS API =========================================================================================
@@ -168,7 +168,7 @@ app.get('/products/:product_id/styles', (req, res) => {
 
 // REVIEWS API  ========================================================================================
 
-app.get('/reviews', (req, res) => {
+app.get('/:id/reviews', (req, res) => {
   console.log('here is the params id', req.params.id);
   console.log('here is the request query', req.query.id);
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=' + req.query.id, {
@@ -188,7 +188,7 @@ app.get('/reviews', (req, res) => {
     })
 });
 
-app.get('/reviews/meta', (req, res) => {
+app.get('/:id/reviews/meta', (req, res) => {
 console.log(req.params.id);
 axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=' + req.query.id, {
   headers: {
@@ -207,7 +207,7 @@ axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?prod
   })
 });
 
-app.post('/reviews', (req, res) => {
+app.post('/:id/reviews', (req, res) => {
 axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews', req.body, {
   headers: {
     'Authorization': `${config.API_KEY}`
@@ -224,7 +224,7 @@ axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews', req.bo
   })
 });
 
-app.put('/reviews/:review_id/helpful', (req, res) => {
+app.put('/:id/reviews/:review_id/helpful', (req, res) => {
 axios.put('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/' + req.params.review_id + '/helpful',
   {review_id: req.params.review_id},
   {headers: {
@@ -243,7 +243,7 @@ axios.put('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/' + req.p
   })
 })
 
-app.put('/reviews/:review_id/report', (req, res) => {
+app.put('/:id/reviews/:review_id/report', (req, res) => {
 axios.put('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/' + req.params.review_id + '/report',
   {review_id: req.params.review_id},
   {headers: {
