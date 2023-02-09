@@ -2,6 +2,7 @@ node_modules
 dist/
 config.js
 .env
-# dist
+dist
 config.js
 .DS_Store
+public/.DS_Store
