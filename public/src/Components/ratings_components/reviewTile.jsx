@@ -19,7 +19,7 @@ var ReviewTile = (props) => {
     event.preventDefault();
     console.log('helpful');
     console.log(props.reviewData.review_id);
-    axios.put('/reviews/' + props.reviewData.review_id + '/helpful')
+    axios.put('/:id/reviews/' + props.reviewData.review_id + '/helpful')
     .then((response) => {
       console.log('PUT helpful success', response);
     })
@@ -31,7 +31,7 @@ var ReviewTile = (props) => {
   const clickReport = () => {
     event.preventDefault();
     console.log('report');
-    axios.put('/reviews/' + props.reviewData.review_id + '/report')
+    axios.put('/:id/reviews/' + props.reviewData.review_id + '/report')
     .then((response) => {
       console.log('PUT report success', response);
     })
