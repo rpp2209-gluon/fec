@@ -46,6 +46,7 @@
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.4.1",
     "react-modal": "^3.16.1",
+    "react-rating-stars-component": "^2.2.0",
     "react-responsive-carousel": "^3.2.23"
   }
 }

@@ -81,7 +81,6 @@ app.get('/reviews', (req, res) => {
 
 
 app.get('/reviews/meta', (req, res) => {
-console.log(req.params.id);
 axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=' + req.query.id, {
   headers: {
     'Authorization': `${config.API_KEY}`
@@ -184,7 +183,7 @@ app.get('/products/:product_id/styles', (req, res) => {
       }
     })
     .then((response) => {
-      console.log('GET style', req.query.id)
+      console.log('GET style', response.data)
       res.status(200).send(response.data);
     })
     .catch((err) => {
@@ -417,5 +416,23 @@ app.get('/mergedfeatures', (req, res) => {
     .then(() => {
       res.send(mergedFeatures)
     })
+  })
+});
+
+app.get('/avgRating', (req, res) => {
+  axios({
+    method: 'get',
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=' + req.query.id,
+    params: {
+      id: req.query.id
+    },
+    headers: {
+      'Authorization': `${config.API_KEY}`
+    }
+  })
+  .then(data => {
+    var ratings = data.data.ratings;
+    var avgRating = (((1 * ratings['1']) + (2 * ratings['2']) + (3 * ratings['3']) + (4 * ratings['4']) + (5 * ratings['5'])) / ((ratings['1'] *1) + (ratings['2'] *1) + (ratings['3'] *1) + (ratings['4'] *1) + (ratings['5'] *1)))
+    res.send([Math.floor(avgRating / 0.5) * 0.5])
   })
 })
