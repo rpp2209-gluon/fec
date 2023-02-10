@@ -17,7 +17,7 @@ function RelatedItems (props) {
   useEffect (() => {
     axios({
       method: 'get',
-      url: '/relatedproducts',
+      url: '/:id/relatedproducts',
       params: {id: props.currentProduct.id}
     })
     .then((data) => {

@@ -46,14 +46,15 @@ var ReviewTile = (props) => {
         <Card.Body>
           <Card.Subtitle><small>{props.reviewData.reviewer_name} , {moment(props.reviewData.date).format('MMMM Do, YYYY')}</small></Card.Subtitle>
           <StarComponent editable={false} numStars={props.reviewData.rating}/>
+          <p>{props.reviewData.recommend ? 'I recommend this product ✅' : ''}</p>
           <p><b>{props.reviewData.summary}</b></p>
-          <p>Review Body: {showAllReview ? props.reviewData.body.slice(0, 250) : props.reviewData.body}</p>
+          <p>{showAllReview ? props.reviewData.body.slice(0, 250) : props.reviewData.body}</p>
           { props.reviewData.body.length >= 250 ?
             <button onClick={reviewClickHandler}>{showAllReview ? 'Collapse' : 'Show More'}</button> : <></>
           }
           <p> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</p>
           <p>Was This Review Helpful? <a href="" onClick={clickHelpful}>Yes</a> ({props.reviewData.helpfulness}) | <a href="" onClick={clickReport}>Report</a> </p>
-          <p>{props.reviewData.recommend ? 'I recommend this product ✅' : ''}</p>
+
         </Card.Body>
       </Card>
     </>

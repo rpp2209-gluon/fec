@@ -19,9 +19,12 @@ var displayedReviews = (props) => {
   return (
     <>
       <h3>Reviews</h3>
+      <div className="review-list">
         {props.reviews.slice(0, numReviews).map((review) => {
-          return (<ReviewTile key={review.review_id} reviewData={review}/>);
-        })}
+            return (<ReviewTile key={review.review_id} reviewData={review}/>);
+          })}
+      </div>
+
 
         { props.reviews.length > numReviews ?
         <button onClick={updateNumReviews}> Show More Reviews </button> :
