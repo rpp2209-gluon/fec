@@ -18,7 +18,7 @@ var displayedReviews = (props) => {
 
   return (
     <>
-      <h3>Reviews</h3>
+      <h3>{props.totalNum} Reviews, sorted by relevance</h3>
       <div className="review-list">
         {props.reviews.slice(0, numReviews).map((review) => {
             return (<ReviewTile key={review.review_id} reviewData={review}/>);
