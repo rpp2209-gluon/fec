@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "bdab9b7fa2cac8f3544b";
+/******/ 	var hotCurrentHash = "95799b7ca015ed5ad977";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -5190,7 +5190,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\nvar useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState,\n  useEffect = react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect;\nvar ImageSliderItem = function ImageSliderItem(_ref) {\n  var photoId = _ref.photoId,\n    photo = _ref.photo,\n    handleImageSliderClick = _ref.handleImageSliderClick,\n    imageId = _ref.imageId;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"image\",\n    onClick: function onClick() {\n      handleImageSliderClick(photoId);\n    },\n    style: photoId === imageId ? {\n      backgroundColor: 'yellow'\n    } : {}\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"img\", {\n    src: photo,\n    width: \"100\",\n    height: \"161\",\n    style: {\n      borderColor: 'yellow'\n    }\n  }));\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (ImageSliderItem);\n\n//# sourceURL=webpack:///./public/src/Components/overview/imageSliderItem.jsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\nvar useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState,\n  useEffect = react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect;\nvar ImageSliderItem = function ImageSliderItem(_ref) {\n  var photoId = _ref.photoId,\n    photo = _ref.photo,\n    handleImageSliderClick = _ref.handleImageSliderClick,\n    imageId = _ref.imageId;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"image\",\n    onClick: function onClick() {\n      handleImageSliderClick(photoId);\n    }\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"img\", {\n    src: photo,\n    width: \"100\",\n    height: \"161\",\n    style: photoId === imageId ? {} : {\n      opacity: 0.6\n    }\n  }));\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (ImageSliderItem);\n\n//# sourceURL=webpack:///./public/src/Components/overview/imageSliderItem.jsx?");
 
 /***/ }),
 

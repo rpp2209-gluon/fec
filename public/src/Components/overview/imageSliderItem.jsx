@@ -6,14 +6,13 @@ const ImageSliderItem = ({ photoId, photo, handleImageSliderClick, imageId }) =>
   return (
     <div
       className="image"
-      onClick={()=>{handleImageSliderClick(photoId)}}
-      style={ photoId === imageId  ? { backgroundColor: 'yellow'} : {}}
+      onClick={() => { handleImageSliderClick(photoId) }}
     >
       <img
         src={photo}
         width='100'
         height='161'
-        style={{ borderColor: 'yellow'} }
+        style={photoId === imageId  ? {}:{ opacity: 0.6 }}
       >
       </img>
 
