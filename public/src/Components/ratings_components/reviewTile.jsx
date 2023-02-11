@@ -53,6 +53,11 @@ var ReviewTile = (props) => {
             <button onClick={reviewClickHandler}>{showAllReview ? 'Collapse' : 'Show More'}</button> : <></>
           }
           <p> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</p>
+          <div>
+            {props.reviewData.photos.map(photo => {
+              return <img key={photo.id} src={photo.url} width="400" height='600'></img>
+            })}
+          </div>
           <p>Was This Review Helpful? <a href="" onClick={clickHelpful}>Yes</a> ({props.reviewData.helpfulness}) | <a href="" onClick={clickReport}>Report</a> </p>
 
         </Card.Body>
