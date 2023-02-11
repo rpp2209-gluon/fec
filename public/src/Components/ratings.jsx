@@ -20,14 +20,12 @@ var Ratings = (props) => {
 
   const [filteredStars, setFilteredStars] = useState(new Set());
 
-
-  const propsReviewNum = 71701;
   const productName = "Static Name";
 
     useEffect(() => {
       axios.get('/:id/reviews', {
         params: {
-          id: propsReviewNum
+          id: props.currentProductId
         }
       }).then((response) => {
         console.log('setting state with review info ', response.data);
@@ -56,20 +54,20 @@ var Ratings = (props) => {
     return (
       <section id="review-main">
         <h1>Ratings and Reviews</h1>
-        <div className="container">
-          <div className="item item-left">
+        <div class="container">
+          <div class="item item-left">
             <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
           </div>
 
-          <div className="item item-right">
-            <DisplayedReviews totalNum={allReviews.results.length} reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
+          <div class="item item-right">
+            <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
             <button onClick={updateShowAddReview}> Add a Review + </button>
           </div>
         </div>
 
 
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
-          <AddReviewFormModal productId={propsReviewNum} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
+          <AddReviewFormModal productId={props.currentProductId} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
         </Modal>
       </section>
 
