@@ -10,7 +10,7 @@ const Information = (props) => {
   return (
     <div className="product-info" key='product'>
       <h3> Product Information</h3>
-      <div>category: {props.product.category}</div>
+      <p>category: {props.product.category}</p>
       <div className="overview-rating">
         rating: {rating}
         {/* https://stackoverflow.com/questions/73029594/react-not-able-to-render-react-rating-star-component-with-correct-value */}
@@ -26,10 +26,10 @@ const Information = (props) => {
           fullIcon={<i className="fa fa-star"></i>}
           activeColor="#ffd700"
         />
-        <span>read all reviews</span>
+        <p style={{textDecorationLine: 'underline'}}>read all reviews</p>
       </div>
 
-      <div>name: {props.product.name}</div>
+      <p>name: {props.product.name}</p>
 
     </div>
   )

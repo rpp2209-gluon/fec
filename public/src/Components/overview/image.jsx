@@ -16,7 +16,7 @@ const Image = ({ pictures, curretStyle }) => {
   })
 
   const mainImageRight = async () => {
-    if (imageId < pictures.photos.length-1) {
+    if (imageId < pictures.photos.length - 1) {
       let temp = imageId;
       // console.log('turn right');
       setImageId(temp + 1);
@@ -25,7 +25,7 @@ const Image = ({ pictures, curretStyle }) => {
 
   const mainImageLeft = async () => {
 
-    if (imageId >0)  {
+    if (imageId > 0) {
       let temp = imageId;
       setImageId(temp - 1);
     }
@@ -51,27 +51,50 @@ const Image = ({ pictures, curretStyle }) => {
 
       <div className='main-image'>
         <div className='main-image-pic'>
-          {(() => {
-            if (pictures) {
-              return (
-                <img
-                  src={pictures.photos[imageId].url}
-                  width="400">
-                </img>
-              )
-            }
-          })()}
+          <a className="lightbox" href="#dog">
+            {(() => {
+              if (pictures) {
+                return (
+                  <img
+                    src={pictures.photos[imageId].url}
+                    width="400">
+                  </img>
+                )
+              }
+            })()}
+          </a>
+        </div>
+        <div className="lightbox-target" id="dog">
+          <div className="lightbox-target-pic">
+            <i className='ImageLeft' aria-hidden="true" onClick={mainImageLeft} >
+              <Icon.ChevronLeft size='60px' />
+            </i>
+            <span>{(() => {
+              if (pictures) {
+                return (
+                  <img
+                    src={pictures.photos[imageId].url}
+                    width="400">
+                  </img>
+                )
+              }
+            })()}</span>
+            <i className='ImageRight' aria-hidden="true" onClick={mainImageRight}>
+              <Icon.ChevronRight size='60px' />
+            </i>
+          </div>
+
+          <a className="lightbox-close" href="#"></a>
         </div>
 
-        <div className ="Arrows">
-          <i className='ImageLeft' aria-hidden="true"  onClick={mainImageLeft} >
-            <Icon.ChevronLeft size = '60px'/>
+
+        <div className="Arrows">
+          <i className='ImageLeft' aria-hidden="true" onClick={mainImageLeft} >
+            <Icon.ChevronLeft size='60px' />
           </i>
           <i className='ImageRight' aria-hidden="true" onClick={mainImageRight}>
-            <Icon.ChevronRight size = '60px'/>
+            <Icon.ChevronRight size='60px' />
           </i>
-
-
         </div>
 
       </div>

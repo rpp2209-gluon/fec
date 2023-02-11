@@ -29,7 +29,8 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
     <div className="styles-selector">
       <h3> Style Selector </h3>
       
-      <div className='product-price'>
+      <p className='product-price'>
+        Price: 
         {(() => {
           if (styles[styleId]) {
             if (styles[styleId].sale_price === null) {
@@ -44,7 +45,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
             }
           }
         })()}
-      </div>
+      </p>
 
       <form className='cart'
         onSubmit={() => {
@@ -71,7 +72,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
         <input type="submit" value="Add to Cart" />
       </form>
 
-      <div>STYLE  {'>'} {currentStyleName}</div>
+      <p>STYLE  {'>'} {currentStyleName}</p>
       <div className='styles-slider'>{styles.map((e, i) => {
         return (<StyleItem
           key={`style${i}`}
