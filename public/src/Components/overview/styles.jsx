@@ -24,9 +24,27 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
     setSizes([...sizes]);
   }
 
+
   return (
     <div className="styles-selector">
       <h3> Style Selector </h3>
+      <div className='main-image'>
+        {(() => {
+          if (styles[styleId]) {
+            if (styles[styleId].sale_price === null) {
+              return (<span>$ {styles[styleId].original_price}</span>)
+            } else {
+              return (
+                <div>
+                  <span style='color:red;text-decoration:line-through'>$ {styles[styleId].original_price} </span>
+                  <span>$ {styles[styleId].sale_price}</span>
+                </div>
+
+              )
+            }
+          }
+        })()}
+      </div>
 
       <form className='cart'
         onSubmit={() => {
