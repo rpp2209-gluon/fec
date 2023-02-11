@@ -1,16 +1,15 @@
-.information {
+.overview {
   font-family: sans-serif;
 }
-.styles-selecter{
-  overflow:auto;
+
+.styles-selecter {
+  overflow: auto;
 }
+
 .style-item {
   text-align: center;
-  overflow:auto;
+  overflow: auto;
   display: inline-block;
   border: 2px solid lightslategray;
   width: 100px;
-
-  
 }
-

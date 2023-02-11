@@ -29,7 +29,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
     <div className="styles-selector">
       <h3> Style Selector </h3>
       
-      <p className='product-price'>
+      <p className='product-price' style={{fontWeight: 'bold', fontSize: 20}}>
         Price: 
         {(() => {
           if (styles[styleId]) {
@@ -72,7 +72,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
         <input type="submit" value="Add to Cart" />
       </form>
 
-      <p>STYLE  {'>'} {currentStyleName}</p>
+      <p style={{fontWeight: 'bold', fontSize: 18}}>STYLE  {'>'} {currentStyleName}</p>
       <div className='styles-slider'>{styles.map((e, i) => {
         return (<StyleItem
           key={`style${i}`}

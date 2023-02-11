@@ -69,7 +69,7 @@ const Image = ({ pictures, curretStyle }) => {
             <i className='ImageLeft' aria-hidden="true" onClick={mainImageLeft} >
               <Icon.ChevronLeft size='60px' />
             </i>
-            <span>{(() => {
+            <span className="lightbox-target-pic">{(() => {
               if (pictures) {
                 return (
                   <img
@@ -99,7 +99,7 @@ const Image = ({ pictures, curretStyle }) => {
 
       </div>
 
-      <div className='image-slider'> image slider
+      <div className='image-slider'> 
         <div className="wrapper">
           <a className="prev" onClick={() => { scroll(-1) }}>&#10094;</a>
           <div className="image-container">
