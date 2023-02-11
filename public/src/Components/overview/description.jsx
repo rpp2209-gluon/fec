@@ -5,17 +5,15 @@ const { useState, useEffect } = React;
 const Description = ({ product }) => {
 
   return (
-    <div className="product-info" key='product'>
+    <div className="product-description" key='product'>
       <h3>Description</h3>
-      <div>Slogan: {product.slogan}</div>
-      <div>{product.description}</div>
+      <p style={{fontStyle: 'italic', fontSize: 18}}>{product.slogan}</p>
+      <p>{product.description}</p>
       <ul>
         {product.features ? product.features.map((e,i) => {
           return (<li key ={`feature-${i}`}>{e.value}</li>)
         }) : null}
       </ul>
-
-
 
     </div>
   )
