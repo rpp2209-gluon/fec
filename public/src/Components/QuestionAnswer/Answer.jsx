@@ -17,7 +17,7 @@ var Answer = (props) => {
     if (!helpfulness.click) {
       var newHelpfulness = { click: true, helpfulness: helpfulness.helpfulness + 1 };
       setHelpfulness(newHelpfulness);
-      axios.put('/:id/answers/helpful', {
+      axios.put('/answers/helpful', {
         answer_id: props.answerData.answer_id,
       })
         .then(data => console.log(data))
@@ -28,16 +28,26 @@ var Answer = (props) => {
   const handleReportClick = () => {
     if (!reportStatus) {
       setReportStatus(true);
-      axios.put('/:id/answers/report', {
+      axios.put('/answers/report', {
         answer_id: props.answerData.answer_id,
       })
         .then(data => console.log(data))
         .catch(err => console.log(err));
     }
   }
+
+  const handleImages = () => {
+    let answerImagesElements = [];
+    for (let i of props.answerData.photos) {
+      answerImagesElements.push(<img className='answer-image' src={i.url}></img>);
+    }
+    return answerImagesElements;
+  }
+
   return (
     <div className='answers'>
       <div className='answer' data-testid='answer'>A: {props.answerData.body}</div>
+      {handleImages()}
       <div className='answerer-helpful-report'>
         {usernameDate()}
         <p className='answer-helpful' onClick={handleClickHelpfulness} data-testid='answer-helpful'>Helpful? Yes ({helpfulness.helpfulness})</p>
