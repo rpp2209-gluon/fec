@@ -89,24 +89,6 @@ app.get('/products/:product_id/styles', (req, res) => {
     })
 });
 
-//related
-app.get('/products/:product_id/related', (req, res) => {
-  console.log('req.query', req.query.product_id)
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.product_id+'/related', {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('GET related', req.query.product_id)
-      res.status(200).send(response.data);
-    })
-    .catch((err) => {
-      console.log('GET related error ', req.query.product_id);
-      res.status(500).send(err);
-    })
-});
-
 
 //related products
 app.get('/products/:product_id/related', (req, res) => {
@@ -126,43 +108,6 @@ app.get('/products/:product_id/related', (req, res) => {
       res.status(500).send(err);
     })
 });
-
-// product
-app.get('/products/:product_id', (req, res) => {
-  console.log('get product', req.query);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('GET product', req.query.id)
-      res.status(200).send(response.data);
-    })
-    .catch((err) => {
-      console.log('GET product error ', req.query.id);
-      res.status(500).send(err);
-    })
-});
-
-//product style
-app.get('/products/:product_id/styles', (req, res) => {
-  console.log('get styles', req.query);
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
-    headers: {
-      'Authorization': `${config.API_KEY}`
-      }
-    })
-    .then((response) => {
-      console.log('GET style', req.query.id)
-      res.status(200).send(response.data);
-    })
-    .catch((err) => {
-      console.log('GET style error ', req.query.id);
-      res.status(500).send(err);
-    })
-});
-
 
 
 
