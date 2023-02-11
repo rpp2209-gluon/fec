@@ -28,7 +28,8 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
   return (
     <div className="styles-selector">
       <h3> Style Selector </h3>
-      <div className='main-image'>
+      
+      <div className='product-price'>
         {(() => {
           if (styles[styleId]) {
             if (styles[styleId].sale_price === null) {
@@ -39,7 +40,6 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
                   <span style='color:red;text-decoration:line-through'>$ {styles[styleId].original_price} </span>
                   <span>$ {styles[styleId].sale_price}</span>
                 </div>
-
               )
             }
           }

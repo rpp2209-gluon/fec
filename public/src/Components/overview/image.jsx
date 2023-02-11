@@ -4,6 +4,7 @@ import $ from 'jquery';
 import imageStyle from './imagestyle.css';
 import ImageSliderItem from './imageSliderItem';
 
+import * as Icon from 'react-feather';
 
 const Image = ({ pictures, curretStyle }) => {
 
@@ -14,6 +15,22 @@ const Image = ({ pictures, curretStyle }) => {
     setCurrentStylePhotos(pictures ? pictures.photos : null);
   })
 
+  const mainImageRight = async () => {
+    if (imageId < pictures.photos.length-1) {
+      let temp = imageId;
+      // console.log('turn right');
+      setImageId(temp + 1);
+    }
+  }
+
+  const mainImageLeft = async () => {
+
+    if (imageId >0)  {
+      let temp = imageId;
+      setImageId(temp - 1);
+    }
+  }
+
 
   // scrolling image slider React example
   // https://codepen.io/rmody3/pen/EXObmR
@@ -23,7 +40,7 @@ const Image = ({ pictures, curretStyle }) => {
     $('.image-container').animate({ scrollLeft: pos }, 1000)
   }
 
-  const handleImageSliderClick = (id)=>{
+  const handleImageSliderClick = (id) => {
     setImageId(id);
   }
 
@@ -32,24 +49,38 @@ const Image = ({ pictures, curretStyle }) => {
     <div className="images" style={imageStyle}>
       <h3>Image</h3>
 
-      <div className='main-image'> 
-        {(() => {
-          if (pictures) {
-            return (
-              <img
-                src={pictures.photos[imageId].url}
-                width="400">
-              </img>
-            )
-          }
-        })()}
+      <div className='main-image'>
+        <div className='main-image-pic'>
+          {(() => {
+            if (pictures) {
+              return (
+                <img
+                  src={pictures.photos[imageId].url}
+                  width="400">
+                </img>
+              )
+            }
+          })()}
+        </div>
+
+        <div className ="Arrows">
+          <i className='ImageLeft' aria-hidden="true"  onClick={mainImageLeft} >
+            <Icon.ChevronLeft size = '60px'/>
+          </i>
+          <i className='ImageRight' aria-hidden="true" onClick={mainImageRight}>
+            <Icon.ChevronRight size = '60px'/>
+          </i>
+
+
+        </div>
+
       </div>
 
       <div className='image-slider'> image slider
         <div className="wrapper">
           <a className="prev" onClick={() => { scroll(-1) }}>&#10094;</a>
           <div className="image-container">
-            {pictures?(pictures.photos.map((e, i) => {
+            {pictures ? (pictures.photos.map((e, i) => {
               return (<ImageSliderItem
                 key={`image-slider-${i}`}
                 photoId={i}
@@ -57,7 +88,7 @@ const Image = ({ pictures, curretStyle }) => {
                 handleImageSliderClick={handleImageSliderClick}
               />)
             }
-            )):null}
+            )) : null}
           </div>
           <a className="next" onClick={() => { scroll(1) }}>&#10095;</a>
         </div>
