@@ -57,7 +57,8 @@ const Image = ({ pictures, curretStyle }) => {
                 return (
                   <img
                     src={pictures.photos[imageId].url}
-                    width="400">
+                    width="400"
+                    height='600'>
                   </img>
                 )
               }
@@ -109,6 +110,7 @@ const Image = ({ pictures, curretStyle }) => {
                 photoId={i}
                 photo={e.thumbnail_url}
                 handleImageSliderClick={handleImageSliderClick}
+                imageId={imageId}
               />)
             }
             )) : null}

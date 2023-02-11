@@ -28,9 +28,9 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
   return (
     <div className="styles-selector">
       <h3> Style Selector </h3>
-      
-      <p className='product-price' style={{fontWeight: 'bold', fontSize: 20}}>
-        Price: 
+
+      <p className='product-price' style={{ fontWeight: 'bold', fontSize: 20 }}>
+        Price:
         {(() => {
           if (styles[styleId]) {
             if (styles[styleId].sale_price === null) {
@@ -47,10 +47,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
         })()}
       </p>
 
-      <form className='cart'
-        onSubmit={() => {
-          alert(`${count} ${name} ${currentStyleName} added to Cart!`)
-        }}>
+      <form className='cart'>
         <div className='size-selector'>
           Size:
           <select onClick={() => { getSizes() }}>
@@ -69,10 +66,12 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
           }}> - </button>
         </div>
 
-        <input type="submit" value="Add to Cart" />
+        <input type="submit" value="Add to Cart" onClick={() => {
+          alert(`${count} ${name} ${currentStyleName} added to Cart!`)
+        }} />
       </form>
 
-      <p style={{fontWeight: 'bold', fontSize: 18}}>STYLE  {'>'} {currentStyleName}</p>
+      <p style={{ fontWeight: 'bold', fontSize: 18 }}>STYLE  {'>'} {currentStyleName}</p>
       <div className='styles-slider'>{styles.map((e, i) => {
         return (<StyleItem
           key={`style${i}`}
