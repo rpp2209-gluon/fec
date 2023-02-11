@@ -6,9 +6,11 @@ import Styles from './styles.jsx';
 import Image from './image.jsx';
 import Description from './description.jsx';
 
+import './overviewStyle.css';
+
 const OverView = (props) => {
 
-  const [id, setId] = useState(71701);
+  const [id, setId] = useState(window.location.pathname.slice(1));
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState([]);
   const [rating, setRating] = useState(0);
@@ -68,25 +70,25 @@ const OverView = (props) => {
 
 
 
-  return (<div>
-    <h1>OverView Section</h1>
+  return (
+    <div className='overview'>
+      <h1>OverView Section</h1>
 
-    <Information product={product} rating={rating} />
-    <Styles
-    styles={styles}
-    currentStyle={currentStyle}
-    currentStyleName={currentStyleName}
-    handleStyleChange= {handleStyleChange}
-    />
-    <Image
-      pictures={styles[currentStyle]}
-      currentStyle={currentStyle}
-    />
-    <Description product={product} />
+      <Information product={product} rating={rating} />
+      <Styles
+        name={product.name}
+        styles={styles}
+        currentStyle={currentStyle}
+        currentStyleName={currentStyleName}
+        handleStyleChange={handleStyleChange}
+      />
+      <Image
+        pictures={styles[currentStyle]}
+        currentStyle={currentStyle}
+      />
+      <Description product={product} />
 
-
-
-  </div>
+    </div>
 
 
   )

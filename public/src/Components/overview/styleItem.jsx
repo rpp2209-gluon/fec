@@ -14,7 +14,8 @@ const StyleItem = ({ styleId, name, photo, handleStyleChange, currentStyle }) =>
       <p>{name} {currentStyle == styleId ? 'true' : 'false'}</p>
       <img
         src={photo.thumbnail_url}
-        width="100"
+        width='100'
+        height='161'
       >
       </img>
 
