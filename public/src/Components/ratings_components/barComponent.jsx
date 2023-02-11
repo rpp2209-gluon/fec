@@ -4,9 +4,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 var barComponent = (props) => {
 
   return (
-    <div>
+    <>
     <ProgressBar now={props.num * 100}/>
-    </div>
+    </>
   )
 
 };

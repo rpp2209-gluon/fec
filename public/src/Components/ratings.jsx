@@ -21,11 +21,11 @@ var Ratings = (props) => {
   const [filteredStars, setFilteredStars] = useState(new Set());
 
 
-  const propsReviewNum = 71697;
+  const propsReviewNum = 71701;
   const productName = "Static Name";
 
     useEffect(() => {
-      axios.get('/reviews', {
+      axios.get('/:id/reviews', {
         params: {
           id: propsReviewNum
         }
@@ -56,13 +56,13 @@ var Ratings = (props) => {
     return (
       <section id="review-main">
         <h1>Ratings and Reviews</h1>
-        <div class="container">
-          <div class="item item-left">
+        <div className="container">
+          <div className="item item-left">
             <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
           </div>
 
-          <div class="item item-right">
-            <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
+          <div className="item item-right">
+            <DisplayedReviews totalNum={allReviews.results.length} reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
             <button onClick={updateShowAddReview}> Add a Review + </button>
           </div>
         </div>

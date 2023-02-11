@@ -19,7 +19,7 @@ var ReviewTile = (props) => {
     event.preventDefault();
     console.log('helpful');
     console.log(props.reviewData.review_id);
-    axios.put('/reviews/' + props.reviewData.review_id + '/helpful')
+    axios.put('/:id/reviews/' + props.reviewData.review_id + '/helpful')
     .then((response) => {
       console.log('PUT helpful success', response);
     })
@@ -31,7 +31,7 @@ var ReviewTile = (props) => {
   const clickReport = () => {
     event.preventDefault();
     console.log('report');
-    axios.put('/reviews/' + props.reviewData.review_id + '/report')
+    axios.put('/:id/reviews/' + props.reviewData.review_id + '/report')
     .then((response) => {
       console.log('PUT report success', response);
     })
@@ -42,18 +42,19 @@ var ReviewTile = (props) => {
 
   return (
     <>
-      <Card style={{  width: '50rem' }}>
+      <Card style={{  width: '40rem' }}>
         <Card.Body>
           <Card.Subtitle><small>{props.reviewData.reviewer_name} , {moment(props.reviewData.date).format('MMMM Do, YYYY')}</small></Card.Subtitle>
           <StarComponent editable={false} numStars={props.reviewData.rating}/>
+          <p>{props.reviewData.recommend ? 'I recommend this product ✅' : ''}</p>
           <p><b>{props.reviewData.summary}</b></p>
-          <p>Review Body: {showAllReview ? props.reviewData.body.slice(0, 250) : props.reviewData.body}</p>
+          <p>{showAllReview ? props.reviewData.body.slice(0, 250) : props.reviewData.body}</p>
           { props.reviewData.body.length >= 250 ?
             <button onClick={reviewClickHandler}>{showAllReview ? 'Collapse' : 'Show More'}</button> : <></>
           }
           <p> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</p>
           <p>Was This Review Helpful? <a href="" onClick={clickHelpful}>Yes</a> ({props.reviewData.helpfulness}) | <a href="" onClick={clickReport}>Report</a> </p>
-          <p>{props.reviewData.recommend ? 'I recommend this product ✅' : ''}</p>
+
         </Card.Body>
       </Card>
     </>

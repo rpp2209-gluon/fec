@@ -10,7 +10,7 @@ function YourOutfitList (props) {
         {props.list.map((entry) => {
           return (
             <div className="productcard" key={entry.id}>
-              <ProductCard product={entry} currentProduct={props.currentProduct}/>
+              <ProductCard product={entry} currentProductId={props.currentProductId}/>
             </div>
           )
         })}

@@ -17,10 +17,11 @@ function RelatedItems (props) {
   useEffect (() => {
     axios({
       method: 'get',
-      url: '/relatedproducts',
-      params: {id: props.currentProduct.id}
+      url: '/:id/relatedproducts',
+      params: {currentId: props.currentProductId}
     })
     .then((data) => {
+      console.log("this is the data in related items", data.data)
       setRelProd(data.data)
     })
     .catch(err => {
@@ -31,12 +32,12 @@ function RelatedItems (props) {
     //localStorage is JSON string
     function addtoOutfit (e) {
       if (window.localStorage.outfits === undefined) {
-        window.localStorage.setItem('outfits', `${JSON.stringify(props.currentProduct)}`);
+        window.localStorage.setItem('outfits', `${JSON.stringify(props.currentProductId)}`);
       } else {
-        if (list.includes(props.currentProduct)) {
+        if (list.includes(props.currentProductId)) {
           window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
         } else {
-          list.push(props.currentProduct);
+          list.push(props.currentProductId);
           window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
         }
       }
@@ -51,7 +52,7 @@ function RelatedItems (props) {
       {relProd.map((entry) => {
         return (
             <div className="productcard" key={entry.id}>
-              <ProductCard product={entry} currentProduct={props.currentProduct}/>
+              <ProductCard product={entry} currentProductId={props.currentProductId}/>
             </div>
         );
       })}
@@ -63,7 +64,7 @@ function RelatedItems (props) {
         <div>
           <button onClick={addtoOutfit}>Add to Outfit</button>
         </div>
-        <YourOutfitList currentProduct={props.currentProduct} list={list}/>
+        <YourOutfitList currentProductId={props.currentProductId} list={list}/>
       </Carousel>
     </div>
     </div>

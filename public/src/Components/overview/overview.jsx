@@ -19,7 +19,7 @@ const OverView = (props) => {
 
   useEffect(() => {
     console.log('id:, ', id);
-    axios.get('/products/:product_id', {
+    axios.get('/:id/products/:product_id', {
       params: {
         id: String(id),
       }
@@ -28,7 +28,7 @@ const OverView = (props) => {
         setProduct(data.data);
       })
       .then(() => {
-        axios.get('/products/:product_id/styles', {
+        axios.get('/:id/products/:product_id/styles', {
           params: {
             id: String(id),
           }
@@ -39,7 +39,7 @@ const OverView = (props) => {
           })
       })
       .then(() => {
-        axios.get('/reviews/meta', {
+        axios.get('/:id/reviews/meta', {
           params: {
             id: String(id),
           }
@@ -72,15 +72,15 @@ const OverView = (props) => {
     <h1>OverView Section</h1>
 
     <Information product={product} rating={rating} />
-    <Styles 
-    styles={styles} 
-    currentStyle={currentStyle} 
-    currentStyleName={currentStyleName} 
+    <Styles
+    styles={styles}
+    currentStyle={currentStyle}
+    currentStyleName={currentStyleName}
     handleStyleChange= {handleStyleChange}
     />
     <Image
       pictures={styles[currentStyle]}
-      currentStyle={currentStyle} 
+      currentStyle={currentStyle}
     />
     <Description product={product} />
 

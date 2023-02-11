@@ -80,7 +80,7 @@ var addReviewFormModal = (props) => {
       photos: [],
       characteristics: characteristics,
     };
-    axios.post('/reviews', submitObj)
+    axios.post('/:id/reviews', submitObj)
     .then((response) => {
       console.log('POST review success: ', response);
     })
