@@ -29,7 +29,7 @@ var Question = (props) => {
 
   // Get answers from the question id
   useEffect(() => {
-    axios.get(`/answers/${props.questionData.question_id}`)
+    axios.get(`/:id/answers/${props.questionData.question_id}`)
       .then(data => {
         setAnswerData(sortAnswersByHelpfulness(data.data))
       })
@@ -70,7 +70,7 @@ var Question = (props) => {
   const handleClickHelpfulness = () => {
     if (!helpfulness.click) {
       var newHelpfulness = { click: true, helpfulness: helpfulness.helpfulness + 1 };
-      axios.put('/questions/helpful', {
+      axios.put('/:id/questions/helpful', {
         question_id: answerData.question
       })
         .then(data => console.log(data))

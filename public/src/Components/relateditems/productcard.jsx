@@ -11,12 +11,13 @@ function ProductCard (props) {
   const [rating, setRating] = useState([2.5]);
   const [image, setImage] = useState([])
 
+  console.log('here are the props for product card', props);
   useEffect(() => {
     axios({
       method: 'get',
-      url: '/products/:product_id/styles',
+      url: '/:id/products/:product_id/styles',
       params: {
-        id: props.product.id
+        id: props.product[0].id
       }
     })
     .then(data => {
@@ -27,9 +28,9 @@ function ProductCard (props) {
   useEffect (() => {
     axios({
       method: 'get',
-      url: '/avgRating',
+      url: '/:id/avgRating',
       params: {
-        id: props.product.id
+        id: props.product[0].id
       }
     })
     .then(data => {
@@ -40,10 +41,10 @@ function ProductCard (props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: '/mergedfeatures',
+      url: '/:id/mergedfeatures',
       params: {
-        currentId: props.currentProduct.id,
-        selectedId: props.product.id
+        currentId: props.currentProduct,
+        selectedId: props.product[0].id
       }
     })
     .then(data => {
@@ -63,13 +64,13 @@ function ProductCard (props) {
     <div>
       <img src={image[0]} height='400'/>
     <div>
-      Category - {props.product.category}
+      Category - {props.product[0].category}
     </div>
     <div>
-      Name - {props.product.name}
+      Name - {props.product[0].name}
     </div>
     <div>
-      Price - {props.product.default_price}
+      Price - {props.product[0].default_price}
     </div>
     <div>
       <ReactStars

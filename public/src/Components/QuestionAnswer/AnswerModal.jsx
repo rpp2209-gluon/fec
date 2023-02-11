@@ -119,7 +119,7 @@ const AnswerModal = (props) => {
     } else {
       props.setShowAnswerModal(false);
       console.log('photo', selectedImage)
-      axios.post(`/answers/${props.question_id}` ,{
+      axios.post(`/:id/answers/${props.question_id}` ,{
         body: answerField,
         name: nicknameField.nickname,
         email: emailField.email,

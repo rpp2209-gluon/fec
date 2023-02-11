@@ -106,7 +106,7 @@ const QuestionModal = (props) => {
       setFailedSubmission(true);
     } else {
       props.setShowQuestionModal(false);
-      axios.post(`/questions`, {
+      axios.post(`/:id/questions`, {
         body: questionField,
         name: nicknameField.nickname,
         email: emailField.email,

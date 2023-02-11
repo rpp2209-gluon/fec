@@ -15,7 +15,7 @@ const sortQuestionsByHelpfulness = (data) => {
 };
 const initialQuestionInputField = 'HAVE A QUESTION? SEARCH FOR ANSWERS...';
 
-var QuestionAnswer = () => {
+var QuestionAnswer = (props) => {
   const [initialQuestionData, setInitialQuestionData] = useState(null)
   const [questionData, setQuestionData] = useState({ results: [] });
   const [searchValue, setSearchValue] = useState(initialQuestionInputField)
@@ -26,8 +26,8 @@ var QuestionAnswer = () => {
   // const [lastNumberDisplayQuestions, setLastNumberDisplayQuestion] = useState(0);
 
   useEffect(() => {
-    const product_id = 71698;
-    axios.get(`/questions/${product_id}`)
+    const product_id = props.currentProductId;
+    axios.get(`/:id/questions/${product_id}`)
       .then(data => {
         const sortedData = sortQuestionsByHelpfulness(data.data);
         setInitialQuestionData(sortedData);
