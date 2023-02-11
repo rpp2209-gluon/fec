@@ -3,17 +3,58 @@ const { useState, useEffect } = React;
 
 import StyleItem from './styleItem';
 
-const Styles = ({ styles, currentStyle, currentStyleName, handleStyleChange }) => {
+const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChange }) => {
 
   const [styleId, setStyleId] = useState(currentStyle);
+  const [sizes, setSizes] = useState(["XS", "S", "M", "L", "XL"]);
+  const [count, setCount] = useState(1);
 
   // const sizesArr = Object.keys(styles[styleId])
+  // useEffect(() => {
+  //   getSizes();
+  // }, [])
+
+  const getSizes = async () => {
+    let obj = styles[styleId].skus;
+    let sizes = new Set();
+    for (let sku in obj) {
+      if (obj[sku].quantity > 0) { sizes.add(obj[sku].size) }
+    }
+    // console.log([...sizes]);
+    setSizes([...sizes]);
+  }
 
   return (
     <div className="styles-selector">
       <h3> Style Selector </h3>
+
+      <form className='cart'
+        onSubmit={() => {
+          alert(`${count} ${name} ${currentStyleName} added to Cart!`)
+        }}>
+        <div className='size-selector'>
+          Size:
+          <select onClick={() => { getSizes() }}>
+            {sizes.map((e, i) => {
+              return (<option key={`size${i}`} value={e}>{e}</option>)
+            })}
+          </select>
+        </div>
+
+        <div className='quantity-selector'>
+          <span>Quantity: </span>
+          <button onClick={() => setCount(count + 1)}> + </button>
+          {count}
+          <button onClick={() => {
+            shoe.qty > 1 ? setCount(count - 1) : setCount(1);
+          }}> - </button>
+        </div>
+
+        <input type="submit" value="Add to Cart" />
+      </form>
+
       <div>STYLE  {'>'} {currentStyleName}</div>
-      {styles.map((e, i) => {
+      <div className='styles-slider'>{styles.map((e, i) => {
         return (<StyleItem
           key={`style${i}`}
           styleId={i}
@@ -23,7 +64,8 @@ const Styles = ({ styles, currentStyle, currentStyleName, handleStyleChange }) =
           currentStyle={currentStyle}
         />)
       })}
-    
+      </div>
+
 
     </div>
 

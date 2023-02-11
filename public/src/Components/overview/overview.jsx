@@ -76,6 +76,7 @@ const OverView = (props) => {
 
     <Information product={product} rating={rating} />
     <Styles 
+    name={product.name}
     styles={styles} 
     currentStyle={currentStyle} 
     currentStyleName={currentStyleName} 
