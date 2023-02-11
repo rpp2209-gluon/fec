@@ -14,7 +14,7 @@ function ProductCard (props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: '/products/:product_id/styles',
+      url: '/:id/products/:product_id/styles',
       params: {
         id: props.product.id
       }
@@ -27,7 +27,7 @@ function ProductCard (props) {
   useEffect (() => {
     axios({
       method: 'get',
-      url: '/avgRating',
+      url: '/:id/avgRating',
       params: {
         id: props.product.id
       }
@@ -40,7 +40,7 @@ function ProductCard (props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: '/mergedfeatures',
+      url: '/:id/mergedfeatures',
       params: {
         currentId: props.currentProduct.id,
         selectedId: props.product.id

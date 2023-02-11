@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductCard from "./productcard.jsx";
+import Outfitcard from "./outfitcard.jsx";
 import axios from "axios";
 
 function YourOutfitList (props) {
@@ -10,7 +10,7 @@ function YourOutfitList (props) {
         {props.list.map((entry) => {
           return (
             <div className="productcard" key={entry.id}>
-              <ProductCard product={entry} currentProduct={props.currentProduct}/>
+              <Outfitcard product={entry} currentProduct={props.currentProduct}/>
             </div>
           )
         })}
