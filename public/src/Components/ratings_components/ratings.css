@@ -532,7 +532,13 @@ li {list-style-type: none;}
   padding: 1rem 1rem;
 }
 
-.review-list{
+.review-list {
   overflow: scroll;
   height: 30rem;
+}
+
+.review-photo {
+  flex: 1;
+  width: 50;
+  height: 50;
 }
