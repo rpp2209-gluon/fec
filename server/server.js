@@ -4,7 +4,8 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const config = require("../config.js");
+const dotenv = require('dotenv').config();
+// const config = require("../config.js");
 // console.log(API_KEY)
 
 const app = express();
@@ -34,7 +35,7 @@ app.use('/:id', router);
 app.get('/:id/products', (req, res) => {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products', {
       headers: {
-        'Authorization': `${config.API_KEY}`
+        'Authorization': `${process.env.API_KEY}`
         }
       })
       .then((response) => {
@@ -58,7 +59,7 @@ app.get('/:id/products/:product_id', (req, res) => {
   console.log('get product', req.query);
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       }
     })
     .then((response) => {
@@ -76,7 +77,7 @@ app.get('/:id/products/:product_id/styles', (req, res) => {
   console.log('get styles', req.query);
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/'+req.query.id+'/styles', {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       }
     })
     .then((response) => {
@@ -94,7 +95,7 @@ app.get('/:id/products/:product_id/styles', (req, res) => {
 app.get('/:id/products/:product_id/related', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.params.product_id}/related/`, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       }
     })
     .then((response) => {
@@ -118,7 +119,7 @@ app.get('/:id/reviews', (req, res) => {
   console.log('here is the request query', req.query.id);
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=' + req.query.id, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       }
     })
     .then((response) => {
@@ -137,7 +138,7 @@ app.get('/:id/reviews/meta', (req, res) => {
 console.log('this is the meta reviews params id', req.params.id);
 axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=' + req.query.id, {
   headers: {
-    'Authorization': `${config.API_KEY}`
+    'Authorization': `${process.env.API_KEY}`
     }
   })
   .then((response) => {
@@ -155,7 +156,7 @@ axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?prod
 app.post('/:id/reviews', (req, res) => {
 axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews', req.body, {
   headers: {
-    'Authorization': `${config.API_KEY}`
+    'Authorization': `${process.env.API_KEY}`
     }
   })
   .then((response) => {
@@ -173,7 +174,7 @@ app.put('/:id/reviews/:review_id/helpful', (req, res) => {
 axios.put('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/' + req.params.review_id + '/helpful',
   {review_id: req.params.review_id},
   {headers: {
-    'Authorization': `${config.API_KEY}`
+    'Authorization': `${process.env.API_KEY}`
     }
   }
 )
@@ -192,7 +193,7 @@ app.put('/:id/reviews/:review_id/report', (req, res) => {
 axios.put('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/' + req.params.review_id + '/report',
   {review_id: req.params.review_id},
   {headers: {
-    'Authorization': `${config.API_KEY}`
+    'Authorization': `${process.env.API_KEY}`
     }
   }
 )
@@ -218,7 +219,7 @@ axios.put('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/' + req.p
 app.get('/:id/questions/:product_id', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${req.params.product_id}&count=10000`, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       }
     })
     .then((response) => {
@@ -235,7 +236,7 @@ app.get('/:id/questions/:product_id', (req, res) => {
 app.get('/:id/answers/:question_id', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.params.question_id}/answers?count=10000`, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       }
     })
     .then((response) => {
@@ -255,7 +256,7 @@ app.post('/:id/questions', (req, res) => {
   // };
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions`, req.body, {
     headers: {
-      'Authorization': `${config.API_KEY}`,
+      'Authorization': `${process.env.API_KEY}`,
 
       },
     })
@@ -272,7 +273,7 @@ app.post('/:id/questions', (req, res) => {
 app.post('/:id/answers/:question_id', (req, res) => {
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.params.question_id}/answers`, req.body, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       },
     })
     .then((response) => {
@@ -288,7 +289,7 @@ app.post('/:id/answers/:question_id', (req, res) => {
 app.put('/:id/questions/helpful', (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.body.question_id}/helpful`, req.body, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       },
     })
     .then(() => {
@@ -304,7 +305,7 @@ app.put('/:id/questions/helpful', (req, res) => {
 app.put('/:id/questions/report', (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${req.body.question_id}/report`, req.body, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       },
     })
     .then(() => {
@@ -320,7 +321,7 @@ app.put('/:id/questions/report', (req, res) => {
 app.put('/:id/answers/helpful', (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${req.body.answer_id}/helpful`, req.body, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       },
     })
     .then(() => {
@@ -336,7 +337,7 @@ app.put('/:id/answers/helpful', (req, res) => {
 app.put('/:id/answers/report', (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${req.body.answer_id}/report`, req.body, {
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       },
     })
     .then(data => {
@@ -368,7 +369,7 @@ app.get('/:id/relatedproducts', (req, res) => {
       product_id: req.query.id
     },
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
       },
   })
   .then((data) => {
@@ -385,7 +386,7 @@ app.get('/:id/relatedproducts', (req, res) => {
             product_id: productId[loc]
           },
           headers: {
-            'Authorization': `${config.API_KEY}`
+            'Authorization': `${process.env.API_KEY}`
             },
         })
         .then((data) => {
@@ -416,7 +417,7 @@ app.get('/:id/mergedfeatures', (req, res) => {
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.query.currentId}`,
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
     }
   })
   .then(data => {
@@ -424,7 +425,7 @@ app.get('/:id/mergedfeatures', (req, res) => {
       method: 'get',
       url:  `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.query.selectedId}`,
       headers: {
-        'Authorization': `${config.API_KEY}`
+        'Authorization': `${process.env.API_KEY}`
       }
     })
     .then(selected => {
@@ -461,7 +462,7 @@ app.get('/:id/avgRating', (req, res) => {
       id: req.query.id
     },
     headers: {
-      'Authorization': `${config.API_KEY}`
+      'Authorization': `${process.env.API_KEY}`
     }
   })
   .then(data => {
