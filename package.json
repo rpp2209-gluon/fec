@@ -49,6 +49,7 @@
     "jquery": "^3.6.3",
     "moment": "^2.29.4",
     "react-bootstrap": "^2.7.0",
+    "react-bootstrap-range-slider": "^3.0.8",
     "react-feather": "^2.0.10",
     "react-modal": "^3.16.1",
     "react-rating-stars-component": "^2.2.0",

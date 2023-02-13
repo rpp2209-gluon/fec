@@ -56,13 +56,13 @@ var ReviewTile = (props) => {
           { props.reviewData.body.length >= 250 ?
             <button onClick={reviewClickHandler}>{showAllReview ? 'Collapse' : 'Show More'}</button> : <></>
           }
-          <p> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</p>
+          <div> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</div>
           <div>
             {props.reviewData.photos.map(photo => {
               return <img onClick={onClickThumbnail} key={photo.id} src={photo.url} style={{ width: "25%", height: "25%" }} ></img>
             })}
           </div>
-          <p>Was This Review Helpful? <a href="" onClick={clickHelpful}>Yes</a> ({props.reviewData.helpfulness}) | <a href="" onClick={clickReport}>Report</a> </p>
+          <div>Was This Review Helpful? <a href="" onClick={clickHelpful}>Yes</a> ({props.reviewData.helpfulness}) | <a href="" onClick={clickReport}>Report</a> </div>
 
         </Card.Body>
       </Card>
