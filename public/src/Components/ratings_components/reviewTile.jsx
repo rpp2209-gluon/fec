@@ -40,6 +40,10 @@ var ReviewTile = (props) => {
     })
   };
 
+  const onClickThumbnail = (event) => {
+    props.updateDisplayPhoto({'id': event.target.key, 'url': event.target.src});
+  };
+
   return (
     <>
       <Card style={{  width: '40rem' }}>
@@ -52,8 +56,13 @@ var ReviewTile = (props) => {
           { props.reviewData.body.length >= 250 ?
             <button onClick={reviewClickHandler}>{showAllReview ? 'Collapse' : 'Show More'}</button> : <></>
           }
-          <p> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</p>
-          <p>Was This Review Helpful? <a href="" onClick={clickHelpful}>Yes</a> ({props.reviewData.helpfulness}) | <a href="" onClick={clickReport}>Report</a> </p>
+          <div> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</div>
+          <div>
+            {props.reviewData.photos.map(photo => {
+              return <img onClick={onClickThumbnail} key={photo.id} src={photo.url} style={{ width: "25%", height: "25%" }} ></img>
+            })}
+          </div>
+          <div>Was This Review Helpful? <a href="" onClick={clickHelpful}>Yes</a> ({props.reviewData.helpfulness}) | <a href="" onClick={clickReport}>Report</a> </div>
 
         </Card.Body>
       </Card>

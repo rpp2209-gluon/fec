@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ReviewTile from './reviewTile.jsx';
+import Modal from 'react-modal';
+
 
 var displayedReviews = (props) => {
 
   const [numReviews, setNumReviews] = useState(2);
+  const [photoModalOpen, setphotoModalOpen] = useState(false);
+  const [displayPhoto, setDisplayPhoto] = useState({'id': null, 'url': null});
+
 
 
   const updateNumReviews = () => {
@@ -14,6 +19,15 @@ var displayedReviews = (props) => {
     }
   };
 
+  const updatePhotoModalOpen = (bool) => {
+    setphotoModalOpen(bool);
+  };
+
+
+  const updateDisplayPhoto = (p) => {
+    updatePhotoModalOpen(true);
+    setDisplayPhoto(p);
+  };
 
 
   return (
@@ -21,7 +35,7 @@ var displayedReviews = (props) => {
       <h3>{props.totalNum} Reviews, sorted by relevance</h3>
       <div className="review-list">
         {props.reviews.slice(0, numReviews).map((review) => {
-            return (<ReviewTile key={review.review_id} reviewData={review}/>);
+            return (<ReviewTile key={review.review_id} reviewData={review} updateDisplayPhoto={updateDisplayPhoto}/>);
           })}
       </div>
 
@@ -30,6 +44,10 @@ var displayedReviews = (props) => {
         <button onClick={updateNumReviews}> Show More Reviews </button> :
         <></>
         }
+
+        <Modal isOpen={photoModalOpen} onRequestClose={() => {updatePhotoModalOpen(false)}}>
+          <img key={displayPhoto.id} src={displayPhoto.url} style={{ width: "100%", height: "100%" }} ></img>
+        </Modal>
     </>
 
   )

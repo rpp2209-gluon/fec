@@ -17,24 +17,31 @@ var Ratings = (props) => {
   const [reviews, setReviews] = useState({results: []});
   const [allReviews, setAllReviews] = useState({results: []});
   const [showAddReview, setShowAddReview] = useState(false);
-
   const [filteredStars, setFilteredStars] = useState(new Set());
+  const [reviewMeta, setReviewMeta] = useState({characteristics: []});
 
-
-  const propsReviewNum = 71701;
   const productName = "Static Name";
 
     useEffect(() => {
       axios.get('/:id/reviews', {
         params: {
-          id: propsReviewNum
+          id: props.currentProductId
         }
       }).then((response) => {
         console.log('setting state with review info ', response.data);
         setReviews(response.data);
         setAllReviews(response.data);
+      }).then(() => {
+        axios.get('/:id/reviews/meta', {
+          params: {
+            id: String(props.currentProductId)
+          }
+        }).then((response) => {
+          console.log('setting state with review metadata info ', response.data);
+          setReviewMeta(response.data);
+         })
       }).catch((err) => {
-        console.log('error getting review info');
+        console.log('error getting review info', err);
       });
     }, []);
 
@@ -58,18 +65,18 @@ var Ratings = (props) => {
         <h1>Ratings and Reviews</h1>
         <div className="container">
           <div className="item item-left">
-            <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars}/>
+            <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars} reviewMeta={reviewMeta}/>
           </div>
 
           <div className="item item-right">
-            <DisplayedReviews totalNum={allReviews.results.length} reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
+            <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
             <button onClick={updateShowAddReview}> Add a Review + </button>
           </div>
         </div>
 
 
         <Modal isOpen={showAddReview} onRequestClose={updateShowAddReview}>
-          <AddReviewFormModal productId={propsReviewNum} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
+          <AddReviewFormModal productId={props.currentProductId} productName={name} showAddReview={showAddReview} updateShowAddReview={updateShowAddReview}/>
         </Modal>
       </section>
 
