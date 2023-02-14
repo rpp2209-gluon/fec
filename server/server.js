@@ -29,6 +29,26 @@ app.get("/:id", function (req, res) {
 app.use('/:id', router);
 
 
+// CLICK LOG API =========================================================================================
+app.post('/:id/interactions', (req, res) => {
+  console.log('this is the interactions query', req.body);
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/interactions', req.body, {
+    headers: {
+      'Authorization': `${config.API_KEY}`
+      }
+    })
+    .then((response) => {
+      console.log('POST interactions returned: ')
+      console.log(response.data);
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      console.log('POST products errored: ');
+      console.log(err);
+      res.status(500).send(err);
+    })
+});
+
 // PRODUCTS API =========================================================================================
 
 app.get('/:id/products', (req, res) => {

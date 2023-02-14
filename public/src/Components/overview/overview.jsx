@@ -73,8 +73,10 @@ const OverView = (props) => {
   return (
     <div className='overview'>
       <h1>OverView Section</h1>
-
-      <Information product={product} rating={rating} />
+      <Image
+        pictures={styles[currentStyle]}
+        currentStyle={currentStyle}
+      />
       <Styles
         name={product.name}
         styles={styles}
@@ -82,10 +84,7 @@ const OverView = (props) => {
         currentStyleName={currentStyleName}
         handleStyleChange={handleStyleChange}
       />
-      <Image
-        pictures={styles[currentStyle]}
-        currentStyle={currentStyle}
-      />
+      <Information product={product} rating={rating} />
       <Description product={product} />
 
     </div>
