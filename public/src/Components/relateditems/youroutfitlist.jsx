@@ -1,22 +1,29 @@
 import React, { useState } from "react";
-import ProductCard from "./productcard.jsx";
+import YourOutfitCard from "./yourfitcard.jsx";
 import axios from "axios";
 
 function YourOutfitList (props) {
-
-  return (
-    <div>
+  if (props.list === undefined ) {
+    return (
       <div>
-        {props.list.map((entry) => {
-          return (
-            <div className="productcard" key={entry.id}>
-              <ProductCard product={entry} currentProductId={props.currentProductId}/>
-            </div>
-          )
-        })}
+        No Current Outfits Selected
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div>
+        <div>
+          {props.list[0].map((entry) => {
+            return (
+              <div className="productcard" key={entry.id}>
+                <YourOutfitCard product={entry} currentProductId={props.currentProductId} list={props.list}/>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
 };
 
 export default YourOutfitList;
