@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 
 Modal.setAppElement('#root');
 
-function ProductCard (props) {
+function YourOutfitCard (props) {
   const [isOpen, setIsOpen] = useState(false);
   const [features, setFeatures] = useState([]);
   const [rating, setRating] = useState([2.5]);
@@ -43,30 +43,16 @@ function ProductCard (props) {
     })
   }, [])
 
-  useEffect(() => {
-    axios({
-      method: 'get',
-      url: '/:id/mergedfeatures',
-      params: {
-        currentId: props.currentProductId,
-        selectedId: props.product.id
+  function removeFromList (e) {
+    var list = JSON.parse(window.localStorage.outfits)
+    for (var i=0; i<props.list.length; i++) {
+      if (props.list[i].id + '' === props.currentProductId) {
+        list.splice(i, 1)
+        console.log('LOCATED', list)
+        // window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
       }
-    })
-    .then(data => {
-      setFeatures(data.data);
-    })
-    .catch(err => {
-      console.log('merged features useEffect error')
-    })
-  }, []);
-
-  function openModal () {
-    setIsOpen(true);
-  };
-
-  function closeModal () {
-    setIsOpen(false);
-  };
+    }
+  }
 
   return (
     <div>
@@ -89,45 +75,12 @@ function ProductCard (props) {
         size={24}
         activeColor="#ffd700"
       />
-      <button onClick={openModal}>
+      <button onClick={removeFromList}>
         Action Button
       </button>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={closeModal}
-      >
-        <h1>Comparing</h1>
-        <table>
-        <tr>
-          <th>Current Product Name</th>
-          <th>Characteristic</th>
-          <th>Compared Product Name</th>
-        </tr>
-          {features.map((entry, i) => {
-            if (typeof entry.value !== 'string') {
-              return (
-                <tr key={i}>
-                  <td>{entry.value[0]}</td>
-                  <td>{entry.feature}</td>
-                  <td>{entry.value[1]}</td>
-                </tr>
-              )
-            } else {
-              return (
-                <tr key={i}>
-                  <td>{entry.value}</td>
-                  <td>{entry.feature}</td>
-                  <td></td>
-                </tr>
-              )
-            }
-          })}
-        </table>
-        <button onClick={closeModal}>Close</button>
-      </Modal>
     </div>
     </div>
   )
 };
 
-export default ProductCard;
+export default YourOutfitCard;

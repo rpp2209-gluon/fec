@@ -390,19 +390,15 @@ app.get('/:id/relatedproducts', (req, res) => {
         })
         .then((data) => {
           array.push(data.data);
-          console.log('this is the data pusehd in getstuff', data.data);
           getStuff(array, productId, (loc + 1), callback)
         })
         .catch((err) => {
-          console.log("this is the error in getstuff", err.data)
+          console.log("this is the error in getstuff", err)
         })
       }
     }
 
     getStuff(relatedProds, data.data, 0, (result) => {
-      if (!result.isArray()) {
-        result = [result];
-      }
       res.send(result)
     })
 
@@ -411,7 +407,6 @@ app.get('/:id/relatedproducts', (req, res) => {
 
 app.get('/:id/mergedfeatures', (req, res) => {
   var mergedFeatures = [];
-  console.log("THIS IS THE REWUEST QUERY MERGED FEATUERS ----> ", req.query);
   axios({
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${req.query.currentId}`,
@@ -447,10 +442,10 @@ app.get('/:id/mergedfeatures', (req, res) => {
       }
     })
     .then(() => {
-      console.log("THIS IS THE MERGED FEATUERSSS==> ", mergedFeatures)
       res.send(mergedFeatures)
     })
   })
+  .catch(err => {console.log('merged features err')})
 });
 
 app.get('/:id/avgRating', (req, res) => {
@@ -466,7 +461,8 @@ app.get('/:id/avgRating', (req, res) => {
   })
   .then(data => {
     var ratings = data.data.ratings;
-    var avgRating = (((1 * ratings['1']) + (2 * ratings['2']) + (3 * ratings['3']) + (4 * ratings['4']) + (5 * ratings['5'])) / ((ratings['1'] *1) + (ratings['2'] *1) + (ratings['3'] *1) + (ratings['4'] *1) + (ratings['5'] *1)))
+    var avgRating = (((1 * ratings['1']) + (2 * ratings['2']) + (3 * ratings['3']) + (4 * ratings['4']) + (5 * ratings['5'])) / ((ratings['1'] *1) + (ratings['2'] *1) + (ratings['3'] *1) + (ratings['4'] *1) + (ratings['5'] *1)));
     res.send([Math.floor(avgRating / 0.5) * 0.5])
   })
+  .catch(err => {'avgRating error'})
 })

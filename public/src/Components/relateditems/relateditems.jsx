@@ -7,9 +7,11 @@ import { Carousel } from 'react-responsive-carousel';
 
 function RelatedItems (props) {
   const [relProd, setRelProd] = useState([]);
+  const [currentProd, setCurrentProd] = useState([]);
   var list;
+
   if (window.localStorage.outfits === undefined) {
-    list = [];
+    list = list;
   } else {
     list = [JSON.parse(window.localStorage.outfits)];
   }
@@ -21,26 +23,36 @@ function RelatedItems (props) {
       params: {currentId: props.currentProductId}
     })
     .then((data) => {
-      console.log("this is the data in related items", data.data)
       setRelProd(data.data)
     })
     .catch(err => {
-      console.log('useEffect error')
+      console.log('related products useEffect error')
+    })
+  }, [])
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: '/:id/products/:product_id',
+      params: {
+        id: (Number(props.currentProductId))
+      }
+    })
+    .then(data => {
+      setCurrentProd(data.data)
+    })
+    .catch(err => {
+      console.log('set current prod useEffect err')
     })
   }, [])
 
     //localStorage is JSON string
     function addtoOutfit (e) {
-      if (window.localStorage.outfits === undefined) {
-        window.localStorage.setItem('outfits', `${JSON.stringify(props.currentProductId)}`);
-      } else {
-        if (list.includes(props.currentProductId)) {
-          window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
-        } else {
-          list.push(props.currentProductId);
-          window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
-        }
+      if (list === undefined) {
+        list = [currentProd]
+        window.localStorage.setItem('outfits', JSON.stringify(list))
       }
+
     }
 
   return (
