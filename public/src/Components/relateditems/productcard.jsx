@@ -90,7 +90,7 @@ function ProductCard (props) {
         activeColor="#ffd700"
       />
       <button onClick={openModal}>
-        Action Button
+        Compare
       </button>
       <Modal
         isOpen={isOpen}
