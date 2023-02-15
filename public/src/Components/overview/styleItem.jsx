@@ -9,15 +9,20 @@ const StyleItem = ({ styleId, name, photo, handleStyleChange, currentStyle }) =>
     <div
       className="style-item"
       onClick={() => { handleStyleChange(styleId) }}
-      style={currentStyle == styleId ? { border: 'yellow solid 4px' } : {}}
+      
     >
-      <p>{name} {currentStyle == styleId ? 'true' : 'false'}</p>
+
       <img
         src={photo.thumbnail_url}
-        width='100'
-        height='161'
+        width='50'
+        height='50'
+        style={currentStyle == styleId ? { border: 'yellow solid 4px' } : {}}
       >
       </img>
+      <p style={{
+        fontStyle: 'light',
+        fontSize: 12
+      }}>{name} </p>
 
     </div >
   )

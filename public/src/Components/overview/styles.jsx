@@ -27,7 +27,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
 
   return (
     <div className="styles-selector">
-      <h3> Style Selector </h3>
+      {/* <h3> Style Selector </h3> */}
 
       <p className='product-price' style={{ fontWeight: 'bold', fontSize: 20 }}>
         Price:
@@ -70,7 +70,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
           alert(`${count} ${name} ${currentStyleName} added to Cart!`)
         }} />
       </form>
-
+        <p></p>
       <p style={{ fontWeight: 'bold', fontSize: 18 }}>STYLE  {'>'} {currentStyleName}</p>
       <div className='styles-slider'>{styles.map((e, i) => {
         return (<StyleItem

@@ -10,6 +10,34 @@
   text-align: center;
   overflow: auto;
   display: inline-block;
-  border: 2px solid lightslategray;
-  width: 100px;
+  /* border: 1px solid lightslategray; */
+  width: 80px;
+  margin-right: 4px;
 }
+
+
+
+.overview-left,
+.overview-right {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  top: 10px;
+  margin-right: -4px;
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+
+#overvew-page-part {
+  align-content: start; 
+
+}
+
+.overview-right {
+  z-index: 1;
+}
+
+.overview-left {
+  z-index: 9;
+}
+
