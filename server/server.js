@@ -481,8 +481,8 @@ app.get('/:id/avgRating', (req, res) => {
   })
   .then(data => {
     var ratings = data.data.ratings;
-    var avgRating = (((1 * ratings['1']) + (2 * ratings['2']) + (3 * ratings['3']) + (4 * ratings['4']) + (5 * ratings['5'])) / ((ratings['1'] *1) + (ratings['2'] *1) + (ratings['3'] *1) + (ratings['4'] *1) + (ratings['5'] *1)));
-    res.send([Math.floor(avgRating / 0.5) * 0.5])
+    var avgRating = ratings.reduce((total, review) => total + review.rating, 0) / ratings.length;
+    res.send([avgRating])
   })
   .catch(err => {'avgRating error'})
 })
