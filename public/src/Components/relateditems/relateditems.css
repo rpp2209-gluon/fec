@@ -1,0 +1,24 @@
+.related-items-main {
+  border-style: solid;
+  border-width: 5px;
+  height: 700px;
+}
+
+.product-list-main {
+  border-style: dotted;
+  border-width: 2.5px;
+  height: 325px;
+  width: 175px;
+}
+
+.youroutfit-list-main {
+  border-style: dotted;
+  border-width: 2.5px;
+  height: 325px;
+  width: 175px;
+}
+
+img {
+  height: 100px;
+  width: 75px;
+}

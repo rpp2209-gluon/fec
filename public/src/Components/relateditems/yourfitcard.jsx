@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
+import "./relateditems.css";
 
 Modal.setAppElement('#root');
 
@@ -45,18 +46,20 @@ function YourOutfitCard (props) {
 
   function removeFromList (e) {
     var list = JSON.parse(window.localStorage.outfits)
-    for (var i=0; i<props.list.length; i++) {
-      if (props.list[i].id + '' === props.currentProductId) {
+    console.log('LIST', list)
+    for (var i=0; i<list.length; i++) {
+      console.log('list[i]', list[i].id + '')
+      if (list[i].id + '' === props.currentProductId) {
         list.splice(i, 1)
         console.log('LOCATED', list)
-        // window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
+        window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
       }
     }
   }
 
   return (
     <div>
-      <img src={image[0]} height='400'/>
+      <img src={image[0]} />
     <div>
       Category - {props.product.category}
     </div>
