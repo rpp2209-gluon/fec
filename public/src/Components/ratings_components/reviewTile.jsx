@@ -56,7 +56,7 @@ var ReviewTile = (props) => {
           { props.reviewData.body.length >= 250 ?
             <button onClick={reviewClickHandler}>{showAllReview ? 'Collapse' : 'Show More'}</button> : <></>
           }
-          <div> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</div>
+          <div> {props.reviewData.response ? <SellerResponse response={props.reviewData.response}/> : <></> }</div>
           <div>
             {props.reviewData.photos.map(photo => {
               return <img onClick={onClickThumbnail} key={photo.id} src={photo.url} style={{ width: "25%", height: "25%" }} ></img>
