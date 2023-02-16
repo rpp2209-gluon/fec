@@ -33,3 +33,7 @@ img {
   height: 100px;
   width: 75px;
 }
+
+.card {
+  text-align: left;
+}
