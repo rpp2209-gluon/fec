@@ -17,7 +17,7 @@ var Answer = (props) => {
     if (!helpfulness.click) {
       var newHelpfulness = { click: true, helpfulness: helpfulness.helpfulness + 1 };
       setHelpfulness(newHelpfulness);
-      axios.put('/answers/helpful', {
+      axios.put(':id/answers/helpful', {
         answer_id: props.answerData.answer_id,
       })
         .then(data => console.log(data))
@@ -28,7 +28,7 @@ var Answer = (props) => {
   const handleReportClick = () => {
     if (!reportStatus) {
       setReportStatus(true);
-      axios.put('/answers/report', {
+      axios.put(':id/answers/report', {
         answer_id: props.answerData.answer_id,
       })
         .then(data => console.log(data))
