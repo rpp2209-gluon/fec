@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
+import "./relateditems.css";
 
 Modal.setAppElement('#root');
 
@@ -70,7 +71,7 @@ function ProductCard (props) {
 
   return (
     <div>
-      <img src={image[0]} height='400'/>
+      <img src={image[0]} />
     <div>
       Category - {props.product.category}
     </div>

@@ -4,8 +4,10 @@ import YourOutfitList from "./youroutfitlist.jsx";
 import axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import './relateditems.css'
 
 function RelatedItems (props) {
+  const module = "Related-Items";
   const [relProd, setRelProd] = useState([]);
   const [currentProd, setCurrentProd] = useState([]);
   var list;
@@ -13,7 +15,7 @@ function RelatedItems (props) {
   if (window.localStorage.outfits === undefined) {
     list = list;
   } else {
-    list = [JSON.parse(window.localStorage.outfits)];
+    list = JSON.parse(window.localStorage.outfits);
   }
 
   useEffect (() => {
@@ -48,18 +50,21 @@ function RelatedItems (props) {
 
     //localStorage is JSON string
     function addtoOutfit (e) {
-      if (list === undefined) {
+      if (list[0] === undefined) {
         list = [currentProd]
         window.localStorage.setItem('outfits', JSON.stringify(list))
+      } else {
+        list.push(currentProd);
+        window.localStorage.setItem('outfits', JSON.stringify(list))
       }
-
     }
 
   return (
-    <div>
-      <h1>Related Items Section</h1>
-    <div>
-      <h2>Product List</h2>
+    <div className='title'>
+      <h3>Related Items</h3>
+    <div onClick={(event) => {props.recordClickEvent(event, module)}} className='related-items-main'>
+    <div className='product-list-main'>
+      <h4>Product List</h4>
       <Carousel showThumbs={false}>
       {relProd.map((entry) => {
         return (
@@ -70,14 +75,15 @@ function RelatedItems (props) {
       })}
       </Carousel>
     </div>
-    <div>
-      <h2>Your Outfit</h2>
+    <div className='youroutfit-list-main'>
+      <h4>Your Outfit</h4>
       <Carousel showThumbs={false}>
         <div>
           <button onClick={addtoOutfit}>Add to Outfit</button>
         </div>
         <YourOutfitList currentProductId={props.currentProductId} list={list}/>
       </Carousel>
+    </div>
     </div>
     </div>
   )
