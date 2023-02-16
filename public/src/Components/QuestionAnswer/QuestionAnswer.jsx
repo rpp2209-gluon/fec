@@ -96,9 +96,11 @@ var QuestionAnswer = (props) => {
         <div className='questions'>
           {displayQuestionAnswer()}
         </div>
-        {numberDisplayQuestions !== questionData.results.length ? <button className='load-more-questions' data-testid='load-more-questions' onClick={handleLoadMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
+        <div className='question-buttons'>
+          {numberDisplayQuestions !== questionData.results.length ? <button className='load-more-questions' data-testid='load-more-questions' onClick={handleLoadMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
 
-        <button className='add-a-question' data-testid='add-a-question' onClick={() => { setShowQuestionModal(true) }}>ADD A QUESTION  +</button>
+          <button className='add-a-question' data-testid='add-a-question' onClick={() => { setShowQuestionModal(true) }}>ADD A QUESTION  +</button>
+        </div>
         <ReactModal ariaHideApp={false} isOpen={showQuestionModal} onRequestClose={() => { setShowQuestionModal(false) }}>
           <QuestionModal product_id={questionData.product_id} setShowQuestionModal={setShowQuestionModal} />
         </ReactModal>
