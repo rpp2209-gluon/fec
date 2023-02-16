@@ -9,9 +9,9 @@ var characteristicSummary = (props) => {
     <>
     {Object.entries(props.characteristics).map(c => {
       return (
-        <div key={c[1].id}>
+        <div className={"characteristics"} key={c[1].id}>
         {c[0]}
-          <div>
+          <div className={"characteristics"}>
             <Form.Range disabled={true} value={c[1].value} min="1" max="5"></Form.Range>
           </div>
         </div>

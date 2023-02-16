@@ -4,10 +4,15 @@ var sortDropdown = (props) => {
 
 
   return (
-      <div className="m-3">
-        <label className="mx-3">Choose file: </label>
-        <input className="d-none" type="file" ref={fileInput} onChange={handleSubmit}/>
-      </div>
+    <>
+        <label for="sorting"></label>
+        <select className="btn" id="sorting">
+          <option value="relevance">Relevance</option>
+          <option value="newest">Newest</option>
+          <option value="helpful">Helpful</option>
+        </select>
+    </>
+
   );
 }
 
