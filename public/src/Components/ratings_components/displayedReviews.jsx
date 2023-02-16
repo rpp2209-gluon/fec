@@ -42,7 +42,7 @@ var displayedReviews = (props) => {
 
 
         { props.reviews.length > numReviews ?
-        <button className="btn" onClick={updateNumReviews}> Show More Reviews </button> :
+        <button className="btn btn-margin" onClick={updateNumReviews}> Show More Reviews </button> :
         <></>
         }
 

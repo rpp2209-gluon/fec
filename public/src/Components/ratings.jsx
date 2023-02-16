@@ -73,7 +73,7 @@ var Ratings = (props) => {
 
             <div className="item item-right">
               <DisplayedReviews totalNum={allReviews.results.length} reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
-              <button className="btn" onClick={updateShowAddReview}> Add a Review + </button>
+              <button className="btn btn-margin" onClick={updateShowAddReview}> Add a Review + </button>
             </div>
           </div>
 
