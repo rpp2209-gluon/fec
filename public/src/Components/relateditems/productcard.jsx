@@ -70,7 +70,7 @@ function ProductCard (props) {
   };
 
   return (
-    <div>
+    <div className='card'>
       <img src={image[0]} />
     <div>
       Category - {props.product.category}
