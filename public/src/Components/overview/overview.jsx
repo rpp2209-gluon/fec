@@ -72,19 +72,23 @@ const OverView = (props) => {
 
   return (
     <div className='overview'>
-      <h1>OverView Section</h1>
-      <Image
-        pictures={styles[currentStyle]}
-        currentStyle={currentStyle}
-      />
-      <Styles
-        name={product.name}
-        styles={styles}
-        currentStyle={currentStyle}
-        currentStyleName={currentStyleName}
-        handleStyleChange={handleStyleChange}
-      />
-      <Information product={product} rating={rating} />
+      {/* <h1>OverView Section</h1> */}
+      <div className='overview-left'>
+        <Image
+          pictures={styles[currentStyle]}
+          currentStyle={currentStyle}
+        />
+      </div>
+      <div className='overview-right'>
+        <Information product={product} rating={rating} />
+        <Styles
+          name={product.name}
+          styles={styles}
+          currentStyle={currentStyle}
+          currentStyleName={currentStyleName}
+          handleStyleChange={handleStyleChange}
+        />
+      </div>
       <Description product={product} />
 
     </div>

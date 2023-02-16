@@ -47,7 +47,7 @@ const Image = ({ pictures, curretStyle }) => {
 
   return (
     <div className="images" style={imageStyle}>
-      <h3>Image</h3>
+      {/* <h3>Image</h3> */}
 
       <div className='main-image'>
         <div className='main-image-pic'>
@@ -57,8 +57,7 @@ const Image = ({ pictures, curretStyle }) => {
                 return (
                   <img
                     src={pictures.photos[imageId].url}
-                    width="400"
-                    height='600'>
+                  >
                   </img>
                 )
               }
@@ -100,7 +99,7 @@ const Image = ({ pictures, curretStyle }) => {
 
       </div>
 
-      <div className='image-slider'> 
+      <div className='image-slider'>
         <div className="wrapper">
           <a className="prev" onClick={() => { scroll(-1) }}>&#10094;</a>
           <div className="image-container">
