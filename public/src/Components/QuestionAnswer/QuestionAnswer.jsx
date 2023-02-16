@@ -24,6 +24,8 @@ var QuestionAnswer = (props) => {
   const [numberDisplayQuestions, setNumberDisplayQuestions] = useState(0);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   // const [lastNumberDisplayQuestions, setLastNumberDisplayQuestion] = useState(0);
+  const module = "Questions";
+
 
   useEffect(() => {
     const product_id = props.currentProductId;
@@ -89,7 +91,7 @@ var QuestionAnswer = (props) => {
 
   var QuestionAnswerResult = () => {
     return (
-      <div id='questions-and-answers'>QUESTIONS & ANSWERS
+      <div id='questions-and-answers' onClick={(event) => {props.recordClickEvent(event, module)}}>QUESTIONS & ANSWERS
         <div id='questions-search'>
           <input type='text' data-testid='input-search' className='input-search' name='input-search' value={searchValue} onClick={removeSearchInitialValue} onChange={handleSearchChange}></input>
         </div>
