@@ -100,11 +100,10 @@ var addReviewFormModal = (props) => {
       <div className="modal">
 
           <div className="modal-footer">
-            <button onClick={props.updateShowAddReview} className="button">Close</button>
+            <button className="btn" onClick={props.updateShowAddReview} className="button">Close</button>
           </div>
 
           <h1>Write Your Review</h1>
-          <h2>About the {props.productName} </h2>
 
           <Form onSubmit={handleSubmit}>
               <Form.Group className="name" controlId="addReviewForm.name">
