@@ -91,7 +91,8 @@ var QuestionAnswer = (props) => {
 
   var QuestionAnswerResult = () => {
     return (
-      <div id='questions-and-answers' onClick={(event) => {props.recordClickEvent(event, module)}}>QUESTIONS & ANSWERS
+      <div id='questions-and-answers' onClick={(event) => {props.recordClickEvent(event, module)}}>
+        <h2>Questions and Answers</h2>
         <div id='questions-search'>
           <input type='text' data-testid='input-search' className='input-search' name='input-search' value={searchValue} onClick={removeSearchInitialValue} onChange={handleSearchChange}></input>
         </div>
