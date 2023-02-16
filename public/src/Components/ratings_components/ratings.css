@@ -256,9 +256,8 @@ form-check-input[disabled] ~ .form-check-label,
   min-width: 0;
   word-wrap: break-word;
   background-color: rgb(255, 255, 255);
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.75rem;
+  border: 1px solid rgb(0, 0, 0);
+  width: 60rem;
 }
 
 
@@ -341,7 +340,7 @@ ul {
 
 .item-left {
   justify-content: flex-start;
-  padding: 1rem 1rem;
+  padding: 1rem 3rem 1rem 1rem;
 }
 
 .review-list {
@@ -371,4 +370,8 @@ ul {
 .characteristics {
   font-size: 0.85rem;
   justify-content: center;
+}
+
+.btn-margin {
+  margin-top: 1rem;
 }
