@@ -8,22 +8,21 @@
 .related-items-main {
   height: 375px;
   padding-top: 30px;
-  padding-right: 100px;
+  padding-right: 650px;
   padding-bottom: 30px;
-  padding-left: 100px;
 }
 
 .product-list-main {
-  border-style: dotted;
-  border-width: 2.5px;
+  border-style: solid;
+  border-width: 2px;
   height: 300px;
   width: 200px;
   float: left;
 }
 
 .youroutfit-list-main {
-  border-style: dotted;
-  border-width: 2.5px;
+  border-style: solid;
+  border-width: 2px;
   height: 300px;
   width: 200px;
   float: right;
