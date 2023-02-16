@@ -60,8 +60,6 @@ function RelatedItems (props) {
     }
 
   return (
-    <div className='title'>
-      <h3>Related Items</h3>
     <div onClick={(event) => {props.recordClickEvent(event, module)}} className='related-items-main'>
     <div className='product-list-main'>
       <h4>Product List</h4>
@@ -83,7 +81,6 @@ function RelatedItems (props) {
         </div>
         <YourOutfitList currentProductId={props.currentProductId} list={list}/>
       </Carousel>
-    </div>
     </div>
     </div>
   )
