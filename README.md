@@ -6,7 +6,14 @@ The related products section shows product cards of other relevant products as w
 The Your Outfit section contatins an Add to Outfit button which stores the current product in the users local storage for a personalized list of products.
 Thes selections are then rendered on the following cards in the carousel.
 
+<img width="1440" alt="Screenshot 2023-02-18 at 1 27 47 PM" src="https://user-images.githubusercontent.com/102176344/219895774-592b8d05-b2e9-4a07-8847-93316aa2811d.png">
+Overview Component
 
+<img width="1440" alt="Screenshot 2023-02-18 at 1 29 23 PM" src="https://user-images.githubusercontent.com/102176344/219895844-0566a457-de7e-4c7a-b42c-14e356afc271.png">
+Related Items Component
+
+<img width="1440" alt="Screenshot 2023-02-18 at 1 29 56 PM" src="https://user-images.githubusercontent.com/102176344/219895888-aabcc354-2e2d-4174-b8b6-fc5d3433a7d2.png">
+Questions and Answers Component
 
 
 The product web page has a section to view ratings and reviews.
