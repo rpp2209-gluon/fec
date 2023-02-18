@@ -68,12 +68,12 @@ var Ratings = (props) => {
           <h1>Ratings and Reviews</h1>
           <div className="container">
             <div className="item item-left">
-              <RatingSummary updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars} reviewMeta={reviewMeta}/>
+              <RatingSummary style={{  width: '30rem' }} updateReviews={updateReviews} updateFilteredStars={updateFilteredStars} reviews={allReviews.results} filteredStars={filteredStars} reviewMeta={reviewMeta}/>
             </div>
 
             <div className="item item-right">
-              <DisplayedReviews reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
-              <button onClick={updateShowAddReview}> Add a Review + </button>
+              <DisplayedReviews totalNum={allReviews.results.length} reviews={filteredStars.size === 0 ? allReviews.results : reviews.results.filter(review => filteredStars.has(review.rating.toString()))}/>
+              <button className="btn btn-margin" onClick={updateShowAddReview}> Add a Review + </button>
             </div>
           </div>
 

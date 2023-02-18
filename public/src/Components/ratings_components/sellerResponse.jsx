@@ -4,7 +4,7 @@ var SellerReponse = (props) => {
 
   return (
     <>
-    <p> Sellers Response: {props.response} </p>
+    <p className="sellers-response"> Sellers Response: {props.response} </p>
     </>
   )
 }

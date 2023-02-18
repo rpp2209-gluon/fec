@@ -1,0 +1,37 @@
+.title {
+  border-style: solid;
+  border-width: 5px;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.related-items-main {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-right: 50px;
+}
+
+.product-list-main {
+  border-style: solid;
+  border-width: 2px;
+  height: 300px;
+  overflow: auto;
+}
+
+.youroutfit-list-main {
+  border-style: solid;
+  border-width: 2px;
+  height: 325px;
+  overflow: auto;
+}
+
+img {
+  height: 100px;
+  width: 200px;
+}
+
+.card {
+  text-align: left;
+  width: 200px;
+  float: left;
+}

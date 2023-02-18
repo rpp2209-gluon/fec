@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReviewTile from './reviewTile.jsx';
+import SortDropdown from './sortDropdown.jsx';
 import Modal from 'react-modal';
 
 
@@ -32,7 +33,7 @@ var displayedReviews = (props) => {
 
   return (
     <>
-      <h3>{props.totalNum} Reviews, sorted by relevance</h3>
+      <h3>{props.totalNum} Reviews, sorted by <SortDropdown/> </h3>
       <div className="review-list">
         {props.reviews.slice(0, numReviews).map((review) => {
             return (<ReviewTile key={review.review_id} reviewData={review} updateDisplayPhoto={updateDisplayPhoto}/>);
@@ -41,7 +42,7 @@ var displayedReviews = (props) => {
 
 
         { props.reviews.length > numReviews ?
-        <button onClick={updateNumReviews}> Show More Reviews </button> :
+        <button className="btn btn-margin" onClick={updateNumReviews}> Show More Reviews </button> :
         <></>
         }
 

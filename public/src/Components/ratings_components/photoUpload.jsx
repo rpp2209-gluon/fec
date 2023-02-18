@@ -15,7 +15,6 @@ var photoUpload = (props) => {
 
   const handleUpload = () => {
     console.log('this was clicked');
-
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
+import "./relateditems.css";
 
 Modal.setAppElement('#root');
 
@@ -45,18 +46,18 @@ function YourOutfitCard (props) {
 
   function removeFromList (e) {
     var list = JSON.parse(window.localStorage.outfits)
-    for (var i=0; i<props.list.length; i++) {
-      if (props.list[i].id + '' === props.currentProductId) {
+    for (var i=0; i<list.length; i++) {
+      if (list[i].id === props.product.id) {
         list.splice(i, 1)
         console.log('LOCATED', list)
-        // window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
+        window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
       }
     }
   }
 
   return (
-    <div>
-      <img src={image[0]} height='400'/>
+    <div className='card'>
+      <img src={image[0]} />
     <div>
       Category - {props.product.category}
     </div>
@@ -76,7 +77,7 @@ function YourOutfitCard (props) {
         activeColor="#ffd700"
       />
       <button onClick={removeFromList}>
-        Action Button
+        Remove From List
       </button>
     </div>
     </div>

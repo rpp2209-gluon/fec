@@ -46,7 +46,7 @@ var ReviewTile = (props) => {
 
   return (
     <>
-      <Card style={{  width: '40rem' }}>
+      <Card style={{  width: '70rem' }}>
         <Card.Body>
           <Card.Subtitle><small>{props.reviewData.reviewer_name} , {moment(props.reviewData.date).format('MMMM Do, YYYY')}</small></Card.Subtitle>
           <StarComponent editable={false} numStars={props.reviewData.rating}/>
@@ -56,7 +56,7 @@ var ReviewTile = (props) => {
           { props.reviewData.body.length >= 250 ?
             <button onClick={reviewClickHandler}>{showAllReview ? 'Collapse' : 'Show More'}</button> : <></>
           }
-          <div> {props.reviewData.response ? <SellerResponse response={props.reviewData.repsonse}/> : <></> }</div>
+          <div> {props.reviewData.response ? <SellerResponse response={props.reviewData.response}/> : <></> }</div>
           <div>
             {props.reviewData.photos.map(photo => {
               return <img onClick={onClickThumbnail} key={photo.id} src={photo.url} style={{ width: "25%", height: "25%" }} ></img>

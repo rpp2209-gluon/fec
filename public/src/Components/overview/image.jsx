@@ -1,7 +1,7 @@
 import React from 'react';
 const { useState, useEffect } = React;
 import $ from 'jquery';
-import imageStyle from './imagestyle.css';
+import imageStyle from './imageStyle.css';
 import ImageSliderItem from './imageSliderItem';
 
 import * as Icon from 'react-feather';
