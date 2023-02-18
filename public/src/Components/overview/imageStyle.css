@@ -15,6 +15,11 @@
   z-index: -1
 }
 
+.image-slider img {
+  width: 80px;
+  height: 100px
+}
+
 
 .image-container {
   vertical-align: middle;
@@ -197,17 +202,19 @@ a.lightbox-close:after {
   top: 30%;
 }
 
+.lightbox-target-pic img {
+  width:400px;
+  height:auto;
+}
+
 .main-image {
   text-align: center;
 }
 
 .main-image-pic img {
   width: 400px;
-  /* width of container */
   height: 400px;
-  /* height of container */
   object-fit: cover;
   object-position: 20% 10%;
-  /* try 20px 10px */
   border: 5px solid black;
 }

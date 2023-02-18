@@ -17,8 +17,6 @@ const StyleItem = ({ styleId, name, photo, handleStyleChange, currentStyle }) =>
     >
       <img
         src={photo.thumbnail_url}
-        width='50'
-        height='50'
         style={currentStyle == styleId ? { border: 'green solid 3px' } : {}}
       >
       </img>

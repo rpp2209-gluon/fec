@@ -74,7 +74,7 @@ const Image = ({ pictures, curretStyle }) => {
                 return (
                   <img
                     src={pictures.photos[imageId].url}
-                    width="400">
+                    width="400px">
                   </img>
                 )
               }
