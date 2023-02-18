@@ -17,27 +17,33 @@
 
 
 
-.overview-left,
-.overview-right {
-  display: inline-block;
-  width: 50%;
-  height: 100%;
-  top: 10px;
-  margin-right: -4px;
-  border: 1px solid red;
-  box-sizing: border-box;
-}
-
-#overvew-page-part {
-  align-content: start; 
-
-}
-
 .overview-right {
   z-index: 1;
 }
 
 .overview-left {
-  z-index: 9;
+  z-index: 3;
+} 
+
+.overview-container {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 10px;
+
+  padding: 10px;
 }
+
+.container .overview-left {
+  text-align: left;
+  padding: 10px 0;
+
+}
+
+.container .overview-right {
+
+  text-align: center;
+  padding: 20px 0;
+
+}
+
 

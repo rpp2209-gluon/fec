@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import axios from "axios";
 
 import Information from './information.jsx';
@@ -17,6 +17,7 @@ const OverView = (props) => {
 
   const [currentStyle, setCurrentStyle] = useState(0);
   const [currentStyleName, setCurrentStyleName] = useState('');
+
 
 
   useEffect(() => {
@@ -73,21 +74,32 @@ const OverView = (props) => {
   return (
     <div className='overview'>
       {/* <h1>OverView Section</h1> */}
-      <div className='overview-left'>
-        <Image
-          pictures={styles[currentStyle]}
-          currentStyle={currentStyle}
-        />
-      </div>
-      <div className='overview-right'>
-        <Information product={product} rating={rating} />
-        <Styles
-          name={product.name}
-          styles={styles}
-          currentStyle={currentStyle}
-          currentStyleName={currentStyleName}
-          handleStyleChange={handleStyleChange}
-        />
+
+      <div className="overview-container">
+
+        <div className='overview-left' >
+          <Image
+            pictures={styles[currentStyle]}
+            currentStyle={currentStyle}
+          />
+        </div>
+        <div className='overview-right' >
+          <button
+            onClick={() => {
+              props.ratingRef.current.scrollIntoView();
+            }}
+          >
+            button
+          </button>
+          <Information product={product} rating={rating} />
+          <Styles
+            name={product.name}
+            styles={styles}
+            currentStyle={currentStyle}
+            currentStyleName={currentStyleName}
+            handleStyleChange={handleStyleChange}
+          />
+        </div>
       </div>
       <Description product={product} />
 

@@ -1,17 +1,20 @@
 
-import React from 'react';
+import React ,{ forwardRef }from 'react';
 const { useState, useEffect } = React;
 import ReactStars from "react-rating-stars-component";
 
-const Information = (props) => {
 
-  const rating = Number(props.rating)
+const Information = (props, ratingRef) => {
+
+  const rating = Number(props.rating);
 
   const nameStyle = {
     fontStyle: 'bold',
     fontSize: 42,
     // font-family: 'Monospace'
-  }
+  };
+
+
 
   return (
     <div className="product-info" key='product'>
@@ -20,7 +23,7 @@ const Information = (props) => {
       <p className='product-name'
         style={nameStyle}>{props.product.name}
       </p>
-      <div className="overview-rating">
+      <div className="overview-rating" >
         rating: {rating}
         {/* https://stackoverflow.com/questions/73029594/react-not-able-to-render-react-rating-star-component-with-correct-value */}
         <ReactStars
@@ -35,12 +38,21 @@ const Information = (props) => {
           fullIcon={<i className="fa fa-star"></i>}
           activeColor="#ffd700"
         />
-        <p style={{ textDecorationLine: 'underline' }}>read all reviews</p>
+        <p style={{ textDecorationLine: 'underline' }}>
+          read all reviews</p>
+          <button
+            onClick={() => {
+              ratingRef.current.scrollIntoView();
+            }}
+          >
+            button
+          </button>
       </div>
+
 
 
 
     </div>
   )
 }
-export default Information;
+export default forwardRef(Information);

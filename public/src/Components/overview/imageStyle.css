@@ -96,6 +96,8 @@ a.lightbox img {
   box-sizing: border-box;
   transition: .5s ease-in-out;
 
+  z-index: -3;
+
 }
 
 /* Styles the close link, adds the slide down transition */
@@ -112,6 +114,8 @@ a.lightbox-close {
   top: -80px;
   right: 0;
   transition: .5s ease-in-out;
+
+  z-index: -3;
 }
 
 /* Provides part of the "X" to eliminate an image from the close link */
@@ -126,6 +130,8 @@ a.lightbox-close:before {
   left: 26px;
   top: 10px;
   transform: rotate(45deg);
+
+  z-index: -3;
 }
 
 /* Provides part of the "X" to eliminate an image from the close link */
