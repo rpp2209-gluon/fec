@@ -6,33 +6,32 @@
 }
 
 .related-items-main {
-  height: 375px;
   padding-top: 30px;
   padding-bottom: 30px;
-  padding-right: 10px;
+  padding-right: 50px;
 }
 
 .product-list-main {
   border-style: solid;
   border-width: 2px;
   height: 300px;
-  width: 200px;
-  float: left;
+  overflow: auto;
 }
 
 .youroutfit-list-main {
   border-style: solid;
   border-width: 2px;
-  height: 300px;
-  width: 200px;
-  float: left;
+  height: 325px;
+  overflow: auto;
 }
 
 img {
   height: 100px;
-  width: fit-content;
+  width: 200px;
 }
 
 .card {
   text-align: left;
+  width: 200px;
+  float: left;
 }
