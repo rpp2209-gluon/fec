@@ -7,6 +7,7 @@ import Image from './image.jsx';
 import Description from './description.jsx';
 
 import './overviewStyle.css';
+import ReactStars from "react-rating-stars-component";
 
 const OverView = (props) => {
 
@@ -84,13 +85,29 @@ const OverView = (props) => {
           />
         </div>
         <div className='overview-right' >
-          <button
-            onClick={() => {
-              props.ratingRef.current.scrollIntoView();
-            }}
-          >
-            button
-          </button>
+          <div className="overview-rating" >
+            <span>
+              <ReactStars
+                count={5}
+                size={16}
+                key={`stars_${rating}`}
+                value={rating}
+                edit={false}
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                activeColor="black"
+              />
+            </span>
+
+            <p style={{ textDecorationLine: 'underline', fontSize: 14 }}
+              onClick={() => {
+                props.ratingRef.current.scrollIntoView();
+              }}>
+              read all reviews</p>
+          </div>
+
           <Information product={product} rating={rating} />
           <Styles
             name={product.name}

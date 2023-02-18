@@ -6,10 +6,9 @@ const Description = ({ product }) => {
 
   return (
     <div className="product-description" key='product'>
-      <h3>Description</h3>
       <p style={{fontStyle: 'italic', fontSize: 18}}>{product.slogan}</p>
       <p>{product.description}</p>
-      <ul>
+      <ul className="product-description-features">
         {product.features ? product.features.map((e,i) => {
           return (<li key ={`feature-${i}`}>{e.value}</li>)
         }) : null}

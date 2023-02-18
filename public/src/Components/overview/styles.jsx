@@ -6,7 +6,7 @@ import StyleItem from './styleItem';
 const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChange }) => {
 
   const [styleId, setStyleId] = useState(currentStyle);
-  const [sizes, setSizes] = useState(["XS", "S", "M", "L", "XL"]);
+  const [sizes, setSizes] = useState(["SELECT SIZE","XS", "S", "M", "L", "XL"]);
   const [count, setCount] = useState(1);
 
   // const sizesArr = Object.keys(styles[styleId])
@@ -16,12 +16,12 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
 
   const getSizes = async () => {
     let obj = styles[styleId].skus;
-    let sizes = new Set();
+    let getsizes = new Set();
     for (let sku in obj) {
-      if (obj[sku].quantity > 0) { sizes.add(obj[sku].size) }
+      if (obj[sku].quantity > 0) { getsizes.add(obj[sku].size) }
     }
     // console.log([...sizes]);
-    setSizes([...sizes]);
+    setSizes([...getsizes]);
   }
 
 
@@ -47,30 +47,7 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
         })()}
       </p>
 
-      <form className='cart'>
-        <div className='size-selector'>
-          Size:
-          <select onClick={() => { getSizes() }}>
-            {sizes.map((e, i) => {
-              return (<option key={`size${i}`} value={e}>{e}</option>)
-            })}
-          </select>
-        </div>
-
-        <div className='quantity-selector'>
-          <span>Quantity: </span>
-          <button onClick={() => setCount(count + 1)}> + </button>
-          {count}
-          <button onClick={() => {
-            shoe.qty > 1 ? setCount(count - 1) : setCount(1);
-          }}> - </button>
-        </div>
-
-        <input type="submit" value="Add to Cart" onClick={() => {
-          alert(`${count} ${name} ${currentStyleName} added to Cart!`)
-        }} />
-      </form>
-        <p></p>
+      <p></p>
       <p style={{ fontWeight: 'bold', fontSize: 18 }}>STYLE  {'>'} {currentStyleName}</p>
       <div className='styles-slider'>{styles.map((e, i) => {
         return (<StyleItem
@@ -83,6 +60,28 @@ const Styles = ({ name, styles, currentStyle, currentStyleName, handleStyleChang
         />)
       })}
       </div>
+
+      <form className='cart'>
+        <div className='size-selector'>
+          <select onClick={() => { getSizes() }}>
+            {sizes.map((e, i) => {
+              return (<option key={`size${i}`} value={e}>{e}</option>)
+            })}
+          </select>
+        </div>
+
+        <div className='quantity-selector'>
+          <button onClick={() => setCount(count + 1)}> + </button>
+          {count}
+          <button onClick={() => {
+            shoe.qty > 1 ? setCount(count - 1) : setCount(1);
+          }}> - </button>
+        </div>
+
+        <input className ="cart-input" type="submit" value="ADD TO BAG" onClick={() => {
+          alert(`${count} ${name} ${currentStyleName} added to Cart!`)
+        }} />
+      </form>
 
 
     </div>

@@ -12,7 +12,7 @@ const ImageSliderItem = ({ photoId, photo, handleImageSliderClick, imageId }) =>
         src={photo}
         width='80'
         height='100'
-        style={photoId === imageId  ? {}:{ opacity: 0.5 }}
+        style={photoId === imageId  ? {}:{ opacity: 0.5}}
       >
       </img>
 
