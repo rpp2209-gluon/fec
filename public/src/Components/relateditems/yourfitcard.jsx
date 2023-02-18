@@ -77,7 +77,7 @@ function YourOutfitCard (props) {
         activeColor="#ffd700"
       />
       <button onClick={removeFromList}>
-        Action Button
+        Remove From List
       </button>
     </div>
     </div>
