@@ -6,11 +6,16 @@ const Description = ({ product }) => {
 
   return (
     <div className="product-description" key='product'>
-      <p style={{fontStyle: 'italic', fontSize: 18}}>{product.slogan}</p>
-      <p>{product.description}</p>
+      <div className="product-description-text">
+        <p style={{ fontStyle: 'italic', fontSize: 18, 'font-weight': 'bold' }}>{product.slogan}</p>
+        <p>{product.description}</p>
+      </div>
       <ul className="product-description-features">
-        {product.features ? product.features.map((e,i) => {
-          return (<li key ={`feature-${i}`}>{e.value}</li>)
+        {product.features ? product.features.map((e, i) => {
+          return (
+            <li key={`feature-${i}`} style ={{'font-weight': 'bold'}}>{`√ ${e.value}`}
+            </li>
+          )
         }) : null}
       </ul>
 

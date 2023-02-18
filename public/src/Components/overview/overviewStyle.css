@@ -91,3 +91,20 @@
   padding: 10px;
 }
 
+.product-description {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 10px;
+  padding: 10px;
+}
+
+.product-description .product-description-text {
+  text-align: left;
+  padding: 10px 0;
+}
+
+.product-description .product-description-features {
+  text-align: left;
+  padding: 20px 0;
+}
+

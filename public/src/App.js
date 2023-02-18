@@ -30,8 +30,8 @@ const ratingRef = useRef(null);
     return(
       <div className="App">
         <div className="overview-component"><Overview recordClickEvent={recordClickEvent} currentProductId={window.location.pathname.slice(1)} ratingRef={ratingRef}/> </div>
-        {/* <div className="related-items-component"><RelatedItems recordClickEvent={recordClickEvent} currentProductId={window.location.pathname.slice(1)}/></div>
-        <div className="question-answer-component"><QuestionAnswer recordClickEvent={recordClickEvent} currentProductId={window.location.pathname.slice(1)}/></div> */}
+        <div className="related-items-component"><RelatedItems recordClickEvent={recordClickEvent} currentProductId={window.location.pathname.slice(1)}/></div>
+        <div className="question-answer-component"><QuestionAnswer recordClickEvent={recordClickEvent} currentProductId={window.location.pathname.slice(1)}/></div>
         <div className="rating-position" ref={ratingRef}></div>
         <div className="ratings-component"><Ratings recordClickEvent={recordClickEvent} currentProductId={window.location.pathname.slice(1)}/></div>
       </div>
