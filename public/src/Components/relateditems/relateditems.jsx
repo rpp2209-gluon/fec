@@ -50,7 +50,7 @@ function RelatedItems (props) {
 
     //localStorage is JSON string
     function addtoOutfit (e) {
-      if (list[0] === undefined) {
+      if (list === undefined) {
         list = [currentProd]
         window.localStorage.setItem('outfits', JSON.stringify(list))
       } else {
