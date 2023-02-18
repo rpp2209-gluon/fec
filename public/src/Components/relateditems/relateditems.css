@@ -9,6 +9,7 @@
   height: 375px;
   padding-top: 30px;
   padding-bottom: 30px;
+  padding-right: 10px;
 }
 
 .product-list-main {
@@ -29,7 +30,7 @@
 
 img {
   height: 100px;
-  width: 75px;
+  width: fit-content;
 }
 
 .card {

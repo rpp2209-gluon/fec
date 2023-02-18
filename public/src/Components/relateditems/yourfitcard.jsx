@@ -46,10 +46,8 @@ function YourOutfitCard (props) {
 
   function removeFromList (e) {
     var list = JSON.parse(window.localStorage.outfits)
-    console.log('LIST', list)
     for (var i=0; i<list.length; i++) {
-      console.log('list[i]', list[i].id + '')
-      if (list[i].id + '' === props.currentProductId) {
+      if (list[i].id === props.product.id) {
         list.splice(i, 1)
         console.log('LOCATED', list)
         window.localStorage.setItem('outfits', `${JSON.stringify(list)}`);
